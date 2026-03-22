@@ -10,7 +10,7 @@
   <script>(function(){
     var t=localStorage.getItem('vbi-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
     document.documentElement.setAttribute('data-theme',t);
-    var l=localStorage.getItem('vbi-lang')||'nl';
+    var l=localStorage.getItem('vbi-lang')||(navigator.language&&navigator.language.startsWith('nl')?'nl':'en');
     document.documentElement.setAttribute('data-lang',l);
   })();</script>
   <style>
@@ -79,6 +79,15 @@
     .lang-nl, .lang-en { transition: color 0.15s; }
     [data-lang="nl"] .lang-nl { color: var(--white); }
     [data-lang="en"] .lang-en { color: var(--white); }
+
+    [data-lang="nl"] .nl { display: block; }
+    [data-lang="nl"] .en { display: none; }
+    [data-lang="en"] .en { display: block; }
+    [data-lang="en"] .nl { display: none; }
+    [data-lang="nl"] span.nl { display: inline; }
+    [data-lang="nl"] span.en { display: none; }
+    [data-lang="en"] span.en { display: inline; }
+    [data-lang="en"] span.nl { display: none; }
 
     .theme-toggle {
       background: none; border: 1px solid var(--dim); border-radius: 3px;
@@ -196,10 +205,10 @@
     <div class="nav-left">
       <a href="index.html" class="nav-back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
-        Terug
+        <span class="nl">Terug</span><span class="en">Back</span>
       </a>
       <div class="nav-sep"></div>
-      <span class="nav-section-label">Projecten</span>
+      <span class="nav-section-label nl">Projecten</span><span class="nav-section-label en">Projects</span>
     </div>
     <div class="nav-right">
       <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
@@ -233,11 +242,16 @@
         <h1 class="proj-title">One Job to <span class="ac">Rule Them All</span></h1>
       </div>
       <div class="proj-body two-cols">
-        <p class="proj-p">Samen met twee collega's heb ik voor één van mijn klanten de orchestratielaag van hun datawarehouse opnieuw opgezet. Het betrof een SSIS-omgeving, SQL Server Integration Services, het Microsoft-platform voor het verplaatsen en verwerken van grote hoeveelheden data.</p>
-        <p class="proj-p">De bestaande aanpak was functioneel maar inflexibel: processen draaiden na elkaar in vaste blokken, en als er iets misging blokkeerde dat soms de hele reeks, ook al was het een proces dat er weinig toe deed. De volgende ochtend begon dan gewoon opnieuw van voren af aan.</p>
-        <p class="proj-p">De nieuwe oplossing draait om een centrale metadata-tabel die automatisch bepaalt wat er wanneer draait, afhankelijk van de dag en het type data. Eén tabel om ze allemaal aan te sturen. Processen draaien waar mogelijk parallel, afgestemd op de beschikbare servercapaciteit, met een afhankelijkheidssysteem dat de volgorde bewaakt waar dat nodig is.</p>
-        <p class="proj-p">Bij een mislukking slaat het systeem een milestone op: een controlepunt dat bijhoudt hoe ver de uitvoering was. Bij een herstart begint het daar verder, niet bij het begin. Een niet-essentieel proces dat faalt houdt de rest niet meer op.</p>
-        <p class="proj-p">Een nieuw proces toevoegen of tijdelijk uitzetten doe je via de beheertabel, geen code, geen release nodig. Het systeem draait inmiddels twee jaar stabiel in productie.</p>
+        <p class="proj-p nl">Samen met twee collega's heb ik voor één van mijn klanten de orchestratielaag van hun datawarehouse opnieuw opgezet. Het betrof een SSIS-omgeving, SQL Server Integration Services, het Microsoft-platform voor het verplaatsen en verwerken van grote hoeveelheden data.</p>
+        <p class="proj-p en">Together with two colleagues, I rebuilt the orchestration layer of a client's data warehouse. It was an SSIS environment — SQL Server Integration Services, Microsoft's platform for moving and processing large volumes of data.</p>
+        <p class="proj-p nl">De bestaande aanpak was functioneel maar inflexibel: processen draaiden na elkaar in vaste blokken, en als er iets misging blokkeerde dat soms de hele reeks, ook al was het een proces dat er weinig toe deed. De volgende ochtend begon dan gewoon opnieuw van voren af aan.</p>
+        <p class="proj-p en">The existing approach was functional but inflexible: processes ran sequentially in fixed blocks, and when something went wrong it could block the entire sequence — even if the failing process was non-critical. The next morning, everything would just restart from scratch.</p>
+        <p class="proj-p nl">De nieuwe oplossing draait om een centrale metadata-tabel die automatisch bepaalt wat er wanneer draait, afhankelijk van de dag en het type data. Eén tabel om ze allemaal aan te sturen. Processen draaien waar mogelijk parallel, afgestemd op de beschikbare servercapaciteit, met een afhankelijkheidssysteem dat de volgorde bewaakt waar dat nodig is.</p>
+        <p class="proj-p en">The new solution revolves around a central metadata table that automatically determines what runs when, depending on the day and data type. One table to rule them all. Processes run in parallel where possible, tuned to available server capacity, with a dependency system that enforces ordering where required.</p>
+        <p class="proj-p nl">Bij een mislukking slaat het systeem een milestone op: een controlepunt dat bijhoudt hoe ver de uitvoering was. Bij een herstart begint het daar verder, niet bij het begin. Een niet-essentieel proces dat faalt houdt de rest niet meer op.</p>
+        <p class="proj-p en">When something fails, the system stores a milestone: a checkpoint tracking how far execution had progressed. On restart, it continues from there rather than the beginning. A non-essential failing process no longer holds up the rest.</p>
+        <p class="proj-p nl">Een nieuw proces toevoegen of tijdelijk uitzetten doe je via de beheertabel, geen code, geen release nodig. Het systeem draait inmiddels twee jaar stabiel in productie.</p>
+        <p class="proj-p en">Adding or temporarily disabling a process is done through the management table — no code, no release required. The system has been running stable in production for two years.</p>
       </div>
       <div class="proj-tags">
         <span class="proj-tag">SSIS</span>
@@ -258,15 +272,24 @@
         <h1 class="proj-title">Snapshot <span class="ac">Semantic Model</span></h1>
       </div>
       <div class="proj-body two-cols">
-        <p class="proj-p">Ik bouw graag één groot, goed doordacht model in plaats van een apart model per rapport — schaalbaar, consistent en voor iedereen bruikbaar. Voor deze klant werd dat model ook nog eens een uitgebreid time intelligence vraagstuk. De data heeft meerdere datums waarop je waarden kunt uitzetten, maar diezelfde datums kun je ook gebruiken om het verleden te reconstrueren. Waar stonden we op dat exacte moment in tijd? Wat wisten we toen? Dat werd de rode draad door het hele model.</p>
-        <h3 class="proj-subhead">Terugkijken naar wat je wist, niet wat je nu weet</h3>
-        <p class="proj-p">Vorig jaar vergelijken is makkelijker gezegd dan gedaan. Je kunt niet zomaar dezelfde periode van vorig jaar pakken — op dat moment wist het bedrijf nog niet wat de rest van het jaar zou brengen. Een boeking die later werd geannuleerd telt dan gewoon mee, want op dat moment wisten we nog niet dat die annulering eraan kwam. De oplossing: vergelijk wat het bedrijf op datzelfde punt in de tijd vorig jaar wist. Dat is wat we het snapshot systeem noemen — de kern van alle jaar-op-jaar analyses in het model.</p>
-        <h3 class="proj-subhead">Één model, diverse invalshoeken</h3>
-        <p class="proj-p">Verschillende afdelingen kijken elk vanuit hun eigen hoek naar dezelfde data. Finance wil andere cijfers zien dan operations of marketing. Het model levert alle perspectieven correct en consistent, zonder dat een analist zelf hoeft na te denken welk perspectief hij pakt. Elke KPI volgt exact dezelfde structuur: dit jaar, vorig jaar, verschil — per datumperspectief. Altijd op dezelfde plek, altijd op dezelfde manier opgebouwd.</p>
-        <h3 class="proj-subhead">AI als vliegwiel, niet als vervanger</h3>
-        <p class="proj-p">De combinatie van strakke concepten en AI-assistentie maakte het mogelijk om <strong>meer dan 1.300 measures</strong> te genereren, documenteren en organiseren op een schaal die handmatig niet haalbaar was geweest. De concepten kwamen van ons, de uitvoering werd er een stuk sneller door.</p>
-        <h3 class="proj-subhead">Documentatie als onderdeel van het model</h3>
-        <p class="proj-p">De mapstructuur, de naamgeving en de eindgebruikersdocumentatie volgen allemaal dezelfde logica. Zo weet een analist altijd waar hij moet zijn — op basis van de KPI die hij zoekt en het tijdsconcept dat hij wil toepassen.</p>
+        <p class="proj-p nl">Ik bouw graag één groot, goed doordacht model in plaats van een apart model per rapport — schaalbaar, consistent en voor iedereen bruikbaar. Voor deze klant werd dat model ook nog eens een uitgebreid time intelligence vraagstuk. De data heeft meerdere datums waarop je waarden kunt uitzetten, maar diezelfde datums kun je ook gebruiken om het verleden te reconstrueren. Waar stonden we op dat exacte moment in tijd? Wat wisten we toen? Dat werd de rode draad door het hele model.</p>
+        <p class="proj-p en">I prefer building one large, well-considered model rather than a separate model per report — scalable, consistent and usable by everyone. For this client, that model also turned into an extensive time intelligence challenge. The data has multiple dates against which you can plot values, but those same dates can also be used to reconstruct the past. Where were we at that exact point in time? What did we know then? That became the thread running through the entire model.</p>
+        <h3 class="proj-subhead nl">Terugkijken naar wat je wist, niet wat je nu weet</h3>
+        <h3 class="proj-subhead en">Looking back at what you knew, not what you know now</h3>
+        <p class="proj-p nl">Vorig jaar vergelijken is makkelijker gezegd dan gedaan. Je kunt niet zomaar dezelfde periode van vorig jaar pakken — op dat moment wist het bedrijf nog niet wat de rest van het jaar zou brengen. Een boeking die later werd geannuleerd telt dan gewoon mee, want op dat moment wisten we nog niet dat die annulering eraan kwam. De oplossing: vergelijk wat het bedrijf op datzelfde punt in de tijd vorig jaar wist. Dat is wat we het snapshot systeem noemen — de kern van alle jaar-op-jaar analyses in het model.</p>
+        <p class="proj-p en">Comparing to last year is easier said than done. You can't simply take the same period from last year — at that moment, the company didn't yet know what the rest of the year would bring. A booking that was later cancelled still counts, because at that point we didn't know the cancellation was coming. The solution: compare what the company knew at that same point in time last year. That's what we call the snapshot system — the core of all year-on-year analyses in the model.</p>
+        <h3 class="proj-subhead nl">Één model, diverse invalshoeken</h3>
+        <h3 class="proj-subhead en">One model, multiple perspectives</h3>
+        <p class="proj-p nl">Verschillende afdelingen kijken elk vanuit hun eigen hoek naar dezelfde data. Finance wil andere cijfers zien dan operations of marketing. Het model levert alle perspectieven correct en consistent, zonder dat een analist zelf hoeft na te denken welk perspectief hij pakt. Elke KPI volgt exact dezelfde structuur: dit jaar, vorig jaar, verschil — per datumperspectief. Altijd op dezelfde plek, altijd op dezelfde manier opgebouwd.</p>
+        <p class="proj-p en">Different departments each view the same data from their own angle. Finance wants different figures than operations or marketing. The model delivers all perspectives correctly and consistently, without an analyst needing to think about which perspective to apply. Every KPI follows the exact same structure: this year, last year, difference — per date perspective. Always in the same place, always built the same way.</p>
+        <h3 class="proj-subhead nl">AI als vliegwiel, niet als vervanger</h3>
+        <h3 class="proj-subhead en">AI as flywheel, not replacement</h3>
+        <p class="proj-p nl">De combinatie van strakke concepten en AI-assistentie maakte het mogelijk om <strong>meer dan 1.300 measures</strong> te genereren, documenteren en organiseren op een schaal die handmatig niet haalbaar was geweest. De concepten kwamen van ons, de uitvoering werd er een stuk sneller door.</p>
+        <p class="proj-p en">The combination of tight concepts and AI assistance made it possible to generate, document and organise <strong>over 1,300 measures</strong> at a scale that would not have been feasible manually. The concepts came from us; the execution became a lot faster.</p>
+        <h3 class="proj-subhead nl">Documentatie als onderdeel van het model</h3>
+        <h3 class="proj-subhead en">Documentation as part of the model</h3>
+        <p class="proj-p nl">De mapstructuur, de naamgeving en de eindgebruikersdocumentatie volgen allemaal dezelfde logica. Zo weet een analist altijd waar hij moet zijn — op basis van de KPI die hij zoekt en het tijdsconcept dat hij wil toepassen.</p>
+        <p class="proj-p en">The folder structure, naming conventions and end-user documentation all follow the same logic. So an analyst always knows where to look — based on the KPI they're searching for and the time concept they want to apply.</p>
       </div>
       <div class="proj-tags">
         <span class="proj-tag">Power BI</span>
@@ -287,13 +310,20 @@
         <h1 class="proj-title">VVT <span class="ac">Datamotor</span></h1>
       </div>
       <div class="proj-body two-cols">
-        <p class="proj-p">Bij mijn vorige werkgever CP-FM liep ik steeds tegen hetzelfde patroon aan: nieuwe klant in de ouderenzorg, zelfde bronsystemen, zelfde rapportagevragen. Elke keer opnieuw beginnen voelde als verspilling. Dus bouwden we een oplossing die dat oploste.</p>
-        <p class="proj-p">Samen met een collega consultant bouwde ik een generieke datamotor in QlikSense, specifiek voor de VVT-sector. De kern: een scriptlaag die over de bekende bronsystemen in de ouderenzorg kon loopen, met per klant een configuratie voor de uitzonderingen — want elke organisatie heeft ze, alleen zijn ze niet zo uniek als ze zelf denken.</p>
-        <p class="proj-p">In totaal ontsloten we ongeveer tien bronsystemen: vier financiële systemen, vijf personeelssystemen en één productiesysteem.</p>
-        <h3 class="proj-subhead">Eén fundament, meerdere diensten</h3>
-        <p class="proj-p">De standaard rapportagelaag die we er overheen bouwden werd als maandelijks abonnementsmodel aangeboden. Implementaties gingen een stuk sneller doordat het fundament er al lag, en de data diende ook als voeding voor de EPM-systemen die CP-FM bij dezelfde klanten leverde. Eén platform dat meerdere diensten bij elkaar bracht.</p>
-        <h3 class="proj-subhead">Herbouwd in SSIS en Power BI</h3>
-        <p class="proj-p">Later heb ik de motor solo opnieuw opgebouwd in SSIS en Power BI. Dezelfde aanpak, andere technologie.</p>
+        <p class="proj-p nl">Bij mijn vorige werkgever CP-FM liep ik steeds tegen hetzelfde patroon aan: nieuwe klant in de ouderenzorg, zelfde bronsystemen, zelfde rapportagevragen. Elke keer opnieuw beginnen voelde als verspilling. Dus bouwden we een oplossing die dat oploste.</p>
+        <p class="proj-p en">At my previous employer CP-FM, I kept running into the same pattern: a new client in elder care, the same source systems, the same reporting questions. Starting from scratch every time felt like waste. So we built a solution to fix that.</p>
+        <p class="proj-p nl">Samen met een collega consultant bouwde ik een generieke datamotor in QlikSense, specifiek voor de VVT-sector. De kern: een scriptlaag die over de bekende bronsystemen in de ouderenzorg kon loopen, met per klant een configuratie voor de uitzonderingen — want elke organisatie heeft ze, alleen zijn ze niet zo uniek als ze zelf denken.</p>
+        <p class="proj-p en">Together with a colleague consultant, I built a generic data engine in QlikSense specifically for the VVT sector. The core: a script layer that could loop over the known source systems in elder care, with a per-client configuration for exceptions — because every organisation has them, they're just not as unique as they think.</p>
+        <p class="proj-p nl">In totaal ontsloten we ongeveer tien bronsystemen: vier financiële systemen, vijf personeelssystemen en één productiesysteem.</p>
+        <p class="proj-p en">In total we connected around ten source systems: four financial systems, five HR systems and one production system.</p>
+        <h3 class="proj-subhead nl">Eén fundament, meerdere diensten</h3>
+        <h3 class="proj-subhead en">One foundation, multiple services</h3>
+        <p class="proj-p nl">De standaard rapportagelaag die we er overheen bouwden werd als maandelijks abonnementsmodel aangeboden. Implementaties gingen een stuk sneller doordat het fundament er al lag, en de data diende ook als voeding voor de EPM-systemen die CP-FM bij dezelfde klanten leverde. Eén platform dat meerdere diensten bij elkaar bracht.</p>
+        <p class="proj-p en">The standard reporting layer we built on top was offered as a monthly subscription model. Implementations were significantly faster because the foundation was already in place, and the data also fed the EPM systems that CP-FM delivered to the same clients. One platform bringing multiple services together.</p>
+        <h3 class="proj-subhead nl">Herbouwd in SSIS en Power BI</h3>
+        <h3 class="proj-subhead en">Rebuilt in SSIS and Power BI</h3>
+        <p class="proj-p nl">Later heb ik de motor solo opnieuw opgebouwd in SSIS en Power BI. Dezelfde aanpak, andere technologie.</p>
+        <p class="proj-p en">Later I rebuilt the engine solo in SSIS and Power BI. Same approach, different technology.</p>
       </div>
       <div class="proj-tags">
         <span class="proj-tag">QlikSense</span>
@@ -315,12 +345,18 @@
         <h1 class="proj-title"><span class="ac">Polaris</span></h1>
       </div>
       <div class="proj-body two-cols">
-        <p class="proj-p">Naast mijn werk voor klanten bouw ik thuis aan een eigen infrastructuur die ik Polaris noem. Niet als hobbyproject, maar als serieus platform waar ik dingen uitprobeer die ik ook professioneel inzet.</p>
-        <p class="proj-p">De basis is een zelfgebouwde homelab server waarop Proxmox draait, software waarmee je één machine opdeelt in meerdere geïsoleerde omgevingen. Daarop draaien tientallen diensten, van mediaserver tot volledige AI-omgevingen.</p>
-        <h3 class="proj-subhead">Wat het systeem kan</h3>
-        <p class="proj-p">Polaris is gekoppeld aan Claude via het MCP-protocol, een open standaard waarmee AI-assistenten echte systemen kunnen aansturen. Home automation via Home Assistant, containers starten of stoppen, media opzetten, infrastructuurdocumentatie bijhouden. Geen losse scripts, maar één AI die de infrastructuur als geheel begrijpt.</p>
-        <h3 class="proj-subhead">Waarom dit relevant is</h3>
-        <p class="proj-p">Dit zijn precies de integraties die steeds meer bedrijven willen bouwen: AI die niet alleen antwoord geeft, maar ook daadwerkelijk iets doet. Door dit thuis te bouwen blijf ik aan de voorkant van wat mogelijk is.</p>
+        <p class="proj-p nl">Naast mijn werk voor klanten bouw ik thuis aan een eigen infrastructuur die ik Polaris noem. Niet als hobbyproject, maar als serieus platform waar ik dingen uitprobeer die ik ook professioneel inzet.</p>
+        <p class="proj-p en">Alongside my client work, I'm building my own infrastructure at home that I call Polaris. Not as a hobby project, but as a serious platform where I test things I also apply professionally.</p>
+        <p class="proj-p nl">De basis is een zelfgebouwde homelab server waarop Proxmox draait, software waarmee je één machine opdeelt in meerdere geïsoleerde omgevingen. Daarop draaien tientallen diensten, van mediaserver tot volledige AI-omgevingen.</p>
+        <p class="proj-p en">The foundation is a self-built homelab server running Proxmox — software that splits one machine into multiple isolated environments. Dozens of services run on it, from media server to full AI environments.</p>
+        <h3 class="proj-subhead nl">Wat het systeem kan</h3>
+        <h3 class="proj-subhead en">What the system can do</h3>
+        <p class="proj-p nl">Polaris is gekoppeld aan Claude via het MCP-protocol, een open standaard waarmee AI-assistenten echte systemen kunnen aansturen. Home automation via Home Assistant, containers starten of stoppen, media opzetten, infrastructuurdocumentatie bijhouden. Geen losse scripts, maar één AI die de infrastructuur als geheel begrijpt.</p>
+        <p class="proj-p en">Polaris is connected to Claude via the MCP protocol, an open standard that allows AI assistants to control real systems. Home automation via Home Assistant, starting and stopping containers, setting up media, maintaining infrastructure documentation. No loose scripts, but one AI that understands the infrastructure as a whole.</p>
+        <h3 class="proj-subhead nl">Waarom dit relevant is</h3>
+        <h3 class="proj-subhead en">Why this is relevant</h3>
+        <p class="proj-p nl">Dit zijn precies de integraties die steeds meer bedrijven willen bouwen: AI die niet alleen antwoord geeft, maar ook daadwerkelijk iets doet. Door dit thuis te bouwen blijf ik aan de voorkant van wat mogelijk is.</p>
+        <p class="proj-p en">These are exactly the integrations that more and more companies want to build: AI that doesn't just answer questions, but actually does things. By building this at home, I stay at the front of what's possible.</p>
       </div>
       <div class="proj-tags">
         <span class="proj-tag">Proxmox</span>

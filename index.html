@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script>(function(){var t=localStorage.getItem('vbi-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('vbi-lang')||'nl';document.documentElement.setAttribute('data-lang',l);})();</script>
+  <script>(function(){var t=localStorage.getItem('vbi-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('vbi-lang')||(navigator.language&&navigator.language.startsWith('nl')?'nl':'en');document.documentElement.setAttribute('data-lang',l);})();</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1019,10 +1019,9 @@
       .ai-tool-card { border-right: none; border-bottom: 1px solid var(--line); }
       .ai-tool-card:last-child { border-bottom: none; }
 
-      .sys-category { grid-template-columns: 1fr; }
-      .sys-cat-label { border-right: none; border-bottom: 1px solid var(--line); padding-right: 0; }
-      .sys-row { padding-left: 0; padding-top: 24px; flex-wrap: wrap; }
-      .sys-tile { padding: 16px 24px 16px 0; }
+      .sys-block { gap: 0; }
+      .sys-block-head, .sys-block-body, .sys-kpis { grid-column: 1 / -1; }
+      .sys-block-head { padding-bottom: 8px; }
 
       #projecten { padding: 72px 24px; }
       .project-teasers { grid-template-columns: 1fr; }
@@ -1548,34 +1547,45 @@
   <!-- PROJECTEN -->
   <section id="projecten">
     <div class="block-head">
-      <div class="bh-label">Projecten</div>
-      <h2 class="bh-headline">Waar ik trots <span class="ac">op ben.</span></h2>
+      <div class="bh-label nl">Projecten</div>
+      <div class="bh-label en">Projects</div>
+      <h2 class="bh-headline nl">Waar ik trots <span class="ac">op ben.</span></h2>
+      <h2 class="bh-headline en">Projects I'm <span class="ac">proud of.</span></h2>
     </div>
-    <p class="projecten-intro">Soms heb je van die projecten die tijd en energie kosten maar waarvan je skillset een enorme boost krijgt en je je klant, werkgever of jezelf enorm mee kunt helpen. Kortom, hier ben ik trots op:</p>
+    <p class="projecten-intro nl">Soms heb je van die projecten die tijd en energie kosten maar waarvan je skillset een enorme boost krijgt en je je klant, werkgever of jezelf enorm mee kunt helpen. Kortom, hier ben ik trots op:</p>
+    <p class="projecten-intro en">Some projects demand serious time and energy — but reward you with a massive skill boost and real impact for your client, employer, or yourself. These are the ones I'm proud of:</p>
     <div class="project-teasers">
       <a href="projects.html#project-1" class="pt-card">
         <div class="pt-num">01</div>
         <div class="pt-title">One Job to Rule Them All</div>
-        <p class="pt-body">Een SSIS-orchestratielaag die zichzelf aanstuurt: parallelle verwerking, slimme foutafhandeling en twee jaar stabiel in productie.</p>
-        <span class="pt-link">Lees meer ↗</span>
+        <p class="pt-body nl">Een SSIS-orchestratielaag die zichzelf aanstuurt: parallelle verwerking, slimme foutafhandeling en twee jaar stabiel in productie.</p>
+        <p class="pt-body en">An SSIS orchestration layer that drives itself: parallel processing, smart error handling, and two years stable in production.</p>
+        <span class="pt-link nl">Lees meer ↗</span>
+        <span class="pt-link en">Read more ↗</span>
       </a>
       <a href="projects.html#project-2" class="pt-card">
         <div class="pt-num">02</div>
         <div class="pt-title">Snapshot Semantic Model</div>
-        <p class="pt-body">Één Power BI model als fundament onder alle commerciële rapportages — gebouwd op strakke tijdconcepten, meer dan 1.300 measures en AI als vliegwiel.</p>
-        <span class="pt-link">Lees meer ↗</span>
+        <p class="pt-body nl">Één Power BI model als fundament onder alle commerciële rapportages — gebouwd op strakke tijdconcepten, meer dan 1.300 measures en AI als vliegwiel.</p>
+        <p class="pt-body en">One Power BI model as the foundation for all commercial reporting — built on tight time concepts, over 1,300 measures, and AI as the accelerator.</p>
+        <span class="pt-link nl">Lees meer ↗</span>
+        <span class="pt-link en">Read more ↗</span>
       </a>
       <a href="projects.html#project-3" class="pt-card">
         <div class="pt-num">03</div>
         <div class="pt-title">VVT Datamotor</div>
-        <p class="pt-body">Een generieke datamotor voor de ouderenzorg — zelfde fundament, klantspecifiek geconfigureerd, aangeboden als maandelijks abonnementsmodel.</p>
-        <span class="pt-link">Lees meer ↗</span>
+        <p class="pt-body nl">Een generieke datamotor voor de ouderenzorg — zelfde fundament, klantspecifiek geconfigureerd, aangeboden als maandelijks abonnementsmodel.</p>
+        <p class="pt-body en">A generic data engine for elderly care — same foundation, customer-specific configuration, delivered as a monthly subscription model.</p>
+        <span class="pt-link nl">Lees meer ↗</span>
+        <span class="pt-link en">Read more ↗</span>
       </a>
       <a href="projects.html#project-4" class="pt-card">
         <div class="pt-num">04</div>
         <div class="pt-title">Polaris</div>
-        <p class="pt-body">Een zelfgebouwd AI-platform thuis, gekoppeld aan Claude, Home Assistant en de volledige homelab infrastructuur.</p>
-        <span class="pt-link">Lees meer ↗</span>
+        <p class="pt-body nl">Een zelfgebouwd AI-platform thuis, gekoppeld aan Claude, Home Assistant en de volledige homelab infrastructuur.</p>
+        <p class="pt-body en">A self-built AI platform at home, connected to Claude, Home Assistant, and the full homelab infrastructure.</p>
+        <span class="pt-link nl">Lees meer ↗</span>
+        <span class="pt-link en">Read more ↗</span>
       </a>
     </div>
   </section>
