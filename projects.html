@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projecten — Vroomans BI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>(function(){
+    var t=localStorage.getItem('vbi-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-theme',t);
+    var l=localStorage.getItem('vbi-lang')||'nl';
+    document.documentElement.setAttribute('data-lang',l);
+  })();</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:        #080808;
+      --surface:      #111111;
+      --white:        #F0EEE9;
+      --grey:         #9A9A9A;
+      --dim:          #3A3A3A;
+      --accent:       #D42B45;
+      --line:         #1E1E1E;
+      --nav-bg:       rgba(8,8,8,0.96);
+    }
+    [data-theme="light"] {
+      --black:  #F5F3EE; --surface: #ECEAE5; --white: #0D0D0D;
+      --grey:   #555555; --dim:     #BEBAB4;  --line:  #DEDAD4;
+      --nav-bg: rgba(245,243,238,0.96);
+    }
+
+    html { scroll-behavior: auto; }
+    body {
+      background: var(--black); color: var(--grey);
+      font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
+      font-weight: 300; line-height: 1.8; overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    }
+    .nav-left  { display: flex; align-items: center; gap: 20px; }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+
+    .nav-back {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--grey); transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--white); }
+    .nav-sep { width: 1px; height: 16px; background: var(--dim); }
+    .nav-section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 800; font-size: 15px; letter-spacing: -0.03em; color: var(--white);
+      padding-left: 12px; border-left: 1px solid var(--dim); margin-left: 4px;
+    }
+    .logo-bi { color: var(--accent); }
+
+    .lang-toggle {
+      background: none; border: 1px solid var(--dim); border-radius: 3px;
+      display: flex; align-items: center; gap: 3px; padding: 0 9px; height: 30px;
+      cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--grey); transition: border-color 0.15s; font-family: 'Inter', sans-serif;
+    }
+    .lang-toggle:hover { border-color: var(--grey); }
+    .lang-sep-dot { opacity: 0.35; }
+    .lang-nl, .lang-en { transition: color 0.15s; }
+    [data-lang="nl"] .lang-nl { color: var(--white); }
+    [data-lang="en"] .lang-en { color: var(--white); }
+
+    .theme-toggle {
+      background: none; border: 1px solid var(--dim); border-radius: 3px;
+      color: var(--grey); cursor: pointer; width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .theme-toggle:hover { color: var(--white); border-color: var(--grey); }
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="light"] .theme-toggle .icon-sun  { display: none; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+    /* ── SECTIONS — fixed 100dvh, no scroll ── */
+    .proj-section {
+      height: 100dvh;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Text: fills left half, 2-col body */
+    .proj-text {
+      padding: 64px 52px 52px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .proj-header {
+      display: flex; align-items: baseline; gap: 28px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 24px; margin-bottom: 36px;
+    }
+    .proj-num {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--grey); flex-shrink: 0;
+    }
+    .proj-title {
+      font-size: clamp(24px, 2.8vw, 42px);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.0; color: var(--white);
+    }
+    .proj-title .ac { color: var(--accent); }
+
+    .proj-body {
+      flex: 1;
+      overflow: hidden;
+    }
+    .proj-body.two-cols {
+      columns: 2;
+      column-gap: 36px;
+      column-fill: auto;
+    }
+
+    .proj-p {
+      font-size: 14px; font-weight: 300;
+      line-height: 1.82; color: var(--grey);
+      margin-bottom: 18px;
+    }
+    .proj-p strong { font-weight: 500; color: var(--white); }
+
+    .proj-subhead {
+      font-size: 15px; font-weight: 800; letter-spacing: -0.01em;
+      color: var(--white); margin: 24px 0 12px;
+      break-after: avoid;
+    }
+
+    .proj-tags {
+      display: flex; flex-wrap: wrap; gap: 5px; margin-top: 24px;
+      flex-shrink: 0;
+    }
+    .proj-tag {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.04em;
+      color: var(--grey); border: 1px solid var(--line);
+      border-radius: 2px; padding: 3px 10px;
+    }
+
+    /* Visual: right half, centered, no border */
+    .proj-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .proj-visual canvas { display: block; }
+
+    /* ── SCROLL DOTS — LEFT ── */
+    .scroll-dots {
+      position: fixed; left: 22px; top: 50%; transform: translateY(-50%);
+      z-index: 100; display: flex; flex-direction: column; gap: 10px;
+    }
+    .scroll-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--dim);
+      cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; padding: 0;
+    }
+    .scroll-dot.active { background: var(--accent); transform: scale(1.5); }
+
+    footer { padding: 0; display: none; } /* footer hidden since last section has no room */
+
+    @media (max-width: 860px) {
+      nav { padding: 18px 24px; }
+      .nav-section-label { display: none; }
+      .proj-section { grid-template-columns: 1fr; height: auto; overflow: visible; }
+      .proj-text { height: auto; overflow: visible; padding: 64px 24px 40px; }
+      .proj-body { columns: 1; }
+      .proj-visual { height: 240px; }
+      .scroll-dots { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-left">
+      <a href="index.html" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"/></svg>
+        Terug
+      </a>
+      <div class="nav-sep"></div>
+      <span class="nav-section-label">Projecten</span>
+    </div>
+    <div class="nav-right">
+      <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+        <span class="lang-nl">NL</span><span class="lang-sep-dot">·</span><span class="lang-en">EN</span>
+      </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+        <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="index.html" class="nav-logo">
+        <svg width="20" height="20" viewBox="0 0 36 36" fill="none">
+          <rect x="0" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.9"/>
+          <rect x="20" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="0" y="20" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="20" y="20" width="16" height="16" rx="3" fill="#A01E32" opacity="0.9"/>
+          <line x1="16" y1="8" x2="20" y2="8" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="8" y1="16" x2="8" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="28" y1="16" x2="28" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="16" y1="28" x2="20" y2="28" stroke="#A01E32" stroke-width="1.5"/>
+        </svg>
+        Vroomans<span class="logo-bi">BI</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- PROJECT 1 -->
+  <section class="proj-section" id="project-1">
+    <div class="proj-text">
+      <div class="proj-header">
+        <div class="proj-num">01</div>
+        <h1 class="proj-title">One Job to <span class="ac">Rule Them All</span></h1>
+      </div>
+      <div class="proj-body two-cols">
+        <p class="proj-p">Samen met twee collega's heb ik voor één van mijn klanten de orchestratielaag van hun datawarehouse opnieuw opgezet. Het betrof een SSIS-omgeving, SQL Server Integration Services, het Microsoft-platform voor het verplaatsen en verwerken van grote hoeveelheden data.</p>
+        <p class="proj-p">De bestaande aanpak was functioneel maar inflexibel: processen draaiden na elkaar in vaste blokken, en als er iets misging blokkeerde dat soms de hele reeks, ook al was het een proces dat er weinig toe deed. De volgende ochtend begon dan gewoon opnieuw van voren af aan.</p>
+        <p class="proj-p">De nieuwe oplossing draait om een centrale metadata-tabel die automatisch bepaalt wat er wanneer draait, afhankelijk van de dag en het type data. Eén tabel om ze allemaal aan te sturen. Processen draaien waar mogelijk parallel, afgestemd op de beschikbare servercapaciteit, met een afhankelijkheidssysteem dat de volgorde bewaakt waar dat nodig is.</p>
+        <p class="proj-p">Bij een mislukking slaat het systeem een milestone op: een controlepunt dat bijhoudt hoe ver de uitvoering was. Bij een herstart begint het daar verder, niet bij het begin. Een niet-essentieel proces dat faalt houdt de rest niet meer op.</p>
+        <p class="proj-p">Een nieuw proces toevoegen of tijdelijk uitzetten doe je via de beheertabel, geen code, geen release nodig. Het systeem draait inmiddels twee jaar stabiel in productie.</p>
+      </div>
+      <div class="proj-tags">
+        <span class="proj-tag">SSIS</span>
+        <span class="proj-tag">SQL Server</span>
+        <span class="proj-tag">Metadata-driven</span>
+        <span class="proj-tag">Parallelle verwerking</span>
+        <span class="proj-tag">ETL Orchestratie</span>
+      </div>
+    </div>
+    <div class="proj-visual"><canvas id="canvas-1"></canvas></div>
+  </section>
+
+  <!-- PROJECT 2 -->
+  <section class="proj-section" id="project-2">
+    <div class="proj-text">
+      <div class="proj-header">
+        <div class="proj-num">02</div>
+        <h1 class="proj-title">Snapshot <span class="ac">Semantic Model</span></h1>
+      </div>
+      <div class="proj-body two-cols">
+        <p class="proj-p">Ik bouw graag één groot, goed doordacht model in plaats van een apart model per rapport — schaalbaar, consistent en voor iedereen bruikbaar. Voor deze klant werd dat model ook nog eens een uitgebreid time intelligence vraagstuk. De data heeft meerdere datums waarop je waarden kunt uitzetten, maar diezelfde datums kun je ook gebruiken om het verleden te reconstrueren. Waar stonden we op dat exacte moment in tijd? Wat wisten we toen? Dat werd de rode draad door het hele model.</p>
+        <h3 class="proj-subhead">Terugkijken naar wat je wist, niet wat je nu weet</h3>
+        <p class="proj-p">Vorig jaar vergelijken is makkelijker gezegd dan gedaan. Je kunt niet zomaar dezelfde periode van vorig jaar pakken — op dat moment wist het bedrijf nog niet wat de rest van het jaar zou brengen. Een boeking die later werd geannuleerd telt dan gewoon mee, want op dat moment wisten we nog niet dat die annulering eraan kwam. De oplossing: vergelijk wat het bedrijf op datzelfde punt in de tijd vorig jaar wist. Dat is wat we het snapshot systeem noemen — de kern van alle jaar-op-jaar analyses in het model.</p>
+        <h3 class="proj-subhead">Één model, diverse invalshoeken</h3>
+        <p class="proj-p">Verschillende afdelingen kijken elk vanuit hun eigen hoek naar dezelfde data. Finance wil andere cijfers zien dan operations of marketing. Het model levert alle perspectieven correct en consistent, zonder dat een analist zelf hoeft na te denken welk perspectief hij pakt. Elke KPI volgt exact dezelfde structuur: dit jaar, vorig jaar, verschil — per datumperspectief. Altijd op dezelfde plek, altijd op dezelfde manier opgebouwd.</p>
+        <h3 class="proj-subhead">AI als vliegwiel, niet als vervanger</h3>
+        <p class="proj-p">De combinatie van strakke concepten en AI-assistentie maakte het mogelijk om <strong>meer dan 1.300 measures</strong> te genereren, documenteren en organiseren op een schaal die handmatig niet haalbaar was geweest. De concepten kwamen van ons, de uitvoering werd er een stuk sneller door.</p>
+        <h3 class="proj-subhead">Documentatie als onderdeel van het model</h3>
+        <p class="proj-p">De mapstructuur, de naamgeving en de eindgebruikersdocumentatie volgen allemaal dezelfde logica. Zo weet een analist altijd waar hij moet zijn — op basis van de KPI die hij zoekt en het tijdsconcept dat hij wil toepassen.</p>
+      </div>
+      <div class="proj-tags">
+        <span class="proj-tag">Power BI</span>
+        <span class="proj-tag">DAX</span>
+        <span class="proj-tag">Calculation Groups</span>
+        <span class="proj-tag">TMDL</span>
+        <span class="proj-tag">Time Intelligence</span>
+      </div>
+    </div>
+    <div class="proj-visual"><canvas id="canvas-2"></canvas></div>
+  </section>
+
+  <!-- PROJECT 3 -->
+  <section class="proj-section" id="project-3">
+    <div class="proj-text">
+      <div class="proj-header">
+        <div class="proj-num">03</div>
+        <h1 class="proj-title">VVT <span class="ac">Datamotor</span></h1>
+      </div>
+      <div class="proj-body two-cols">
+        <p class="proj-p">Bij mijn vorige werkgever CP-FM liep ik steeds tegen hetzelfde patroon aan: nieuwe klant in de ouderenzorg, zelfde bronsystemen, zelfde rapportagevragen. Elke keer opnieuw beginnen voelde als verspilling. Dus bouwden we een oplossing die dat oploste.</p>
+        <p class="proj-p">Samen met een collega consultant bouwde ik een generieke datamotor in QlikSense, specifiek voor de VVT-sector. De kern: een scriptlaag die over de bekende bronsystemen in de ouderenzorg kon loopen, met per klant een configuratie voor de uitzonderingen — want elke organisatie heeft ze, alleen zijn ze niet zo uniek als ze zelf denken.</p>
+        <p class="proj-p">In totaal ontsloten we ongeveer tien bronsystemen: vier financiële systemen, vijf personeelssystemen en één productiesysteem.</p>
+        <h3 class="proj-subhead">Eén fundament, meerdere diensten</h3>
+        <p class="proj-p">De standaard rapportagelaag die we er overheen bouwden werd als maandelijks abonnementsmodel aangeboden. Implementaties gingen een stuk sneller doordat het fundament er al lag, en de data diende ook als voeding voor de EPM-systemen die CP-FM bij dezelfde klanten leverde. Eén platform dat meerdere diensten bij elkaar bracht.</p>
+        <h3 class="proj-subhead">Herbouwd in SSIS en Power BI</h3>
+        <p class="proj-p">Later heb ik de motor solo opnieuw opgebouwd in SSIS en Power BI. Dezelfde aanpak, andere technologie.</p>
+      </div>
+      <div class="proj-tags">
+        <span class="proj-tag">QlikSense</span>
+        <span class="proj-tag">SSIS</span>
+        <span class="proj-tag">Power BI</span>
+        <span class="proj-tag">Multi-tenant</span>
+        <span class="proj-tag">VVT</span>
+        <span class="proj-tag">Metadata-driven</span>
+      </div>
+    </div>
+    <div class="proj-visual"><canvas id="canvas-3"></canvas></div>
+  </section>
+
+  <!-- PROJECT 4 -->
+  <section class="proj-section" id="project-4">
+    <div class="proj-text">
+      <div class="proj-header">
+        <div class="proj-num">04</div>
+        <h1 class="proj-title"><span class="ac">Polaris</span></h1>
+      </div>
+      <div class="proj-body two-cols">
+        <p class="proj-p">Naast mijn werk voor klanten bouw ik thuis aan een eigen infrastructuur die ik Polaris noem. Niet als hobbyproject, maar als serieus platform waar ik dingen uitprobeer die ik ook professioneel inzet.</p>
+        <p class="proj-p">De basis is een zelfgebouwde homelab server waarop Proxmox draait, software waarmee je één machine opdeelt in meerdere geïsoleerde omgevingen. Daarop draaien tientallen diensten, van mediaserver tot volledige AI-omgevingen.</p>
+        <h3 class="proj-subhead">Wat het systeem kan</h3>
+        <p class="proj-p">Polaris is gekoppeld aan Claude via het MCP-protocol, een open standaard waarmee AI-assistenten echte systemen kunnen aansturen. Home automation via Home Assistant, containers starten of stoppen, media opzetten, infrastructuurdocumentatie bijhouden. Geen losse scripts, maar één AI die de infrastructuur als geheel begrijpt.</p>
+        <h3 class="proj-subhead">Waarom dit relevant is</h3>
+        <p class="proj-p">Dit zijn precies de integraties die steeds meer bedrijven willen bouwen: AI die niet alleen antwoord geeft, maar ook daadwerkelijk iets doet. Door dit thuis te bouwen blijf ik aan de voorkant van wat mogelijk is.</p>
+      </div>
+      <div class="proj-tags">
+        <span class="proj-tag">Proxmox</span>
+        <span class="proj-tag">Home Assistant</span>
+        <span class="proj-tag">Claude MCP</span>
+        <span class="proj-tag">AI Agents</span>
+        <span class="proj-tag">Infrastructure automation</span>
+      </div>
+    </div>
+    <div class="proj-visual"><canvas id="canvas-4"></canvas></div>
+  </section>
+
+  <div class="scroll-dots" id="scrollDots">
+    <button class="scroll-dot active" data-index="0" aria-label="Project 1"></button>
+    <button class="scroll-dot" data-index="1" aria-label="Project 2"></button>
+    <button class="scroll-dot" data-index="2" aria-label="Project 3"></button>
+    <button class="scroll-dot" data-index="3" aria-label="Project 4"></button>
+  </div>
+
+  <script>
+  // ── Toggles ──
+  (function(){
+    document.getElementById('langToggle')?.addEventListener('click',()=>{
+      const n=document.documentElement.getAttribute('data-lang')==='nl'?'en':'nl';
+      document.documentElement.setAttribute('data-lang',n);
+      document.documentElement.setAttribute('lang',n);
+      localStorage.setItem('vbi-lang',n);
+    });
+    document.getElementById('themeToggle')?.addEventListener('click',()=>{
+      const n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',n);
+      localStorage.setItem('vbi-theme',n);
+    });
+  })();
+
+  // ── Scroll snap — same as index.html ──
+  (function(){
+    const sections=Array.from(document.querySelectorAll('.proj-section'));
+    const dots=Array.from(document.querySelectorAll('.scroll-dot'));
+    let timer=null,animating=false,lastY=window.scrollY,scrollDir=0;
+
+    function ease(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+    function animateTo(y,dur){
+      animating=true;
+      const s=window.scrollY,d=y-s;
+      if(Math.abs(d)<2){animating=false;return;}
+      const t0=performance.now();
+      (function step(now){
+        const t=Math.min((now-t0)/dur,1);
+        window.scrollTo(0,s+d*ease(t));
+        t<1?requestAnimationFrame(step):animating=false;
+      })(t0);
+    }
+    function getTarget(){
+      const y=window.scrollY;
+      for(let i=0;i<sections.length-1;i++){
+        const top=sections[i].offsetTop,next=sections[i+1].offsetTop;
+        if(y>=top&&y<next){
+          if(scrollDir>=0&&y>top+8)return sections[i+1];
+          return sections[i];
+        }
+      }
+      return sections[sections.length-1];
+    }
+    function updateDots(){
+      const y=window.scrollY;
+      let a=0;sections.forEach((s,i)=>{if(y>=s.offsetTop-20)a=i;});
+      dots.forEach((d,i)=>d.classList.toggle('active',i===a));
+    }
+    dots.forEach((d,i)=>d.addEventListener('click',()=>animateTo(sections[i].offsetTop,720)));
+    setTimeout(()=>{
+      window.addEventListener('scroll',()=>{
+        const y=window.scrollY;scrollDir=y-lastY;lastY=y;updateDots();
+        if(animating)return;clearTimeout(timer);
+        timer=setTimeout(()=>animateTo(getTarget().offsetTop,720),150);
+      },{passive:true});
+      updateDots();
+    },400);
+  })();
+
+  // ── Canvas helper ──
+  function rr(ctx,x,y,w,h,r){
+    ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);
+    ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+    ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);
+    ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);ctx.closePath();
+  }
+  function isLight(){return document.documentElement.getAttribute('data-theme')==='light';}
+
+  // ── Canvas sizing: centered 78% of container ──
+  function sizeCanvas(canvas, pct){
+    pct=pct||0.82;
+    const p=canvas.parentElement;
+    const w=Math.round(p.offsetWidth*pct), h=Math.round(p.offsetHeight*pct);
+    canvas.width=w; canvas.height=h;
+    canvas.style.width=w+'px'; canvas.style.height=h+'px';
+    return {W:w,H:h};
+  }
+
+  // ════════════════════════════════════════
+  // CANVAS 1 — Orchestratie Pipeline
+  // ════════════════════════════════════════
+  (function(){
+    const canvas=document.getElementById('canvas-1');
+    if(!canvas)return;
+    const {W,H}=sizeCanvas(canvas);
+    const ctx=canvas.getContext('2d');
+
+    const BW=Math.round(W*0.20),BH=28,BR=3;
+    const colX=[W*0.17,W*0.50,W*0.83];
+    const rowY=[H*0.28,H*0.52,H*0.76];
+    const orchCX=W/2,orchY=H*0.07,orchW=W*0.32,orchH=32;
+
+    const blocks=[];
+    for(let r=0;r<3;r++)for(let c=0;c<3;c++)
+      blocks.push({r,c,x:colX[c]-BW/2,y:rowY[r]-BH/2,progress:0,state:'idle',
+        startT:r*0.45+c*1.35+Math.random()*0.25,dur:2.0+Math.random()*0.9});
+
+    const flowDots=[];
+    for(let r=0;r<3;r++)for(let c=0;c<2;c++)
+      flowDots.push({r,c,t:(r*0.35+c*0.52)%1,spd:0.30+Math.random()*0.15});
+
+    let time=0,last=0;
+    function draw(ts){
+      const dt=Math.min((ts-last)/1000,0.05);last=ts;time+=dt;
+      ctx.clearRect(0,0,W,H);
+
+      blocks.forEach(b=>{
+        const t=time-b.startT;
+        if(t<0){b.state='idle';b.progress=0;return;}
+        const cyc=t%(b.dur+1.0);
+        b.state=cyc<b.dur?'running':'done';
+        b.progress=cyc<b.dur?cyc/b.dur:1;
+      });
+
+      // Orchestrator connectors
+      ctx.save();ctx.strokeStyle='rgba(212,43,69,0.10)';ctx.lineWidth=1;ctx.setLineDash([4,4]);
+      rowY.forEach(ry=>{
+        ctx.beginPath();ctx.moveTo(orchCX,orchY+orchH);
+        ctx.lineTo(orchCX,ry-24);ctx.lineTo(colX[0],ry-24);ctx.lineTo(colX[0],ry-BH/2);ctx.stroke();
+      });
+      ctx.setLineDash([]);ctx.restore();
+
+      // Horizontal connectors
+      for(let r=0;r<3;r++)for(let c=0;c<2;c++){
+        const b1=blocks[r*3+c],b2=blocks[r*3+c+1];
+        const x1=b1.x+BW,x2=b2.x,cy=b1.y+BH/2;
+        ctx.save();ctx.strokeStyle='rgba(212,43,69,0.17)';ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(x1,cy);ctx.lineTo(x2,cy);ctx.stroke();
+        ctx.fillStyle='rgba(212,43,69,0.25)';
+        ctx.beginPath();ctx.moveTo(x2,cy);ctx.lineTo(x2-6,cy-3);ctx.lineTo(x2-6,cy+3);ctx.closePath();ctx.fill();
+        ctx.restore();
+      }
+
+      // Flow dots
+      flowDots.forEach(d=>{
+        const b1=blocks[d.r*3+d.c],b2=blocks[d.r*3+d.c+1];
+        if(!b1||!b2||b1.state==='idle')return;
+        d.t=(d.t+dt*d.spd)%1;
+        const x1=b1.x+BW,x2=b2.x,cy=b1.y+BH/2;
+        const px=x1+(x2-x1)*d.t,alpha=0.7*(1-Math.abs(d.t-0.5)*2);
+        ctx.save();ctx.fillStyle=`rgba(212,43,69,${alpha})`;
+        ctx.beginPath();ctx.arc(px,cy,3.5,0,Math.PI*2);ctx.fill();ctx.restore();
+      });
+
+      // Blocks
+      blocks.forEach(b=>{
+        const run=b.state==='running',done=b.state==='done';
+        const f=done?0.17:(run?0.10+Math.sin(time*3.5+b.r+b.c)*0.04:0.04);
+        ctx.save();ctx.fillStyle=`rgba(212,43,69,${f})`;rr(ctx,b.x,b.y,BW,BH,BR);ctx.fill();
+        const s=done?0.38:(run?0.42+Math.sin(time*3)*0.08:0.10);
+        ctx.strokeStyle=`rgba(212,43,69,${s})`;ctx.lineWidth=1;rr(ctx,b.x,b.y,BW,BH,BR);ctx.stroke();
+        if(run&&b.progress>0){ctx.fillStyle='rgba(212,43,69,0.3)';rr(ctx,b.x+3,b.y+BH-5,(BW-6)*b.progress,3,1);ctx.fill();}
+        ctx.restore();
+      });
+
+      // Orchestrator block
+      ctx.save();
+      const op=0.20+Math.sin(time*1.3)*0.06;
+      ctx.fillStyle=`rgba(212,43,69,${op})`;rr(ctx,orchCX-orchW/2,orchY,orchW,orchH,BR);ctx.fill();
+      ctx.strokeStyle='rgba(212,43,69,0.60)';ctx.lineWidth=1.5;rr(ctx,orchCX-orchW/2,orchY,orchW,orchH,BR);ctx.stroke();
+      ctx.restore();
+
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+  // ════════════════════════════════════════
+  // CANVAS 2 — Time Intelligence  Y-2 | Y-1 | Y
+  // ════════════════════════════════════════
+  (function(){
+    const canvas=document.getElementById('canvas-2');
+    if(!canvas)return;
+    const {W,H}=sizeCanvas(canvas);
+    const ctx=canvas.getContext('2d');
+
+    const padL=W*0.09,padR=W*0.09;
+    const cL=padL,cR=W-padR,cW=cR-cL;
+    const axisY=H*0.74,chartT=H*0.14;
+    const segW=cW/3;
+    const seg=[cL,cL+segW,cL+segW*2,cR];
+
+    function dataY(t){
+      return axisY - (axisY-chartT)*0.52*t
+        + Math.sin(t*Math.PI*4.2+0.5)*(H*0.055)
+        + Math.sin(t*Math.PI*9.1+1.2)*(H*0.020);
+    }
+    const N=120;
+    const pts=Array.from({length:N+1},(_,i)=>{const t=i/N;return[cL+cW*t,dataY(t)];});
+
+    let curT=0.12,curDir=1,time=0,last=0;
+
+    function draw(ts){
+      const dt=Math.min((ts-last)/1000,0.05);last=ts;time+=dt;
+      ctx.clearRect(0,0,W,H);
+      const light=isLight();
+      const axisC =light?'rgba(0,0,0,0.12)':'rgba(255,255,255,0.08)';
+      const lblC  =light?'rgba(0,0,0,0.40)':'rgba(154,154,154,0.55)';
+      const dimL  =light?'rgba(0,0,0,0.20)':'rgba(240,238,233,0.18)';
+      const midL  =light?'rgba(0,0,0,0.32)':'rgba(240,238,233,0.28)';
+
+      // Axis
+      ctx.save();ctx.strokeStyle=axisC;ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(cL,axisY);ctx.lineTo(cR,axisY);ctx.stroke();ctx.restore();
+
+      // Year labels + dividers
+      ['Y-2','Y-1','Y'].forEach((lbl,i)=>{
+        const mx=seg[i]+segW/2;
+        if(i>0){
+          ctx.save();ctx.strokeStyle=axisC;ctx.lineWidth=1;ctx.setLineDash([3,4]);
+          ctx.beginPath();ctx.moveTo(seg[i],chartT-8);ctx.lineTo(seg[i],axisY+16);ctx.stroke();
+          ctx.setLineDash([]);ctx.restore();
+        }
+        ctx.save();ctx.font='600 11px Inter,sans-serif';ctx.textAlign='center';
+        ctx.fillStyle=i===2?'rgba(212,43,69,0.65)':lblC;
+        ctx.fillText(lbl,mx,axisY+22);ctx.restore();
+      });
+
+      // Y-2 line
+      ctx.save();ctx.strokeStyle=dimL;ctx.lineWidth=1.5;ctx.beginPath();
+      pts.filter(([x])=>x>=seg[0]&&x<=seg[1]).forEach(([x,y],i)=>i===0?ctx.moveTo(x,y):ctx.lineTo(x,y));
+      ctx.stroke();ctx.restore();
+
+      // Y-1 line
+      ctx.save();ctx.strokeStyle=midL;ctx.lineWidth=1.5;ctx.beginPath();
+      pts.filter(([x])=>x>=seg[1]&&x<=seg[2]).forEach(([x,y],i)=>i===0?ctx.moveTo(x,y):ctx.lineTo(x,y));
+      ctx.stroke();ctx.restore();
+
+      // Cursor sweep
+      curT+=dt*0.10*curDir;
+      if(curT>0.88){curT=0.88;curDir=-1;}
+      if(curT<0.08){curT=0.08;curDir=1;}
+      const cursorX=seg[2]+(seg[3]-seg[2])*curT;
+      const cursorGT=(cursorX-cL)/cW;
+      const cursorY=dataY(cursorGT);
+
+      // Y current up to cursor
+      ctx.save();ctx.strokeStyle='rgba(212,43,69,0.80)';ctx.lineWidth=2;ctx.beginPath();
+      pts.filter(([x])=>x>=seg[2]&&x<=cursorX).forEach(([x,y],i)=>i===0?ctx.moveTo(x,y):ctx.lineTo(x,y));
+      ctx.stroke();ctx.restore();
+
+      // Y after cursor (dashed / projected)
+      ctx.save();ctx.strokeStyle='rgba(212,43,69,0.20)';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);ctx.beginPath();
+      pts.filter(([x])=>x>=cursorX&&x<=seg[3]).forEach(([x,y],i)=>i===0?ctx.moveTo(x,y):ctx.lineTo(x,y));
+      ctx.stroke();ctx.setLineDash([]);ctx.restore();
+
+      // Equivalent point in Y-1
+      const y1X=seg[1]+(seg[2]-seg[1])*curT;
+      const y1Y=dataY((y1X-cL)/cW);
+
+      // Connector
+      ctx.save();ctx.strokeStyle='rgba(212,43,69,0.30)';ctx.lineWidth=1;ctx.setLineDash([5,4]);
+      ctx.beginPath();ctx.moveTo(cursorX,cursorY);ctx.lineTo(y1X,y1Y);ctx.stroke();
+      ctx.setLineDash([]);ctx.restore();
+
+      // Y-1 marker
+      ctx.save();
+      ctx.strokeStyle='rgba(212,43,69,0.25)';ctx.lineWidth=6;
+      ctx.beginPath();ctx.arc(y1X,y1Y,7,0,Math.PI*2);ctx.stroke();
+      ctx.fillStyle='rgba(212,43,69,0.65)';ctx.beginPath();ctx.arc(y1X,y1Y,3.5,0,Math.PI*2);ctx.fill();
+      ctx.restore();
+
+      // Cursor vertical
+      ctx.save();ctx.strokeStyle='rgba(212,43,69,0.40)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+      ctx.beginPath();ctx.moveTo(cursorX,chartT);ctx.lineTo(cursorX,axisY+6);ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='#D42B45';
+      ctx.beginPath();ctx.arc(cursorX,axisY,4,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(cursorX,cursorY,4,0,Math.PI*2);ctx.fill();
+      // snapshot label
+      ctx.font='500 10px Inter,sans-serif';ctx.fillStyle='rgba(212,43,69,0.55)';ctx.textAlign='center';
+      ctx.fillText('snapshot',cursorX,chartT-6);
+      ctx.restore();
+
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+  // ════════════════════════════════════════
+  // CANVAS 3 — VVT Datamotor (bundled per-client flow)
+  // ════════════════════════════════════════
+  (function(){
+    const canvas=document.getElementById('canvas-3');
+    if(!canvas)return;
+    const {W,H}=sizeCanvas(canvas,0.94);
+    const ctx=canvas.getContext('2d');
+
+    const mx=W*0.50, my=H*0.50;
+    const srcX=W*0.14, bundleX=W*0.34, cliX=W*0.82;
+    const srcTypes=['financieel','personeel','productie'];
+    const gap=H*0.082;
+
+    // 3 client groups: sources fan in to a bundle point, then bundle → motor → client
+    const clientGroups=[
+      {label:'klant a', cy:H*0.22},
+      {label:'klant b', cy:H*0.50},
+      {label:'klant c', cy:H*0.78},
+    ].map(g=>({
+      ...g,
+      cx: cliX,
+      bx: bundleX, by: g.cy,  // bundle point per group
+      sources: srcTypes.map((lbl,i)=>({label:lbl, x:srcX, y:g.cy+(i-1)*gap})),
+    }));
+
+    // Pulses: source → bundle (3 per group)
+    const srcPulses=clientGroups.flatMap((g,gi)=>
+      g.sources.map((s,si)=>({sx:s.x,sy:s.y,ex:g.bx,ey:g.by,t:((gi*3+si)*0.13)%1,spd:0.14+si*0.02}))
+    );
+    // Pulses: bundle → motor (1 per group)
+    const bundlePulses=clientGroups.map((g,i)=>({sx:g.bx,sy:g.by,ex:mx,ey:my,t:(i*0.33)%1,spd:0.10}));
+    // Pulses: motor → client (1 per group)
+    const outPulses=clientGroups.map((g,i)=>({sx:mx,sy:my,ex:g.cx,ey:g.cy,t:((i*0.33)+0.16)%1,spd:0.09}));
+
+    let time=0,last=0;
+    function draw(ts){
+      const dt=Math.min((ts-last)/1000,0.05);last=ts;time+=dt;
+      ctx.clearRect(0,0,W,H);
+      const light=isLight();
+      const lineIn  ='rgba(212,43,69,0.10)';
+      const lineMid ='rgba(212,43,69,0.16)';
+      const lineOut ='rgba(212,43,69,0.18)';
+      const nodeCol ='rgba(212,43,69,0.72)';
+      const labelCol=light?'rgba(0,0,0,0.45)':'rgba(154,154,154,0.72)';
+
+      // Edges: source → bundle
+      clientGroups.forEach(g=>g.sources.forEach(s=>{
+        ctx.save();ctx.strokeStyle=lineIn;ctx.lineWidth=1;ctx.setLineDash([3,4]);
+        ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(g.bx,g.by);ctx.stroke();
+        ctx.setLineDash([]);ctx.restore();
+      }));
+
+      // Edges: bundle → motor
+      clientGroups.forEach(g=>{
+        ctx.save();ctx.strokeStyle=lineMid;ctx.lineWidth=1.5;ctx.setLineDash([3,4]);
+        ctx.beginPath();ctx.moveTo(g.bx,g.by);ctx.lineTo(mx,my);ctx.stroke();
+        ctx.setLineDash([]);ctx.restore();
+      });
+
+      // Edges: motor → client
+      clientGroups.forEach(g=>{
+        ctx.save();ctx.strokeStyle=lineOut;ctx.lineWidth=1.5;ctx.setLineDash([3,4]);
+        ctx.beginPath();ctx.moveTo(mx,my);ctx.lineTo(g.cx,g.cy);ctx.stroke();
+        ctx.setLineDash([]);ctx.restore();
+      });
+
+      // Pulses: source → bundle
+      srcPulses.forEach(p=>{
+        p.t=(p.t+dt*p.spd)%1;
+        const px=p.sx+(p.ex-p.sx)*p.t, py=p.sy+(p.ey-p.sy)*p.t;
+        const alpha=0.70*(1-Math.abs(p.t-0.5)*2);
+        ctx.save();ctx.fillStyle=`rgba(212,43,69,${alpha})`;
+        ctx.beginPath();ctx.arc(px,py,1.8,0,Math.PI*2);ctx.fill();ctx.restore();
+      });
+
+      // Pulses: bundle → motor
+      bundlePulses.forEach(p=>{
+        p.t=(p.t+dt*p.spd)%1;
+        const px=p.sx+(p.ex-p.sx)*p.t, py=p.sy+(p.ey-p.sy)*p.t;
+        const alpha=0.80*(1-Math.abs(p.t-0.5)*2);
+        ctx.save();ctx.fillStyle=`rgba(212,43,69,${alpha})`;
+        ctx.beginPath();ctx.arc(px,py,2.5,0,Math.PI*2);ctx.fill();ctx.restore();
+      });
+
+      // Pulses: motor → client
+      outPulses.forEach(p=>{
+        p.t=(p.t+dt*p.spd)%1;
+        const px=p.sx+(p.ex-p.sx)*p.t, py=p.sy+(p.ey-p.sy)*p.t;
+        const alpha=0.80*(1-Math.abs(p.t-0.5)*2);
+        ctx.save();ctx.fillStyle=`rgba(212,43,69,${alpha})`;
+        ctx.beginPath();ctx.arc(px,py,2.5,0,Math.PI*2);ctx.fill();ctx.restore();
+      });
+
+      // Source nodes + labels
+      clientGroups.forEach(g=>g.sources.forEach(s=>{
+        ctx.save();
+        ctx.fillStyle=nodeCol;ctx.beginPath();ctx.arc(s.x,s.y,4,0,Math.PI*2);ctx.fill();
+        ctx.font='400 11px Inter,sans-serif';ctx.textAlign='right';
+        ctx.fillStyle=labelCol;ctx.fillText(s.label,s.x-9,s.y+4);ctx.restore();
+      }));
+
+      // Bundle nodes (small, unlabeled — just a converge point)
+      clientGroups.forEach(g=>{
+        ctx.save();
+        ctx.strokeStyle=`rgba(212,43,69,0.40)`;ctx.lineWidth=1.5;
+        ctx.beginPath();ctx.arc(g.bx,g.by,5,0,Math.PI*2);ctx.stroke();
+        ctx.fillStyle=`rgba(212,43,69,0.55)`;ctx.beginPath();ctx.arc(g.bx,g.by,2.5,0,Math.PI*2);ctx.fill();
+        ctx.restore();
+      });
+
+      // Client nodes + labels
+      clientGroups.forEach(g=>{
+        ctx.save();
+        ctx.fillStyle=nodeCol;ctx.beginPath();ctx.arc(g.cx,g.cy,4,0,Math.PI*2);ctx.fill();
+        ctx.font='400 11px Inter,sans-serif';ctx.textAlign='left';
+        ctx.fillStyle=labelCol;ctx.fillText(g.label,g.cx+9,g.cy+4);ctx.restore();
+      });
+
+      // Motor hub
+      const pulse=0.88+Math.sin(time*0.8)*0.12;
+      const g=ctx.createRadialGradient(mx,my,0,mx,my,40);
+      g.addColorStop(0,`rgba(212,43,69,${0.28*pulse})`);
+      g.addColorStop(1,'rgba(212,43,69,0)');
+      ctx.save();ctx.fillStyle=g;ctx.beginPath();ctx.arc(mx,my,40,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle=`rgba(212,43,69,${0.55*pulse})`;ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.arc(mx,my,14,0,Math.PI*2);ctx.stroke();
+      ctx.fillStyle=`rgba(212,43,69,${0.85*pulse})`;
+      ctx.beginPath();ctx.arc(mx,my,5,0,Math.PI*2);ctx.fill();
+      ctx.font='600 10px Inter,sans-serif';ctx.textAlign='center';
+      ctx.fillStyle=light?'rgba(0,0,0,0.55)':'rgba(240,238,233,0.65)';
+      ctx.fillText('datamotor',mx,my+28);ctx.restore();
+
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+  // ════════════════════════════════════════
+  // CANVAS 4 — Polaris Starfield + Network
+  // ════════════════════════════════════════
+  (function(){
+    const canvas=document.getElementById('canvas-4');
+    if(!canvas)return;
+    const {W,H}=sizeCanvas(canvas, 0.96);
+    const ctx=canvas.getContext('2d');
+
+    const stars=Array.from({length:120},()=>({
+      x:Math.random()*W,y:Math.random()*H,r:0.5+Math.random()*2.0,
+      base:0.06+Math.random()*0.32,amp:0.05+Math.random()*0.18,
+      phase:Math.random()*Math.PI*2,speed:0.2+Math.random()*0.8,
+    }));
+
+    const polX=W*0.50,polY=H*0.18;
+    const nodes=[
+      {label:'proxmox',    x:W*0.74,y:H*0.36},
+      {label:'claude',     x:W*0.66,y:H*0.64},
+      {label:'home asst.', x:W*0.30,y:H*0.65},
+      {label:'media',      x:W*0.22,y:H*0.38},
+      {label:'containers', x:W*0.50,y:H*0.54},
+    ];
+    const edges=[{a:-1,b:0},{a:-1,b:1},{a:-1,b:2},{a:-1,b:3},{a:-1,b:4},{a:0,b:4},{a:4,b:1},{a:4,b:2},{a:3,b:4}];
+    const pulses=edges.map((e,i)=>({...e,t:(i*0.21)%1,spd:0.16+Math.random()*0.10}));
+    function np(i){return i===-1?[polX,polY]:[nodes[i].x,nodes[i].y];}
+
+    let time=0,last=0;
+    function draw(ts){
+      const dt=Math.min((ts-last)/1000,0.05);last=ts;time+=dt;
+      ctx.clearRect(0,0,W,H);
+      const light=isLight();
+
+      stars.forEach(s=>{
+        const op=Math.max(0,s.base+Math.sin(s.phase+time*s.speed)*s.amp);
+        ctx.save();ctx.fillStyle=`rgba(212,43,69,${op})`;
+        ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();ctx.restore();
+      });
+
+      edges.forEach(e=>{
+        const [x1,y1]=np(e.a),[x2,y2]=np(e.b);
+        ctx.save();ctx.strokeStyle='rgba(212,43,69,0.22)';ctx.lineWidth=1;ctx.setLineDash([5,4]);
+        ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.setLineDash([]);ctx.restore();
+      });
+
+      pulses.forEach(p=>{
+        p.t=(p.t+dt*p.spd)%1;
+        const [x1,y1]=np(p.a),[x2,y2]=np(p.b);
+        const px=x1+(x2-x1)*p.t,py=y1+(y2-y1)*p.t,alpha=0.80*(1-Math.abs(p.t-0.5)*2);
+        ctx.save();ctx.fillStyle=`rgba(212,43,69,${alpha})`;
+        ctx.beginPath();ctx.arc(px,py,3,0,Math.PI*2);ctx.fill();ctx.restore();
+      });
+
+      nodes.forEach(n=>{
+        const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,22);
+        g.addColorStop(0,'rgba(212,43,69,0.24)');g.addColorStop(1,'rgba(212,43,69,0)');
+        ctx.save();ctx.fillStyle=g;ctx.beginPath();ctx.arc(n.x,n.y,22,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle='rgba(212,43,69,0.88)';ctx.beginPath();ctx.arc(n.x,n.y,4.5,0,Math.PI*2);ctx.fill();
+        ctx.font='400 11px Inter,sans-serif';ctx.textAlign='center';
+        ctx.fillStyle=light?'rgba(0,0,0,0.50)':'rgba(154,154,154,0.80)';
+        ctx.fillText(n.label,n.x,n.y+22);ctx.restore();
+      });
+
+      const pulse=0.88+Math.sin(time*0.9)*0.12;
+      const g=ctx.createRadialGradient(polX,polY,0,polX,polY,48);
+      g.addColorStop(0,`rgba(212,43,69,${0.45*pulse})`);
+      g.addColorStop(0.45,`rgba(212,43,69,${0.15*pulse})`);
+      g.addColorStop(1,'rgba(212,43,69,0)');
+      ctx.save();ctx.fillStyle=g;ctx.beginPath();ctx.arc(polX,polY,48,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle=`rgba(212,43,69,${pulse})`;ctx.beginPath();
+      for(let i=0;i<8;i++){const a=i*Math.PI/4-Math.PI/2,r=i%2===0?10:4;
+        i===0?ctx.moveTo(polX+Math.cos(a)*r,polY+Math.sin(a)*r):ctx.lineTo(polX+Math.cos(a)*r,polY+Math.sin(a)*r);}
+      ctx.closePath();ctx.fill();
+      ctx.font='600 12px Inter,sans-serif';ctx.textAlign='center';
+      ctx.fillStyle=light?'rgba(0,0,0,0.60)':'rgba(240,238,233,0.75)';
+      ctx.fillText('polaris',polX,polY+34);
+      ctx.restore();
+
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+  </script>
+</body>
+</html>

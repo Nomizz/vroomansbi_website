@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vroomans BI , Analytics Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>(function(){var t=localStorage.getItem('vbi-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('vbi-lang')||'nl';document.documentElement.setAttribute('data-lang',l);})();</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    section { min-height: 100dvh; }
+
+    :root {
+      --black:        #080808;
+      --surface:      #111111;
+      --white:        #F0EEE9;
+      --grey:         #9A9A9A;
+      --dim:          #3A3A3A;
+      --accent:       #D42B45;
+      --accent-hover: #E8344A;
+      --accent-dark:  #A01E32;
+      --line:         #1E1E1E;
+      --nav-bg:       rgba(8,8,8,0.96);
+    }
+
+    [data-theme="light"] {
+      --black:        #F5F3EE;
+      --surface:      #ECEAE5;
+      --white:        #0D0D0D;
+      --grey:         #555555;
+      --dim:          #BEBAB4;
+      --line:         #DEDAD4;
+      --nav-bg:       rgba(245,243,238,0.96);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--grey);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      font-weight: 300;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+
+    .logo-text { color: var(--white); }
+    .logo-bi { color: var(--accent); }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--dim);
+      border-radius: 3px;
+      color: var(--grey);
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .theme-toggle:hover { color: var(--white); border-color: var(--grey); }
+
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="light"] .theme-toggle .icon-sun  { display: none; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+    /* ── TAAL ── */
+    html .en { display: none; }
+    html[data-lang="en"] .nl { display: none; }
+    html[data-lang="en"] .en { display: revert; }
+    html[data-lang="en"] a.en { display: flex; }
+    html[data-lang="en"] .contact-link.en { display: flex; }
+
+    .lang-toggle {
+      background: none;
+      border: 1px solid var(--dim);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      padding: 0 9px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--grey);
+      transition: border-color 0.15s;
+    }
+
+    .lang-toggle:hover { border-color: var(--grey); }
+    .lang-nl, .lang-en { transition: color 0.15s; }
+    .lang-sep { opacity: 0.35; }
+    [data-lang="nl"] .lang-nl { color: var(--white); }
+    [data-lang="en"] .lang-en { color: var(--white); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--grey);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--white); }
+
+    .nav-cta {
+      color: var(--white) !important;
+      border: 1px solid var(--dim);
+      padding: 8px 20px;
+      border-radius: 3px;
+      font-weight: 600 !important;
+      transition: border-color 0.15s, color 0.15s !important;
+    }
+
+    .nav-cta:hover {
+      border-color: var(--accent) !important;
+      color: var(--accent) !important;
+    }
+
+    /* ── HERO BRAND ── */
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 56px;
+    }
+
+    .hero-brand-text {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+
+    .hero-brand-bi { color: var(--accent); }
+
+    /* ── HERO NAME ── */
+    .hero-name {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--grey);
+      margin-bottom: 16px;
+    }
+
+    /* ── SECTION TAG ── */
+    .sec-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+
+    .sec-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .sec-tag-name {
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--grey);
+      text-transform: none;
+      padding-left: 10px;
+      border-left: 1px solid var(--dim);
+    }
+
+    /* ── BLOCK HEAD ── */
+    .block-head {
+      display: flex;
+      align-items: baseline;
+      gap: 40px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 28px;
+      margin-bottom: 52px;
+    }
+
+    .bh-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      min-width: 120px;
+      flex-shrink: 0;
+    }
+
+    .bh-headline {
+      font-size: clamp(32px, 4.5vw, 54px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      color: var(--white);
+    }
+
+    .bh-headline .ac { color: var(--accent); }
+
+    /* ═══════════════════════════════════════
+       1. HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-left {
+      padding: 100px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--line);
+    }
+
+    .hero-headline {
+      font-size: clamp(48px, 6vw, 90px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 36px;
+    }
+
+    .hero-headline .ac { color: var(--accent); }
+
+    .hero-body {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--grey);
+      max-width: 460px;
+      margin-bottom: 48px;
+    }
+
+    .hero-body strong { font-weight: 500; color: var(--white); }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 3px;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .hero-note {
+      font-size: 12px;
+      color: var(--dim);
+    }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hero-visual canvas { pointer-events: all; }
+
+    /* ── FLOATING CONTROLS ── */
+    .floating-controls {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── HERO LOGO MARK ── */
+    .hero-logo-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0.8;
+      transition: opacity 0.2s, transform 0.2s;
+      margin-top: 12px;
+      text-decoration: none;
+    }
+    .hero-logo-mark:hover { opacity: 1; transform: translateY(-2px); }
+
+    .hlm-name {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1;
+    }
+    .hlm-bi { color: var(--accent); }
+
+    /* ── HERO CANVAS ── */
+    #hero-grid {
+      width: min(420px, 100%);
+      height: auto;
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════
+       2. DIENSTEN , WAT IK DOE
+    ═══════════════════════════════════════ */
+    #diensten {
+      padding: 90px 60px;
+      border-bottom: 1px solid var(--line);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .diensten-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .dienst-card {
+      padding: 52px 40px;
+      background: var(--black);
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      min-height: 400px;
+      transition: background 0.15s;
+    }
+
+    .dienst-card:last-child { border-right: none; }
+    .dienst-card:hover { background: var(--surface); }
+
+    .dc-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--dim);
+      letter-spacing: 0.04em;
+      margin-bottom: 32px;
+    }
+
+    .dc-name {
+      font-size: clamp(18px, 1.8vw, 24px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .dc-body {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--grey);
+      flex: 1;
+      margin-bottom: 28px;
+    }
+
+    .dc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--grey);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 4px 11px;
+    }
+
+    /* ═══════════════════════════════════════
+       3. TOOLS WAARMEE IK WERK
+    ═══════════════════════════════════════ */
+    #tools {
+      padding: 90px 60px;
+      border-bottom: 1px solid var(--line);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .stack-item {
+      padding: 44px 36px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--black);
+      transition: background 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .stack-item:hover { background: var(--surface); }
+    .stack-item:nth-child(4n) { border-right: none; }
+    .stack-item:nth-child(n+5) { border-bottom: none; }
+
+    .stack-icon {
+      color: var(--white);
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .stack-name {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    .stack-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--grey);
+    }
+
+    /* ═══════════════════════════════════════
+       4. AI STUK
+    ═══════════════════════════════════════ */
+    #ai {
+      padding: 90px 60px;
+      border-bottom: 1px solid var(--line);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .ai-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-bottom: 52px;
+    }
+
+    .col-body {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--grey);
+      margin-bottom: 20px;
+    }
+
+    .col-body strong { font-weight: 500; color: var(--white); }
+    .col-body:last-child { margin-bottom: 0; }
+
+    .ai-playground-bar {
+      border: 1px solid var(--line);
+      border-radius: 3px 3px 0 0;
+      padding: 10px 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      background: var(--surface);
+      margin-top: 48px;
+    }
+
+    .ai-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--line);
+      border-top: none;
+      border-radius: 0 0 3px 3px;
+      overflow: hidden;
+    }
+
+    .ai-tool-card {
+      padding: 40px 32px;
+      border-right: 1px solid var(--line);
+      background: var(--black);
+      transition: background 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .ai-tool-card:last-child { border-right: none; }
+    .ai-tool-card:hover { background: var(--surface); }
+
+    .atc-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .atc-private {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid var(--dim);
+      border-radius: 2px;
+      padding: 1px 6px;
+    }
+
+    .atc-icons {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .atc-icon-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--white);
+    }
+
+    .atc-icon-item svg {
+      flex-shrink: 0;
+      color: var(--grey);
+    }
+
+    .atc-icon-item span {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--grey);
+      letter-spacing: 0.02em;
+    }
+
+    .atc-body {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--grey);
+      margin: 0;
+      margin-top: auto;
+    }
+
+    /* ═══════════════════════════════════════
+       5. BRONSYSTEMEN
+    ═══════════════════════════════════════ */
+    #sectoren .block-head { margin-bottom: 28px; }
+
+    #sectoren {
+      padding: 52px 60px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .sys-intro {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--grey);
+      max-width: 580px;
+      margin-bottom: 32px;
+    }
+
+    .sys-block {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0 60px;
+      align-items: start;
+    }
+
+    .sys-block-head {
+      padding-top: 4px;
+    }
+
+    .sys-block-label {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .sys-block-systems {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--grey);
+      letter-spacing: 0.03em;
+      line-height: 1.6;
+    }
+
+    .sys-block-body {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--grey);
+      margin-bottom: 24px;
+      grid-column: 2;
+    }
+
+    .sys-kpis {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      grid-column: 2;
+    }
+
+    .kpi {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      background: rgba(212,43,69,0.08);
+      border: 1px solid rgba(212,43,69,0.2);
+      border-radius: 2px;
+      padding: 4px 10px;
+    }
+
+    /* ═══════════════════════════════════════
+       6. CONTACT
+    ═══════════════════════════════════════ */
+    #contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+      min-height: 80vh;
+    }
+
+    .contact-left {
+      padding: 90px 60px;
+      border-right: 1px solid var(--line);
+    }
+
+    .contact-headline {
+      font-size: clamp(44px, 6vw, 88px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.96;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    .contact-headline .ac { color: var(--accent); }
+
+    .contact-body {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--grey);
+      margin-bottom: 40px;
+      max-width: 400px;
+    }
+
+    .contact-body strong { font-weight: 500; color: var(--white); }
+
+    .contact-cta {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 3px;
+      margin-bottom: 20px;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .contact-cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .contact-note {
+      display: block;
+      font-size: 12px;
+      color: var(--dim);
+    }
+
+    .contact-right {
+      padding: 90px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .how-i-work {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .hiw-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 8px;
+    }
+
+    .hiw-item {
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+    }
+
+    .hiw-item-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .hiw-item-body {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--grey);
+    }
+
+    .jellow-logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #FDB913;
+      display: inline-flex;
+      align-items: center;
+      gap: 1px;
+    }
+
+    .jellow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4AA3DF;
+      display: inline-block;
+      margin-bottom: 8px;
+      margin-right: 1px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--grey);
+      letter-spacing: 0.03em;
+      transition: color 0.15s;
+    }
+
+    .contact-link:first-child { border-top: 1px solid var(--line); }
+    .contact-link:hover { color: var(--white); }
+    .contact-link-arrow { color: var(--dim); margin-left: auto; }
+
+    .linkedin-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .linkedin-card:hover { opacity: 0.75; }
+
+    .linkedin-photo {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+    }
+    .linkedin-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 15%;
+    }
+
+    .linkedin-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex: 1;
+    }
+    .linkedin-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .linkedin-arrow {
+      color: var(--dim);
+      font-size: 14px;
+      margin-left: auto;
+    }
+
+    /* ═══════════════════════════════════════
+       PROJECTEN — WAAR IK TROTS OP BEN
+    ═══════════════════════════════════════ */
+    #projecten {
+      padding: 90px 60px;
+      border-bottom: 1px solid var(--line);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .projecten-intro {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--grey);
+      max-width: 600px;
+      margin-bottom: 52px;
+    }
+
+    .project-teasers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .pt-card {
+      padding: 52px 40px;
+      background: var(--black);
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      transition: background 0.15s;
+      min-height: 320px;
+    }
+
+    .pt-card:last-child { border-right: none; }
+    .pt-card:hover { background: var(--surface); }
+
+    .pt-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--dim);
+      letter-spacing: 0.04em;
+      margin-bottom: 32px;
+    }
+
+    .pt-title {
+      font-size: clamp(18px, 1.8vw, 24px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .pt-body {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--grey);
+      flex: 1;
+      margin-bottom: 28px;
+    }
+
+    .pt-link {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      transition: color 0.15s;
+    }
+
+    .pt-card:hover .pt-link { color: var(--accent-hover); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 24px 60px;
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SCROLL DOTS ── */
+    .scroll-dots {
+      position: fixed; left: 22px; top: 50%; transform: translateY(-50%);
+      z-index: 100; display: flex; flex-direction: column; gap: 10px;
+    }
+    .scroll-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--dim);
+      cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; padding: 0;
+    }
+    .scroll-dot.active { background: var(--accent); transform: scale(1.5); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 80px 24px 60px; border-right: none; }
+      .hero-right { display: none; }
+
+      #diensten, #tools, #ai, #sectoren { padding: 72px 24px; }
+      .block-head { flex-direction: column; gap: 12px; }
+
+      .diensten-grid { grid-template-columns: 1fr; }
+      .dienst-card { border-right: none; border-bottom: 1px solid var(--line); min-height: auto; }
+      .dienst-card:last-child { border-bottom: none; }
+
+      .stack-grid { grid-template-columns: 1fr 1fr; }
+      .stack-item:nth-child(4n) { border-right: 1px solid var(--line); }
+      .stack-item:nth-child(2n) { border-right: none; }
+      .stack-item:nth-child(n+5) { border-bottom: 1px solid var(--line); }
+      .stack-item:nth-child(7),
+      .stack-item:nth-child(8) { border-bottom: none; }
+
+      .ai-intro { grid-template-columns: 1fr; gap: 0; }
+      .ai-tools-grid { grid-template-columns: 1fr; }
+      .ai-tool-card { border-right: none; border-bottom: 1px solid var(--line); }
+      .ai-tool-card:last-child { border-bottom: none; }
+
+      .sys-category { grid-template-columns: 1fr; }
+      .sys-cat-label { border-right: none; border-bottom: 1px solid var(--line); padding-right: 0; }
+      .sys-row { padding-left: 0; padding-top: 24px; flex-wrap: wrap; }
+      .sys-tile { padding: 16px 24px 16px 0; }
+
+      #projecten { padding: 72px 24px; }
+      .project-teasers { grid-template-columns: 1fr; }
+      .pt-card { border-right: none; border-bottom: 1px solid var(--line); min-height: auto; }
+      .pt-card:last-child { border-bottom: none; }
+
+      #contact { grid-template-columns: 1fr; }
+      .contact-left { padding: 72px 24px; border-right: none; border-bottom: 1px solid var(--line); }
+      .contact-right { padding: 48px 24px; }
+
+      footer { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- FLOATING CONTROLS -->
+  <div class="floating-controls">
+    <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+      <span class="lang-nl">NL</span><span class="lang-sep">·</span><span class="lang-en">EN</span>
+    </button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+      <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+
+  <!-- 1. HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="sec-tag"><span class="nl">Freelance BI Specialist</span><span class="en">Freelance BI Specialist</span><span class="sec-tag-name">Simon Vroomans</span></div>
+      <h1 class="hero-headline nl">Ik bouw je data <span class="ac">fundament.</span></h1>
+      <h1 class="hero-headline en">I build your data <span class="ac">foundation.</span></h1>
+      <p class="hero-body nl">Ik help je bij het stellen van de juiste datadoelen en bouw vervolgens het platform dat ze waarmaakt. Van KPI definitie tot rapport en van ruwe data tot datawarehouse. Als analytics engineer en adviseur sla ik de brug tussen ruwe data en strategisch inzicht.</p>
+      <p class="hero-body en">I help you define the right data goals and then build the platform to achieve them. From KPI definition to report, and from raw data to data warehouse. As an analytics engineer and advisor, I bridge the gap between raw data and strategic insight.</p>
+      <div class="hero-logo-mark">
+        <svg width="58" height="58" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.9"/>
+          <rect x="20" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="0" y="20" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="20" y="20" width="16" height="16" rx="3" fill="#A01E32" opacity="0.9"/>
+          <line x1="16" y1="8" x2="20" y2="8" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="8" y1="16" x2="8" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="28" y1="16" x2="28" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="16" y1="28" x2="20" y2="28" stroke="#A01E32" stroke-width="1.5"/>
+        </svg>
+        <div class="hlm-name">Vroomans<span class="hlm-bi">BI</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <canvas id="hero-grid" width="420" height="420"></canvas>
+        <svg id="star-svg-delete" style="display:none">
+
+          <!-- Background grid: 36 cells, 48×48 each, 12px gap, offset 36px -->
+          <!-- Row 0 (y=36) -->
+          <rect x="36"  y="36"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="96"  y="36"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="156" y="36"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="216" y="36"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="276" y="36"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="336" y="36"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <!-- Row 1 (y=96) -->
+          <rect x="36"  y="96"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="96"  y="96"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="156" y="96"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="216" y="96"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="276" y="96"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="336" y="96"  width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <!-- Row 2 (y=156) -->
+          <rect x="36"  y="156" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="96"  y="156" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="156" y="156" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="216" y="156" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="276" y="156" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="336" y="156" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <!-- Row 3 (y=216) -->
+          <rect x="36"  y="216" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="96"  y="216" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="156" y="216" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="216" y="216" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="276" y="216" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="336" y="216" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <!-- Row 4 (y=276) -->
+          <rect x="36"  y="276" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="96"  y="276" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="156" y="276" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="216" y="276" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="276" y="276" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="336" y="276" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <!-- Row 5 (y=336) -->
+          <rect x="36"  y="336" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="96"  y="336" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="156" y="336" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="216" y="336" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="276" y="336" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+          <rect x="336" y="336" width="48" height="48" rx="3" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+
+          <!-- Connecting lines: FACT center (210,210) → each DIM center. Initially opacity 0 -->
+          <!-- line-0 → DATE  (col2,row0) center=(180,60)  -->
+          <line id="star-line-0" x1="210" y1="210" x2="180" y2="60"  stroke="#D42B45" stroke-width="1" stroke-dasharray="4 3" opacity="0" style="transition: opacity 0.5s ease"/>
+          <!-- line-1 → KLANT (col5,row1) center=(360,120) -->
+          <line id="star-line-1" x1="210" y1="210" x2="360" y2="120" stroke="#D42B45" stroke-width="1" stroke-dasharray="4 3" opacity="0" style="transition: opacity 0.5s ease"/>
+          <!-- line-2 → PRODUCT (col4,row4) center=(300,300) -->
+          <line id="star-line-2" x1="210" y1="210" x2="300" y2="300" stroke="#D42B45" stroke-width="1" stroke-dasharray="4 3" opacity="0" style="transition: opacity 0.5s ease"/>
+          <!-- line-3 → MDW   (col1,row5) center=(120,360) -->
+          <line id="star-line-3" x1="210" y1="210" x2="120" y2="360" stroke="#D42B45" stroke-width="1" stroke-dasharray="4 3" opacity="0" style="transition: opacity 0.5s ease"/>
+          <!-- line-4 → LOC   (col0,row2) center=(60,180)  -->
+          <line id="star-line-4" x1="210" y1="210" x2="60"  y2="180" stroke="#D42B45" stroke-width="1" stroke-dasharray="4 3" opacity="0" style="transition: opacity 0.5s ease"/>
+
+          <!-- FACT TABLE (center, cols 2-3, rows 2-3). Always visible. -->
+          <rect x="156" y="156" width="108" height="108" rx="3" fill="#D42B45"/>
+          <text x="210" y="198" text-anchor="middle" fill="rgba(240,238,233,0.5)" font-size="7" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.14em">FACT TABLE</text>
+          <text x="210" y="224" text-anchor="middle" fill="#F0EEE9" font-size="17" font-family="Inter,sans-serif" font-weight="800" letter-spacing="-0.02em">Sales</text>
+
+          <!-- DIM DATE (col=2, row=0) center=(180,60). Initially opacity 0. -->
+          <g id="star-dim-0" opacity="0" style="transition: opacity 0.5s ease">
+            <rect x="156" y="36" width="48" height="48" rx="3" fill="var(--surface)" stroke="#D42B45" stroke-width="1.5"/>
+            <text x="180" y="53" text-anchor="middle" fill="#D42B45" font-size="6" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.1em">DIM</text>
+            <text x="180" y="68" text-anchor="middle" fill="var(--white)" font-size="8" font-family="Inter,sans-serif" font-weight="700" letter-spacing="0.04em">DATE</text>
+          </g>
+
+          <!-- DIM KLANT (col=5, row=1) center=(360,120). Initially opacity 0. -->
+          <g id="star-dim-1" opacity="0" style="transition: opacity 0.5s ease">
+            <rect x="336" y="96" width="48" height="48" rx="3" fill="var(--surface)" stroke="#D42B45" stroke-width="1.5"/>
+            <text x="360" y="113" text-anchor="middle" fill="#D42B45" font-size="6" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.1em">DIM</text>
+            <text x="360" y="128" text-anchor="middle" fill="var(--white)" font-size="8" font-family="Inter,sans-serif" font-weight="700" letter-spacing="0.04em">KLANT</text>
+          </g>
+
+          <!-- DIM PRODUCT (col=4, row=4) center=(300,300). Initially opacity 0. -->
+          <g id="star-dim-2" opacity="0" style="transition: opacity 0.5s ease">
+            <rect x="276" y="276" width="48" height="48" rx="3" fill="var(--surface)" stroke="#D42B45" stroke-width="1.5"/>
+            <text x="300" y="293" text-anchor="middle" fill="#D42B45" font-size="6" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.1em">DIM</text>
+            <text x="300" y="308" text-anchor="middle" fill="var(--white)" font-size="7" font-family="Inter,sans-serif" font-weight="700" letter-spacing="0.04em">PRODUCT</text>
+          </g>
+
+          <!-- DIM MDW (col=1, row=5) center=(120,360). Initially opacity 0. -->
+          <g id="star-dim-3" opacity="0" style="transition: opacity 0.5s ease">
+            <rect x="96" y="336" width="48" height="48" rx="3" fill="var(--surface)" stroke="#D42B45" stroke-width="1.5"/>
+            <text x="120" y="353" text-anchor="middle" fill="#D42B45" font-size="6" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.1em">DIM</text>
+            <text x="120" y="368" text-anchor="middle" fill="var(--white)" font-size="8" font-family="Inter,sans-serif" font-weight="700" letter-spacing="0.04em">MDW</text>
+          </g>
+
+          <!-- DIM LOC (col=0, row=2) center=(60,180). Initially opacity 0. -->
+          <g id="star-dim-4" opacity="0" style="transition: opacity 0.5s ease">
+            <rect x="36" y="156" width="48" height="48" rx="3" fill="var(--surface)" stroke="#D42B45" stroke-width="1.5"/>
+            <text x="60" y="173" text-anchor="middle" fill="#D42B45" font-size="6" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.1em">DIM</text>
+            <text x="60" y="188" text-anchor="middle" fill="var(--white)" font-size="8" font-family="Inter,sans-serif" font-weight="700" letter-spacing="0.04em">LOC</text>
+          </g>
+
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. WAT IK DOE -->
+  <section id="diensten">
+    <div class="block-head">
+      <div class="bh-label nl">Diensten</div>
+      <div class="bh-label en">Services</div>
+      <h2 class="bh-headline nl">Wat ik <span class="ac">doe.</span></h2>
+      <h2 class="bh-headline en">What I <span class="ac">do.</span></h2>
+    </div>
+    <div class="diensten-grid">
+      <div class="dienst-card">
+        <div class="dc-num">01</div>
+        <div class="dc-name nl">Data fundament &amp; advies</div>
+        <div class="dc-name en">Data foundation &amp; advisory</div>
+        <p class="dc-body nl">Ik help je bepalen wat je nodig hebt en bouw het daarna zelf. Van bronextractie en warehouse-architectuur tot transformatie en datamart. Als analytics engineer overzIe ik het volledige traject, van ruwe data naar een betrouwbaar fundament waarop je kunt bouwen.</p>
+        <p class="dc-body en">I help you determine what you need and then build it myself. From source extraction and warehouse architecture to transformation and datamart. As an analytics engineer I oversee the full journey , from raw data to a reliable foundation you can build on.</p>
+        <div class="dc-tags">
+          <span class="tag">Databricks</span>
+          <span class="tag">Microsoft Fabric</span>
+          <span class="tag">dbt</span>
+          <span class="tag">SSIS</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+      <div class="dienst-card">
+        <div class="dc-num">02</div>
+        <div class="dc-name nl">Datamodellen &amp; rapportage</div>
+        <div class="dc-name en">Data models &amp; reporting</div>
+        <p class="dc-body nl">Per bedrijfsonderdeel bouw ik één centraal datamodel als single source of truth. Dat betekent: één definitie van omzet, één definitie van marge, overal consistent. Geen losse rapporten met elk hun eigen berekening, maar een fundament waaruit tientallen dashboards vertrekken zonder dat cijfers van elkaar afwijken.</p>
+        <p class="dc-body en">For each business unit I build one central data model as a single source of truth. One definition of revenue, one definition of margin , consistent everywhere. No scattered reports with conflicting calculations, but a foundation from which dozens of dashboards derive without numbers ever diverging.</p>
+        <div class="dc-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">DAX</span>
+          <span class="tag">UDFs</span>
+          <span class="tag">Metric View</span>
+          <span class="tag">TMDL</span>
+        </div>
+      </div>
+      <div class="dienst-card">
+        <div class="dc-num">03</div>
+        <div class="dc-name nl">AI, code &amp; automatisering</div>
+        <div class="dc-name en">AI, code &amp; automation</div>
+        <p class="dc-body nl">Veel organisaties verliezen dagelijks tijd aan handmatige dataprocessen, kopieerwerk en Excel-rapportages die geautomatiseerd kunnen zijn. Ik breng die processen in kaart en automatiseer ze, zodat jouw team zich kan bezighouden met analyse in plaats van data verzamelen. AI zet ik in als co-pilot bij coderen, modelleren en rapportage, wat resulteert in snellere oplevering en scherpere inzichten voor jou als klant.</p>
+        <p class="dc-body en">Many organisations lose time every day to manual data processes, copy-paste work and Excel reports that could be automated. I map out those processes and automate them, so your team focuses on analysis instead of collecting data. I use AI as a co-pilot for coding, modelling and reporting, resulting in faster delivery and sharper insights for you as a client.</p>
+        <div class="dc-tags">
+          <span class="tag nl">AI integratie</span><span class="tag en">AI integration</span>
+          <span class="tag nl">Procesautomatisering</span><span class="tag en">Process automation</span>
+          <span class="tag nl">Code &amp; scripting</span><span class="tag en">Code &amp; scripting</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. TOOLS WAARMEE IK WERK -->
+  <section id="tools">
+    <div class="block-head">
+      <div class="bh-label">Tools</div>
+      <h2 class="bh-headline nl">Waarmee ik <span class="ac">werk.</span></h2>
+      <h2 class="bh-headline en">My <span class="ac">toolkit.</span></h2>
+    </div>
+    <div class="stack-grid">
+
+      <div class="stack-item">
+        <svg class="stack-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3"  y="24" width="7" height="12" rx="1" fill="currentColor" opacity="0.4"/>
+          <rect x="13" y="16" width="7" height="20" rx="1" fill="currentColor" opacity="0.65"/>
+          <rect x="23" y="8"  width="7" height="28" rx="1" fill="currentColor"/>
+          <rect x="33" y="20" width="4" height="16" rx="1" fill="currentColor" opacity="0.35"/>
+        </svg>
+        <div class="stack-name">Power BI</div>
+        <div class="stack-desc">Semantic modeling, DAX, Calculation Groups, UDFs, Metric View, TMDL.</div>
+      </div>
+
+      <div class="stack-item">
+        <svg class="stack-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4 L36 13.5 L36 22 L20 31 L4 22 L4 13.5 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M20 10 L31 16.5 L31 21 L20 27 L9 21 L9 16.5 Z" fill="currentColor" opacity="0.2"/>
+          <line x1="4"  y1="22" x2="20" y2="31" stroke="currentColor" stroke-width="1.5" opacity="0.45"/>
+          <line x1="36" y1="22" x2="20" y2="31" stroke="currentColor" stroke-width="1.5" opacity="0.45"/>
+          <line x1="20" y1="31" x2="20" y2="37" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
+        </svg>
+        <div class="stack-name">Databricks</div>
+        <div class="stack-desc nl">Data engineering, Delta Lake, PySpark, notebooks en pipelines.</div>
+        <div class="stack-desc en">Data engineering, Delta Lake, PySpark, notebooks and pipelines.</div>
+      </div>
+
+      <div class="stack-item">
+        <svg class="stack-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 14 Q10 8 16 14 Q22 20 28 14 Q34 8 38 12" stroke="currentColor" stroke-width="2" fill="none"/>
+          <path d="M4 22 Q10 16 16 22 Q22 28 28 22 Q34 16 38 20" stroke="currentColor" stroke-width="2" fill="none"/>
+          <path d="M4 30 Q10 24 16 30 Q22 36 28 30 Q34 24 38 28" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <line x1="16" y1="8"  x2="16" y2="34" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+          <line x1="28" y1="8"  x2="28" y2="34" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+        </svg>
+        <div class="stack-name">Microsoft Fabric</div>
+        <div class="stack-desc nl">End-to-end analytics platform van data-opname tot semantic model in één omgeving.</div>
+        <div class="stack-desc en">End-to-end analytics platform from data ingestion to semantic model in one environment.</div>
+      </div>
+
+      <div class="stack-item">
+        <svg class="stack-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6"  cy="20" r="4" fill="currentColor" opacity="0.5"/>
+          <line x1="10" y1="20" x2="16" y2="20" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+          <rect x="16" y="13" width="14" height="14" rx="2" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="1.5"/>
+          <polyline points="20,20 23,17 26,20 23,23 20,20" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="30" y1="20" x2="36" y2="20" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+          <circle cx="36" cy="20" r="4" fill="currentColor"/>
+        </svg>
+        <div class="stack-name">dbt</div>
+        <div class="stack-desc nl">SQL-first data transformaties met versioning, testen en documentatie.</div>
+        <div class="stack-desc en">SQL-first data transformations with versioning, testing and documentation.</div>
+      </div>
+
+      <div class="stack-item">
+        <svg class="stack-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="20" cy="10" rx="13" ry="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <ellipse cx="20" cy="10" rx="13" ry="5" fill="currentColor" opacity="0.12"/>
+          <line x1="7"  y1="10" x2="7"  y2="28" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="33" y1="10" x2="33" y2="28" stroke="currentColor" stroke-width="1.5"/>
+          <ellipse cx="20" cy="19" rx="13" ry="5" stroke="currentColor" stroke-width="1" fill="none" opacity="0.35"/>
+          <ellipse cx="20" cy="28" rx="13" ry="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+        </svg>
+        <div class="stack-name">SQL</div>
+        <div class="stack-desc nl">T-SQL, Spark SQL, DAX. 15 jaar hands-on ervaring met analytische databases.</div>
+        <div class="stack-desc en">T-SQL, Spark SQL, DAX. 15 years hands-on experience with analytical databases.</div>
+      </div>
+
+      <div class="stack-item">
+        <svg class="stack-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2"  y="15" width="10" height="10" rx="2" fill="currentColor" opacity="0.5"/>
+          <line x1="12" y1="20" x2="16" y2="20" stroke="currentColor" stroke-width="1.5"/>
+          <polyline points="14,17.5 17,20 14,22.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M20 13 L27 20 L20 27 L13 20 Z" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.12"/>
+          <line x1="27" y1="20" x2="31" y2="20" stroke="currentColor" stroke-width="1.5"/>
+          <polyline points="29,17.5 32,20 29,22.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="32" y="15" width="8" height="10" rx="2" fill="currentColor"/>
+        </svg>
+        <div class="stack-name">SSIS</div>
+        <div class="stack-desc nl">SQL Server Integration Services , ETL-pipelines, data-integratie en legacy migraties.</div>
+        <div class="stack-desc en">SQL Server Integration Services , ETL pipelines, data integration and legacy migrations.</div>
+      </div>
+
+      <div class="stack-item">
+        <svg class="stack-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="5"  fill="currentColor"/>
+          <circle cx="20" cy="6"  r="2.5" fill="currentColor" opacity="0.55"/>
+          <circle cx="20" cy="34" r="2.5" fill="currentColor" opacity="0.55"/>
+          <circle cx="6"  cy="20" r="2.5" fill="currentColor" opacity="0.55"/>
+          <circle cx="34" cy="20" r="2.5" fill="currentColor" opacity="0.55"/>
+          <circle cx="9"  cy="9"  r="2"   fill="currentColor" opacity="0.35"/>
+          <circle cx="31" cy="9"  r="2"   fill="currentColor" opacity="0.35"/>
+          <circle cx="9"  cy="31" r="2"   fill="currentColor" opacity="0.35"/>
+          <circle cx="31" cy="31" r="2"   fill="currentColor" opacity="0.35"/>
+          <line x1="20" y1="15" x2="20" y2="8.5"  stroke="currentColor" stroke-width="1" opacity="0.4"/>
+          <line x1="20" y1="25" x2="20" y2="31.5" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+          <line x1="15" y1="20" x2="8.5" y2="20"  stroke="currentColor" stroke-width="1" opacity="0.4"/>
+          <line x1="25" y1="20" x2="31.5" y2="20" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+          <line x1="16.5" y1="16.5" x2="11" y2="11" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+          <line x1="23.5" y1="16.5" x2="29" y2="11" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+          <line x1="16.5" y1="23.5" x2="11" y2="29" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+          <line x1="23.5" y1="23.5" x2="29" y2="29" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+        </svg>
+        <div class="stack-name nl">AI-driven bouwen</div>
+        <div class="stack-name en">AI-driven development</div>
+        <div class="stack-desc nl">Code-generatie, documentatie, patroonherkenning. AI als hefboom voor snelheid.</div>
+        <div class="stack-desc en">Code generation, documentation, pattern recognition. AI as a lever for speed.</div>
+      </div>
+
+      <div class="stack-item">
+        <svg class="stack-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="13" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <circle cx="18" cy="18" r="13" fill="currentColor" opacity="0.08"/>
+          <circle cx="18" cy="18" r="6"  fill="currentColor" opacity="0.3"/>
+          <line x1="27" y1="27" x2="37" y2="37" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="stack-name">Qlik Sense</div>
+        <div class="stack-desc nl">Self-service analytics en guided analytics. Ervaring met legacy BI-omgevingen en migraties.</div>
+        <div class="stack-desc en">Self-service and guided analytics. Experience with legacy BI environments and migrations.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. AI STUK -->
+  <section id="ai">
+    <div class="block-head">
+      <div class="bh-label">AI &amp; Data</div>
+      <h2 class="bh-headline nl">AI op jouw <span class="ac">data.</span></h2>
+      <h2 class="bh-headline en">AI on your <span class="ac">data.</span></h2>
+    </div>
+    <div class="ai-intro">
+      <div>
+        <p class="col-body nl">AI niet meer weg te denken uit mijn werk. Een moderne analytics engineer zonder AI is als een timmerman zonder hamer , je kunt er wel mee werken, maar je haalt lang niet je volledige potentieel.</p>
+        <p class="col-body nl">Ik gebruik AI als co-pilot bij coderen, modelleren, automatiseren en documenteren. Maar een sterk data fundament blijft essentieel , AI werkt alleen goed op schone, gestructureerde data.</p>
+        <p class="col-body en">Professionally and personally, AI is now inseparable from my work. A modern analytics engineer without AI is like a carpenter without a hammer , you can still work, but you're not reaching your full potential.</p>
+        <p class="col-body en">I use AI as a co-pilot for coding, modelling, automation and documentation. But a solid data foundation remains essential , AI only performs well on clean, structured data.</p>
+      </div>
+      <div>
+        <p class="col-body nl">Met al deze hulpmiddelen help ik organisaties hun data fundament bouwen. Niet als doel op zich, maar omdat het de basis is om te kunnen automatiseren en moderniseren. Zonder een solide fundament blijft AI een belofte.</p>
+        <p class="col-body en">With all these tools I help organisations build their data foundation. Not as a goal in itself, but because it is the basis for being able to automate and modernise. Without a solid foundation, AI remains a promise.</p>
+      </div>
+    </div>
+    <div class="ai-playground-bar">My AI Playground</div>
+    <div class="ai-tools-grid">
+      <div class="ai-tool-card">
+        <div class="atc-label">Homelab <span class="atc-private">privé</span></div>
+        <div class="atc-icons">
+          <div class="atc-icon-item">
+            <!-- Proxmox: stylized P/server icon -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="4" width="24" height="20" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <line x1="2" y1="10" x2="26" y2="10" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="7" cy="7" r="1.5" fill="currentColor"/>
+              <circle cx="11" cy="7" r="1.5" fill="currentColor"/>
+              <rect x="6" y="13" width="16" height="2" rx="1" fill="currentColor" opacity="0.5"/>
+              <rect x="6" y="17" width="10" height="2" rx="1" fill="currentColor" opacity="0.3"/>
+            </svg>
+            <span>Proxmox</span>
+          </div>
+          <div class="atc-icon-item">
+            <!-- Container: box/stack icon -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="14" width="20" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <rect x="4" y="8" width="20" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <line x1="9" y1="11" x2="9" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="13" y1="11" x2="13" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="9" y1="19" x2="9" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="13" y1="19" x2="13" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Docker / LXC</span>
+          </div>
+        </div>
+        <p class="atc-body nl">Proxmox als homelab, containers, Docker en LXC. Geen klantwerk, maar het geeft me een concreet gevoel voor de laag waarop data platforms leven.</p>
+        <p class="atc-body en">Proxmox as homelab, containers, Docker and LXC. Not client work , but it gives me a concrete feel for the layer on which data platforms run.</p>
+      </div>
+
+      <div class="ai-tool-card">
+        <div class="atc-label">Data platform &amp; code</div>
+        <div class="atc-icons">
+          <div class="atc-icon-item">
+            <!-- SQL cylinder -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="14" cy="7" rx="9" ry="3.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <ellipse cx="14" cy="7" rx="9" ry="3.5" fill="currentColor" opacity="0.1"/>
+              <line x1="5" y1="7" x2="5" y2="20" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="23" y1="7" x2="23" y2="20" stroke="currentColor" stroke-width="1.5"/>
+              <ellipse cx="14" cy="14" rx="9" ry="3.5" stroke="currentColor" stroke-width="1" fill="none" opacity="0.3"/>
+              <ellipse cx="14" cy="20" rx="9" ry="3.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+            <span>SQL / DAX</span>
+          </div>
+          <div class="atc-icon-item">
+            <!-- UDF/semantic: function symbol -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 20 C6 14 8 8 14 8 C17 8 18 10 18 12" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <line x1="4" y1="14" x2="16" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M18 16 L22 20 M18 20 L22 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span>UDFs &amp; modellen</span>
+          </div>
+        </div>
+        <p class="atc-body nl">Code schrijven, debuggen en documenteren gaat sneller met Claude als co-pilot. Van complexe DAX-logica tot volledige semantische modellen.</p>
+        <p class="atc-body en">Writing, debugging and documenting code is faster with Claude as co-pilot. From complex DAX logic to complete semantic models.</p>
+      </div>
+
+      <div class="ai-tool-card">
+        <div class="atc-label"><span class="nl">Automatisering</span><span class="en">Automation</span> <span class="atc-private">privé</span></div>
+        <div class="atc-icons">
+          <div class="atc-icon-item">
+            <!-- n8n: two connected workflow nodes -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="7" cy="14" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="21" cy="8" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="21" cy="20" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <line x1="11" y1="12" x2="17" y2="9.5" stroke="currentColor" stroke-width="1.2" opacity="0.7"/>
+              <line x1="11" y1="16" x2="17" y2="18.5" stroke="currentColor" stroke-width="1.2" opacity="0.7"/>
+              <circle cx="7" cy="14" r="2" fill="currentColor" opacity="0.4"/>
+              <circle cx="21" cy="8" r="2" fill="currentColor"/>
+              <circle cx="21" cy="20" r="2" fill="currentColor"/>
+            </svg>
+            <span>n8n</span>
+          </div>
+          <div class="atc-icon-item">
+            <!-- Claude: anthropic asterisk/star -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="14" y1="3" x2="14" y2="25" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="3" y1="14" x2="25" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="5.8" y1="5.8" x2="22.2" y2="22.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="22.2" y1="5.8" x2="5.8" y2="22.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <span>Claude</span>
+          </div>
+        </div>
+        <p class="atc-body nl">Met n8n en Claude bouw ik workflows die repetitieve processen volledig overnemen, van data-triggers tot rapportage en notificaties.</p>
+        <p class="atc-body en">With n8n and Claude I build workflows that fully take over repetitive processes , from data triggers to reporting and notifications.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. BRONSYSTEMEN -->
+  <section id="sectoren">
+    <div class="block-head">
+      <div class="bh-label nl">Ervaring</div>
+      <div class="bh-label en">Experience</div>
+      <h2 class="bh-headline nl">Ik ken de bron én <span class="ac">de businesslogica.</span></h2>
+      <h2 class="bh-headline en">I know the source and <span class="ac">the business logic.</span></h2>
+    </div>
+    <p class="sys-intro nl">Bronsystemen kennen is handig. Weten hoe de businesslogica erin werkt, is waardevol. Door de jaren heen heb ik niet alleen data opgehaald uit deze systemen, maar ook begrepen wat er achter zit.</p>
+    <p class="sys-intro en">Knowing source systems is useful. Understanding the business logic inside them is valuable. Over the years I haven't just pulled data from these systems , I've understood what's behind it.</p>
+
+    <div class="sys-block">
+      <div class="sys-block-head">
+        <div class="sys-block-label nl">Financieel</div>
+        <div class="sys-block-label en">Finance</div>
+        <div class="sys-block-systems">Exact Globe · Exact Online · NetSuite · AFAS</div>
+      </div>
+      <p class="sys-block-body nl">Meer dan transacties ophalen. Ik ken de journaalposten, kostenplaatsen en periodelogica achter financiële systemen en vertaal die naar rapportages waarop een CFO daadwerkelijk stuurt. Van grootboek tot consolidatie.</p>
+      <p class="sys-block-body en">More than just pulling transactions. I know the journal entries, cost centres and period logic behind financial systems and translate them into reports a CFO actually steers on. From general ledger to consolidation.</p>
+      <div class="sys-kpis">
+        <span class="kpi">Omzet</span>
+        <span class="kpi">EBITDA</span>
+        <span class="kpi">P&amp;L</span>
+        <span class="kpi">Balans</span>
+        <span class="kpi">Debiteurensaldo</span>
+        <span class="kpi">Budget</span>
+        <span class="kpi">Forecasting</span>
+      </div>
+    </div>
+
+    <div class="sys-block">
+      <div class="sys-block-head">
+        <div class="sys-block-label nl">Personeel</div>
+        <div class="sys-block-label en">HR</div>
+        <div class="sys-block-systems">AFAS · Visma · Youforce</div>
+      </div>
+      <p class="sys-block-body nl">Van contractdata naar stuurinformatie. Ik ken de opbouw van personeelssystemen en bouw modellen die HR en management inzicht geven in formatie, verzuim en personeelskosten, zonder dat iemand handmatig een rapport hoeft samen te stellen.</p>
+      <p class="sys-block-body en">From contract data to management information. I know the structure of HR systems and build models that give HR and management insight into headcount, absenteeism and personnel costs , without anyone having to compile a report manually.</p>
+      <div class="sys-kpis">
+        <span class="kpi">FTE</span>
+        <span class="kpi nl">Bezetting</span><span class="kpi en">Occupancy</span>
+        <span class="kpi nl">Verzuim</span><span class="kpi en">Absenteeism</span>
+        <span class="kpi nl">Verloning</span><span class="kpi en">Payroll</span>
+        <span class="kpi nl">Formatie</span><span class="kpi en">Headcount</span>
+        <span class="kpi nl">In/uitstroom</span><span class="kpi en">Turnover</span>
+        <span class="kpi nl">Personeelskosten</span><span class="kpi en">Personnel costs</span>
+        <span class="kpi nl">Productiviteit</span><span class="kpi en">Productivity</span>
+      </div>
+    </div>
+
+    <div class="sys-block" style="border-bottom: 1px solid var(--line);">
+      <div class="sys-block-head">
+        <div class="sys-block-label nl">Operationeel</div>
+        <div class="sys-block-label en">Operations</div>
+        <div class="sys-block-systems">Maxxton · ONS Nedap</div>
+      </div>
+      <p class="sys-block-body nl">Bezetting, capaciteit en planning zijn het hart van operationele systemen. Ik ken de domeinlogica van hospitality en zorg en vertaal reserveringen, roosters en planningen naar dashboards waarop managers direct kunnen bijsturen.</p>
+      <p class="sys-block-body en">Occupancy, capacity and planning are at the heart of operational systems. I know the domain logic of hospitality and healthcare and translate reservations, schedules and planning into dashboards managers can act on directly.</p>
+      <div class="sys-kpis">
+        <span class="kpi nl">Bezettingsgraad</span><span class="kpi en">Occupancy rate</span>
+        <span class="kpi nl">Capaciteitsplanning</span><span class="kpi en">Capacity planning</span>
+        <span class="kpi nl">Reserveringen</span><span class="kpi en">Reservations</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTEN -->
+  <section id="projecten">
+    <div class="block-head">
+      <div class="bh-label">Projecten</div>
+      <h2 class="bh-headline">Waar ik trots <span class="ac">op ben.</span></h2>
+    </div>
+    <p class="projecten-intro">Soms heb je van die projecten die tijd en energie kosten maar waarvan je skillset een enorme boost krijgt en je je klant, werkgever of jezelf enorm mee kunt helpen. Kortom, hier ben ik trots op:</p>
+    <div class="project-teasers">
+      <a href="projects.html#project-1" class="pt-card">
+        <div class="pt-num">01</div>
+        <div class="pt-title">One Job to Rule Them All</div>
+        <p class="pt-body">Een SSIS-orchestratielaag die zichzelf aanstuurt: parallelle verwerking, slimme foutafhandeling en twee jaar stabiel in productie.</p>
+        <span class="pt-link">Lees meer ↗</span>
+      </a>
+      <a href="projects.html#project-2" class="pt-card">
+        <div class="pt-num">02</div>
+        <div class="pt-title">Snapshot Semantic Model</div>
+        <p class="pt-body">Één Power BI model als fundament onder alle commerciële rapportages — gebouwd op strakke tijdconcepten, meer dan 1.300 measures en AI als vliegwiel.</p>
+        <span class="pt-link">Lees meer ↗</span>
+      </a>
+      <a href="projects.html#project-3" class="pt-card">
+        <div class="pt-num">03</div>
+        <div class="pt-title">VVT Datamotor</div>
+        <p class="pt-body">Een generieke datamotor voor de ouderenzorg — zelfde fundament, klantspecifiek geconfigureerd, aangeboden als maandelijks abonnementsmodel.</p>
+        <span class="pt-link">Lees meer ↗</span>
+      </a>
+      <a href="projects.html#project-4" class="pt-card">
+        <div class="pt-num">04</div>
+        <div class="pt-title">Polaris</div>
+        <p class="pt-body">Een zelfgebouwd AI-platform thuis, gekoppeld aan Claude, Home Assistant en de volledige homelab infrastructuur.</p>
+        <span class="pt-link">Lees meer ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 6. CONTACT -->
+  <section id="contact">
+    <div class="contact-left">
+      <h2 class="contact-headline nl">Stuur me een <span class="ac">mail.</span></h2>
+      <h2 class="contact-headline en">Send me a <span class="ac">mail.</span></h2>
+      <a href="mailto:simon@vroomansbi.nl" class="contact-cta">simon@vroomansbi.nl</a>
+    </div>
+    <div class="contact-right">
+      <div class="how-i-work">
+        <div>
+          <div class="hiw-label nl">Hoe ik werk</div>
+          <div class="hiw-label en">How I work</div>
+        </div>
+        <div class="hiw-item">
+          <div class="hiw-item-title nl">Direct contact</div>
+          <div class="hiw-item-title en">Direct contact</div>
+          <p class="hiw-item-body nl">Je spreekt altijd direct met Simon. Geen accountmanager, geen doorverwijzingen.</p>
+          <p class="hiw-item-body en">You always speak directly with Simon. No account manager, no redirects.</p>
+        </div>
+        <div class="hiw-item">
+          <div class="hiw-item-title">
+            <span class="jellow-logo"><span class="jellow-dot"></span>jellow</span>
+          </div>
+          <p class="hiw-item-body nl">Mijn backoffice loopt via Jellow. Contracten en facturatie worden professioneel en eenvoudig afgehandeld.</p>
+          <p class="hiw-item-body en">My backoffice runs through Jellow. Contracts and invoicing handled professionally and efficiently.</p>
+        </div>
+      </div>
+      <a href="https://linkedin.com/in/simonvroomans" target="_blank" rel="noopener" class="linkedin-card">
+        <div class="linkedin-photo">
+          <img src="assets/profile_picture.jpg" alt="Simon Vroomans">
+        </div>
+        <div class="linkedin-info">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <span class="linkedin-name">LinkedIn</span>
+        </div>
+        <span class="linkedin-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>© 2026 Vroomans BI B.V.</footer>
+
+  <script>
+    (function () {
+      const langBtn = document.getElementById('langToggle');
+      if (!langBtn) return;
+      langBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-lang') || 'nl';
+        const next = current === 'nl' ? 'en' : 'nl';
+        document.documentElement.setAttribute('data-lang', next);
+        document.documentElement.setAttribute('lang', next);
+        localStorage.setItem('vbi-lang', next);
+      });
+    })();
+
+    (function () {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('vbi-theme', next);
+      });
+    })();
+
+    // Page snap scroll , direction-aware, no bounce back
+    (function () {
+      const sections = Array.from(document.querySelectorAll('section'));
+      let timer     = null;
+      let animating = false;
+      let lastY     = window.scrollY;
+      let scrollDir = 0; // +1 down, -1 up
+
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+      }
+
+      function animateTo(targetY, duration) {
+        animating = true;
+        const startY = window.scrollY;
+        const dist   = targetY - startY;
+        if (Math.abs(dist) < 2) { animating = false; return; }
+        const t0 = performance.now();
+        function step(now) {
+          const t = Math.min((now - t0) / duration, 1);
+          window.scrollTo(0, startY + dist * easeInOutCubic(t));
+          if (t < 1) requestAnimationFrame(step);
+          else animating = false;
+        }
+        requestAnimationFrame(step);
+      }
+
+      function getTarget() {
+        const y  = window.scrollY;
+        for (let i = 0; i < sections.length - 1; i++) {
+          const top  = sections[i].offsetTop;
+          const next = sections[i + 1].offsetTop;
+          if (y >= top && y < next) {
+            // Scrolled down past the section top → go forward, never back
+            if (scrollDir >= 0 && y > top + 8) return sections[i + 1];
+            // Scrolled up → go to previous/current
+            if (scrollDir < 0) return sections[i];
+            return sections[i];
+          }
+        }
+        return sections[sections.length - 1];
+      }
+
+      window.addEventListener('scroll', function () {
+        const y = window.scrollY;
+        scrollDir = y - lastY;
+        lastY = y;
+        if (animating) return;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          animateTo(getTarget().offsetTop, 720);
+        }, 150);
+      }, { passive: true });
+    })();
+
+    // Hero grid canvas animation
+    (function () {
+      const canvas = document.getElementById('hero-grid');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      // Layout: 6×6 grid, 46px cells, 14px gap, offset 37px
+      const SIZE = 46, GAP = 14, STEP = SIZE + GAP, OFF = 37;
+      const COLS = 6, ROWS = 6;
+
+      function cx(c) { return OFF + c * STEP + SIZE / 2; }
+      function cy(r) { return OFF + r * STEP + SIZE / 2; }
+      function cellX(c) { return OFF + c * STEP; }
+      function cellY(r) { return OFF + r * STEP; }
+
+      // Artistic base opacities , higher near centre, organic feel
+      const BASE_OP = [
+        [0.05, 0.08, 0.18, 0.07, 0.13, 0.04],
+        [0.10, 0.24, 0.42, 0.30, 0.17, 0.08],
+        [0.07, 0.38, null, null,  0.21, 0.06],
+        [0.12, 0.34, null, null,  0.26, 0.10],
+        [0.08, 0.15, 0.36, 0.28, 0.19, 0.05],
+        [0.03, 0.11, 0.08, 0.06, 0.14, 0.03],
+      ];
+
+      // FACT cells: cols 2-3, rows 2-3
+      function isFact(c, r) { return c >= 2 && c <= 3 && r >= 2 && r <= 3; }
+
+      // Star DIM positions [col, row] + matching star-line endpoints
+      const DIMS = [[2,0],[5,1],[4,4],[1,5],[0,2]];
+      const FACT_CX = OFF + 2 * STEP + (SIZE + GAP + SIZE) / 2; // 37+120+53=210
+      const FACT_CY = FACT_CX; // symmetric
+
+      // Build cell objects
+      const cells = [];
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const fact = isFact(c, r);
+          const dimIdx = DIMS.findIndex(([dc,dr]) => dc===c && dr===r);
+          cells.push({
+            c, r, fact,
+            dimIdx,
+            x: cellX(c), y: cellY(r),
+            bcx: cx(c), bcy: cy(r),
+            base: fact ? null : (BASE_OP[r][c] ?? 0.08),
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.25 + Math.random() * 0.35,
+            starBoost: 0,   // 0→1 animated
+          });
+        }
+      }
+
+      // Star state
+      const starActive = [false,false,false,false,false];
+      const starBoost  = [0,0,0,0,0]; // smooth 0→1
+
+      // Mouse
+      let mouseX = -1, mouseY = -1;
+      canvas.addEventListener('mousemove', e => {
+        const r = canvas.getBoundingClientRect();
+        const s = canvas.width / r.width;
+        mouseX = (e.clientX - r.left) * s;
+        mouseY = (e.clientY - r.top)  * s;
+      });
+      canvas.addEventListener('mouseleave', () => { mouseX = mouseY = -1; });
+
+      // Rounded rect
+      function rr(x, y, w, h, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + w - radius, y);
+        ctx.arcTo(x + w, y, x + w, y + radius, radius);
+        ctx.lineTo(x + w, y + h - radius);
+        ctx.arcTo(x + w, y + h, x + w - radius, y + h, radius);
+        ctx.lineTo(x + radius, y + h);
+        ctx.arcTo(x, y + h, x, y + h - radius, radius);
+        ctx.lineTo(x, y + radius);
+        ctx.arcTo(x, y, x + radius, y, radius);
+        ctx.closePath();
+      }
+
+      let last = 0;
+      function draw(ts) {
+        const dt = Math.min((ts - last) / 1000, 0.05);
+        last = ts;
+        ctx.clearRect(0, 0, 420, 420);
+
+        // Advance cell phases
+        cells.forEach(cell => { if (!cell.fact) cell.phase += dt * cell.speed; });
+
+        // Smooth star boosts
+        for (let i = 0; i < 5; i++) {
+          const target = starActive[i] ? 1 : 0;
+          starBoost[i] += (target - starBoost[i]) * Math.min(dt * 4, 1);
+        }
+
+        // ── Draw soft connecting lines between adjacent cell centres ──
+        ctx.save();
+        ctx.strokeStyle = 'rgba(212,43,69,0.10)';
+        ctx.lineWidth = 0.75;
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            if (c < COLS-1) {
+              ctx.beginPath(); ctx.moveTo(cx(c),cy(r)); ctx.lineTo(cx(c+1),cy(r)); ctx.stroke();
+            }
+            if (r < ROWS-1) {
+              ctx.beginPath(); ctx.moveTo(cx(c),cy(r)); ctx.lineTo(cx(c),cy(r+1)); ctx.stroke();
+            }
+          }
+        }
+        ctx.restore();
+
+        // ── Draw star join lines ──
+        DIMS.forEach(([dc,dr], i) => {
+          if (starBoost[i] < 0.01) return;
+          ctx.save();
+          ctx.globalAlpha = starBoost[i] * 0.85;
+          ctx.strokeStyle = '#D42B45';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([5, 3]);
+          ctx.beginPath();
+          ctx.moveTo(FACT_CX, FACT_CY);
+          ctx.lineTo(cx(dc), cy(dr));
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.restore();
+        });
+
+        // ── Draw regular cells ──
+        cells.forEach(cell => {
+          if (cell.fact) return;
+
+          const pulse = (Math.sin(cell.phase) * 0.5 + 0.5); // 0–1
+          let op = cell.base + pulse * cell.base * 0.7;
+
+          // Hover: nearest cell brightens, neighbours dim slightly
+          if (mouseX >= 0) {
+            const dx = cell.bcx - mouseX, dy = cell.bcy - mouseY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < 120) {
+              const t = 1 - dist / 120;
+              if (dist < 35) op = Math.min(op + t * 0.40, 0.88);
+              else           op = Math.max(op - t * 0.12, 0.01);
+            }
+          }
+
+          // Star boost: cell brightens and gets accent stroke
+          const boost = cell.dimIdx >= 0 ? starBoost[cell.dimIdx] : 0;
+          op = Math.min(op + boost * 0.42, 0.88);
+
+          ctx.save();
+          ctx.fillStyle = `rgba(212,43,69,${op})`;
+          rr(cell.x, cell.y, SIZE, SIZE, 3);
+          ctx.fill();
+
+          // Star highlight ring
+          if (boost > 0.05) {
+            ctx.strokeStyle = `rgba(212,43,69,${boost * 0.7})`;
+            ctx.lineWidth = 1.5;
+            rr(cell.x, cell.y, SIZE, SIZE, 3);
+            ctx.stroke();
+          }
+          ctx.restore();
+        });
+
+        // ── Draw FACT block ──
+        const fx = OFF + 2*STEP, fy = OFF + 2*STEP;
+        const fw = 2*SIZE + GAP, fh = fw;
+        ctx.save();
+        ctx.fillStyle = '#D42B45';
+        ctx.globalAlpha = 0.93;
+        rr(fx, fy, fw, fh, 3);
+        ctx.fill();
+        ctx.restore();
+
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+
+      // ── Star reveal loop ──
+      function shuffle(a) {
+        a = a.slice();
+        for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+        return a;
+      }
+
+      function runStar() {
+        starActive.fill(false);
+        const order = shuffle([0,1,2,3,4]);
+        let step = 0;
+        function next() {
+          if (step >= 5) { setTimeout(runStar, 2800); return; }
+          starActive[order[step++]] = true;
+          setTimeout(next, 1000);
+        }
+        setTimeout(next, 700);
+      }
+      runStar();
+    })();
+  </script>
+
+  <div class="scroll-dots" id="scrollDots">
+    <button class="scroll-dot active" data-index="0" aria-label="Hero"></button>
+    <button class="scroll-dot" data-index="1" aria-label="Diensten"></button>
+    <button class="scroll-dot" data-index="2" aria-label="Tools"></button>
+    <button class="scroll-dot" data-index="3" aria-label="AI"></button>
+    <button class="scroll-dot" data-index="4" aria-label="Sectoren"></button>
+    <button class="scroll-dot" data-index="5" aria-label="Projecten"></button>
+    <button class="scroll-dot" data-index="6" aria-label="Contact"></button>
+  </div>
+
+  <script>
+  // Scroll dots for index
+  (function(){
+    const sections=Array.from(document.querySelectorAll('section'));
+    const dots=Array.from(document.querySelectorAll('.scroll-dot'));
+    function updateDots(){
+      const y=window.scrollY+window.innerHeight*0.3;
+      let active=0;
+      sections.forEach((s,i)=>{ if(y>=s.offsetTop) active=i; });
+      dots.forEach((d,i)=>d.classList.toggle('active',i===active));
+    }
+    window.addEventListener('scroll',updateDots,{passive:true});
+    dots.forEach((d,i)=>d.addEventListener('click',()=>{
+      window.scrollTo({top:sections[i].offsetTop,behavior:'smooth'});
+    }));
+    updateDots();
+  })();
+  </script>
+
+</body>
+</html>
