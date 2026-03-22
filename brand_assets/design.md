@@ -1,6 +1,6 @@
 # design.md — Vroomans BI
 
-## Kleuren
+## Kleuren — dark mode (standaard)
 
 ```css
 --black:        #080808   /* achtergrond primair */
@@ -12,26 +12,42 @@
 --accent-hover: #E8344A   /* hover state */
 --accent-dark:  #A01E32   /* logo donkere variant */
 --line:         #1E1E1E   /* borders en dividers */
+--nav-bg:       rgba(8,8,8,0.96) /* nav achtergrond met blur */
 ```
+
+## Kleuren — light mode `[data-theme="light"]`
+
+```css
+--black:   #F5F3EE
+--surface: #ECEAE5
+--white:   #0D0D0D
+--grey:    #555555
+--dim:     #BEBAB4
+--line:    #DEDAD4
+--nav-bg:  rgba(245,243,238,0.96)
+/* --accent en --accent-dark ongewijzigd */
+```
+
+Thema opgeslagen in `localStorage('vbi-theme')`, gezet via `data-theme` op `<html>`.
+Taal opgeslagen in `localStorage('vbi-lang')` (nl/en), gezet via `data-lang` op `<html>`.
+Anti-flash inline script bovenaan `<head>` — altijd eerste script in document.
 
 ## Typografie
 
 Font: **Inter** via Google Fonts — weights 300/400/500/600/700/800/900
-Body: `font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased`
 
 | Gebruik | Weight | Size | Letter-spacing | Line-height |
 |---|---|---|---|---|
 | Hero headline | 800 | clamp(52px,8vw,110px) | -0.04em | 1.0 |
 | Section headline | 800 | clamp(32px,4.5vw,54px) | -0.03em | 1.0 |
-| Service naam | 800 | clamp(22px,2.8vw,36px) | -0.03em | 1.05 |
+| Project titel | 800 | clamp(24px,2.8vw,42px) | -0.03em | 1.0 |
+| Project subhead | 800 | 15px | -0.01em | — |
 | Contact headline | 800 | clamp(44px,7vw,96px) | -0.04em | 0.96 |
-| Page hero h1 | 800 | clamp(52px,8vw,110px) | -0.04em | 1.0 |
-| Body tekst | 300 | 14–17px | — | 1.8–1.85 |
+| Body tekst (index) | 300 | 14–17px | — | 1.8–1.85 |
+| Body tekst (projects) | 300 | 14px | — | 1.82 |
 | Label / section tag | 600 | 11px | 0.12em + uppercase | — |
 | Nav links | 400 | 12px | 0.08em + uppercase | — |
-| Tool pills | 400 | 11px | 0.04em | — |
-
-Regels: negatieve letter-spacing alleen op headlines ≥ 20px. `strong` in body: weight 500, kleur `--white`.
+| Tool pills / proj-tags | 400 | 11px | 0.04em | — |
 
 ## Spacing
 
@@ -41,77 +57,97 @@ Hero padding top/bottom:    110px · 90px
 Standaard sectie:           90px top/bottom
 Block head margin-bottom:   64px
 Dienst row padding:         48px top/bottom
-Gap in dienst body:         18px
+proj-text padding:          64px 52px 52px
+proj-body column-gap:       36px
+proj-header padding-bottom: 24px · margin-bottom: 36px
 ```
 
 ## Layout grids
 
 ```
-Diensten rij:   grid-template-columns: 56px 1fr 360px
-Contact:        grid-template-columns: 1fr 1fr
-Sectoren:       display: flex · flex-wrap: wrap · min-width: 220px per item
-Stack grid:     grid-template-columns: repeat(4, 1fr)
+Diensten rij:       grid-template-columns: 56px 1fr 360px
+Contact:            grid-template-columns: 1fr 1fr
+Sectoren:           display: flex · flex-wrap: wrap · min-width: 220px per item
+Stack grid:         grid-template-columns: repeat(4, 1fr)
+Project teasers:    grid-template-columns: repeat(4, 1fr)
+Project secties:    grid-template-columns: 1fr 1fr (tekst + canvas)
 ```
+
+## Pagina's
+
+**index.html** — `min-height: 100dvh` per sectie, direction-aware scroll snap (8px drempel, 720ms easeInOutCubic, 150ms debounce). 7 navigatiedots links.
+
+**projects.html** — `height: 100dvh; overflow: hidden` per sectie. 2-koloms grid: tekst links, canvas rechts. Tekst in `columns: 2; column-gap: 36px; column-fill: auto` (kolom 1 altijd voller). 4 navigatiedots links.
+
+## Nav
+
+**index.html:** links = nav-links (diensten, tools, AI, contact) · rechts = NL/EN toggle + theme toggle + logo
+**projects.html:** links = ← Terug + separator + "Projecten" label · rechts = NL/EN toggle + theme toggle + logo
+Geen `border-bottom` op nav. `backdrop-filter: blur(20px)`. `background: var(--nav-bg)`.
+
+## Scroll dots
+
+```css
+.scroll-dots { position: fixed; left: 22px; top: 50%; transform: translateY(-50%); }
+.scroll-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--dim); }
+.scroll-dot.active { background: var(--accent); transform: scale(1.5); }
+```
+
+## Canvas animaties (projects.html)
+
+| Canvas | Project | Beschrijving | sizeCanvas |
+|---|---|---|---|
+| canvas-1 | One Job to Rule Them All | Orchestratie node graph, parallelle flows, milestone markers | 82% |
+| canvas-2 | Snapshot Semantic Model | Y-2/Y-1/Y lijngrafiek, bewegende snapshot cursor | 82% |
+| canvas-3 | VVT Datamotor | 3 klanten, elk fin/pers/prod → bundelpunt → motor → klant | 94% |
+| canvas-4 | Polaris | Sterrenhemel + pulserende Polaris ster + netwerk nodes | 96% |
+
+Alle canvassen: theme-aware via `isLight()`, accent `rgba(212,43,69,…)`.
 
 ## Borders & radius
 
 - Border: `1px solid var(--line)` overal
 - Border-radius: **3px** overal — nooit meer
-- Geen box-shadows, gradients of glow-effecten
-- Geen animaties behalve: marquee (30s linear) en button hover (translateY -2px)
+- `proj-header`: border-bottom aanwezig
+- Geen box-shadows
 
 ## Componenten
 
-**Nav:** sticky, `backdrop-filter: blur(20px)`, `background: rgba(8,8,8,0.96)`.
-Logo: Inter 800, 15px, -0.03em. "Vroomans" in `--white`, "BI" in `--accent`.
-Nav links: uppercase, 12px, 0.08em. CTA: outline button → mail-knop.
+**Project teaser card (pt-card):**
+`pt-num` 11px/700/dim · `pt-title` clamp(18–24px)/800/-0.03em/white · `pt-body` 13px/300/grey · `pt-link` 12px/600/uppercase/accent
+Grid: `repeat(4, 1fr)`, border-right tussen cards.
 
-**Section tag:** 11px/600/uppercase/accent + streepje via `::before` (24px lijn in accent). Margin-bottom 32px.
+**Project sectie (proj-section):**
+`height: 100dvh; overflow: hidden; grid-template-columns: 1fr 1fr`
+`proj-header`: num + title + border-bottom
+`proj-body`: `columns: 2; column-fill: auto`
+`proj-visual`: flex center, canvas gecentreerd in rechterhelft
 
-**Block head:** label links (11px/grey/uppercase) + grote headline rechts. Border-bottom als scheiding, margin-bottom 64px.
+**Lang/theme toggles:**
+`border: 1px solid var(--dim)`, border-radius 3px, 30px hoog, Inter 11px/600
 
-**Marquee:** border-bottom, padding 14px. Items 2× herhalen, `animation: mq 30s linear infinite`. `mq-dot` in accent.
+## Logo SVG — viewBox 0 0 36 36
 
-**Dienst rij:** 3-koloms grid. Nummer in `--dim`/700/11px. Naam in `--white`/800. Body: beschrijving 300/14px + tool pills onderaan.
-
-**Tool pills:** `border: 1px solid var(--line)`, border-radius 2px, 11px/400, padding 4px 11px.
-
-**Sectoren blokken:** flex items, `background: --black`, hover `--surface`, naam in `--white`/800, `&` in `--accent`.
-
-**Quote/highlight blok:** `border-left: 2px solid var(--accent)`, `background: rgba(212,43,69,0.05)`, padding 20px 24px.
-
-**Primary button:** `background: var(--accent)`, `color: var(--white)`, padding 14px 32px, border-radius 3px, 13px/600/uppercase/0.04em.
-
-**Email CTA (contact):** `background: var(--accent)`, 16px/700, padding 16px 36px, hover: translateY -2px.
-
-**Ghost button:** transparent, `border: 1px solid var(--dim)`, hover: border + color naar accent.
-
-## Logo SVG
-
-4 blokken (2×2), verbonden door lijnen:
-- Links-boven: `fill="#D42B45" opacity="0.9"`
+4 blokken 16×16px met `rx="3"`, gap 4px:
+- Links-boven:  `fill="#D42B45" opacity="0.9"`
 - Rechts-boven: `fill="#D42B45" opacity="0.3"`
-- Links-onder: `fill="#D42B45" opacity="0.3"`
+- Links-onder:  `fill="#D42B45" opacity="0.3"`
 - Rechts-onder: `fill="#A01E32" opacity="0.9"`
-- Verbindingslijnen: stroke="#D42B45" (boven) en stroke="#A01E32" (onder)
-- Alle rects: `rx="3"`, viewBox `0 0 36 36`
+- Verbindingslijnen: stroke="#D42B45" stroke-width="1.5"
 
 ## Responsive
 
 ```css
 @media (max-width: 860px) {
-  /* Padding */
-  nav → 18px 24px · nav-links → display: none
-  alle secties → padding-left/right: 24px
-
-  /* Grids */
-  diensten rij → grid-template-columns: 40px 1fr · d-body: grid-column 2
-  contact grid → 1fr
-  stack grid → 1fr 1fr
-
-  /* Overige */
-  block-head → flex-direction: column
-  sec-item → min-width: 100%
+  nav → padding 18px 24px
+  index nav-links → display: none
+  alle secties → padding left/right: 24px
+  diensten → grid 40px 1fr
+  contact → 1fr
+  project-teasers → 1fr
+  proj-section → grid 1fr · height auto · overflow visible
+  proj-body → columns: 1
+  scroll-dots → display: none
 }
 ```
 

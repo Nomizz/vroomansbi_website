@@ -19,10 +19,10 @@
   --accent-hover:#E8344A;
   --accent-dark:#A01E32;
   --line:#1E1E1E;
+  --nav-bg:rgba(8,8,8,0.96);
 }
 body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
 
-/* LAYOUT */
 .cover{background:var(--black);min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:60px}
 .cover-logo{display:flex;align-items:center;gap:12px}
 .cover-logo-text{font-family:'Inter',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;color:var(--white)}
@@ -40,12 +40,10 @@ body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;-webkit-fon
 .section-num::before{content:'';width:20px;height:1px;background:var(--accent)}
 .section-title{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(32px,4vw,52px);letter-spacing:-.03em;line-height:1.0;margin-bottom:48px;color:inherit}
 
-/* GRIDS */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 
-/* COLOR SWATCHES */
 .swatch-block{border-radius:4px;overflow:hidden}
 .swatch-color{height:120px}
 .swatch-info{padding:16px;background:#fff}
@@ -53,31 +51,30 @@ body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;-webkit-fon
 .swatch-hex{font-size:12px;color:var(--grey);font-family:'Inter',monospace}
 .swatch-use{font-size:11px;color:#888;margin-top:6px;line-height:1.5}
 
-/* TYPOGRAPHY SPECIMENS */
 .type-specimen{padding:32px;background:#fff;border-radius:4px;margin-bottom:16px}
 .type-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
 .type-example{color:var(--black)}
 
-/* SPACING */
 .spacing-row{display:flex;align-items:center;gap:20px;margin-bottom:16px}
 .spacing-bar{height:16px;background:var(--accent);border-radius:2px}
 .spacing-label{font-size:13px;color:#555;min-width:200px}
 .spacing-value{font-size:12px;font-family:monospace;color:var(--accent);font-weight:600}
 
-/* COMPONENT DEMOS */
 .demo-block{padding:40px;background:var(--black);border-radius:4px;margin-bottom:16px}
 .demo-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-bottom:20px}
 
-/* NAV DEMO */
 .demo-nav{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(8,8,8,0.96)}
-.demo-nav-logo{font-family:'Inter',sans-serif;font-weight:800;font-size:14px;letter-spacing:-.03em;color:var(--white)}
+.demo-nav-left{display:flex;align-items:center;gap:20px}
+.demo-nav-right{display:flex;align-items:center;gap:8px}
+.demo-nav-back{font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);display:flex;align-items:center;gap:7px}
+.demo-nav-logo{font-family:'Inter',sans-serif;font-weight:800;font-size:14px;letter-spacing:-.03em;color:var(--white);display:flex;align-items:center;gap:8px;padding-left:12px;border-left:1px solid var(--dim)}
 .demo-nav-logo span{color:var(--accent)}
 .demo-nav-links{display:flex;gap:28px}
 .demo-nav-links a{color:var(--grey);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .demo-nav-links a.active{color:var(--white)}
+.demo-nav-toggle{background:none;border:1px solid var(--dim);border-radius:3px;color:var(--grey);font-size:11px;font-weight:600;letter-spacing:.08em;padding:0 9px;height:30px;display:flex;align-items:center;gap:3px;font-family:'Inter',sans-serif;cursor:pointer}
 .demo-nav-cta{background:transparent;border:1px solid var(--dim);color:var(--white);padding:8px 18px;border-radius:3px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-family:'Inter',sans-serif}
 
-/* HERO DEMO */
 .demo-hero{padding:48px 28px}
 .demo-tag{font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px;margin-bottom:20px}
 .demo-tag::before{content:'';width:16px;height:1px;background:var(--accent)}
@@ -86,59 +83,79 @@ body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;-webkit-fon
 .demo-sub{font-size:15px;color:var(--grey);line-height:1.8;font-weight:300;max-width:420px;margin-top:16px}
 .demo-sub strong{color:var(--white);font-weight:500}
 
-/* BUTTONS */
 .btn-demos{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
 .btn-primary{background:var(--accent);color:var(--white);padding:12px 28px;border-radius:3px;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;display:inline-block}
 .btn-outline{background:transparent;color:var(--white);padding:12px 28px;border-radius:3px;font-size:12px;font-weight:500;border:1px solid var(--dim);cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;display:inline-block}
 .btn-email{background:var(--accent);color:var(--white);padding:14px 32px;border-radius:3px;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:-.01em;display:inline-block}
 
-/* DIENST ROW DEMO */
 .demo-dienst{display:grid;grid-template-columns:40px 1fr 240px;gap:24px;padding:28px;border-bottom:1px solid var(--line);align-items:start}
 .demo-dienst:last-child{border-bottom:none}
 .demo-dn{font-size:10px;color:var(--dim);letter-spacing:.08em;font-weight:700;padding-top:4px}
 .demo-dname{font-family:'Inter',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.03em;line-height:1.05;color:var(--white)}
 .demo-desc{font-size:13px;color:var(--grey);line-height:1.8;font-weight:300}
 
-/* TAGS */
 .tag-demo{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .tag{font-size:10px;color:var(--grey);border:1px solid var(--line);border-radius:2px;padding:3px 9px;letter-spacing:.04em;font-weight:400}
 
-/* SECTION ROW */
 .demo-sector-list{display:flex;flex-wrap:wrap;gap:1px;background:var(--line)}
 .demo-sector-item{background:var(--black);padding:18px 24px;font-family:'Inter',sans-serif;font-weight:800;font-size:16px;letter-spacing:-.02em;color:var(--white);flex:1;min-width:160px}
 .demo-sector-item span{color:var(--accent)}
 
-/* MARQUEE */
 .demo-mq{overflow:hidden;border-bottom:1px solid var(--line);border-top:1px solid var(--line);padding:10px 0;background:var(--black)}
 .demo-mq-track{display:inline-flex;animation:mq 15s linear infinite;white-space:nowrap}
 @keyframes mq{to{transform:translateX(-50%)}}
 .demo-mq-item{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding:0 18px}
 .demo-mq-dot{color:var(--accent);padding:0 4px}
 
-/* DIVIDER */
+/* Project teaser cards */
+.demo-pt-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.demo-pt-card{padding:36px 28px;background:var(--black);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:240px}
+.demo-pt-card:last-child{border-right:none}
+.demo-pt-num{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:.04em;margin-bottom:24px}
+.demo-pt-title{font-size:17px;font-weight:800;letter-spacing:-.03em;line-height:1.1;color:var(--white);margin-bottom:14px}
+.demo-pt-body{font-size:12px;font-weight:300;line-height:1.85;color:var(--grey);flex:1;margin-bottom:20px}
+.demo-pt-link{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+
+/* Project section demo */
+.demo-proj-section{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--black);min-height:320px}
+.demo-proj-text{padding:32px 36px;display:flex;flex-direction:column}
+.demo-proj-header{display:flex;align-items:baseline;gap:20px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:24px}
+.demo-proj-num{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.demo-proj-title{font-size:clamp(18px,2vw,28px);font-weight:800;letter-spacing:-.03em;color:var(--white)}
+.demo-proj-title .a{color:var(--accent)}
+.demo-proj-body{columns:2;column-gap:28px}
+.demo-proj-p{font-size:13px;font-weight:300;line-height:1.82;color:var(--grey);margin-bottom:12px}
+.demo-proj-visual{display:flex;align-items:center;justify-content:center;background:var(--surface);border-left:none}
+
+/* Scroll dots */
+.demo-scroll-dots{display:flex;flex-direction:column;gap:10px;padding:16px}
+.demo-dot{width:6px;height:6px;border-radius:50%;background:var(--dim)}
+.demo-dot.active{background:var(--accent);transform:scale(1.5)}
+
 .divider{height:1px;background:var(--line);margin:32px 0}
 .divider.accent{background:var(--accent)}
 
-/* RULES */
 .rule-block{background:#fff;padding:24px;border-radius:4px;margin-bottom:12px;border-left:3px solid var(--accent)}
 .rule-title{font-size:14px;font-weight:700;margin-bottom:4px;letter-spacing:-.01em}
 .rule-desc{font-size:13px;color:#555;line-height:1.65}
 .rule-block.dont{border-left-color:#888}
 .rule-block.dont .rule-title{color:#888}
 
-/* CODE */
 code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px 6px;border-radius:2px;color:var(--accent)}
 .code-block{background:var(--black);color:#9A9A9A;padding:20px 24px;border-radius:4px;font-family:'Inter',monospace;font-size:12px;line-height:1.8;overflow-x:auto}
 .code-block .k{color:var(--accent)}
 .code-block .v{color:#86efac}
 .code-block .c{color:#3A3A3A}
 
-/* TOC */
 .toc{display:flex;flex-direction:column;gap:8px;margin-top:24px}
 .toc-item{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
 .toc-num{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.08em;min-width:32px}
 .toc-name{font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--white)}
 .toc-arrow{color:var(--dim);margin-left:auto}
+
+/* Light mode swatch demo */
+.light-swatch{border-radius:4px;overflow:hidden;border:1px solid #ddd}
+.light-swatch .swatch-info{background:#ECEAE5}
 
 @media(max-width:768px){
   .cover{padding:40px 24px}
@@ -146,6 +163,8 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
   .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
   .demo-dienst{grid-template-columns:32px 1fr}
   .demo-desc{display:none}
+  .demo-pt-grid{grid-template-columns:1fr}
+  .demo-proj-section{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -155,14 +174,14 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
 <div class="cover">
   <div class="cover-logo">
     <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
-      <rect x="2" y="2" width="14" height="14" rx="3" fill="#D42B45" opacity="0.9"/>
-      <rect x="20" y="2" width="14" height="14" rx="3" fill="#D42B45" opacity="0.3"/>
-      <rect x="2" y="20" width="14" height="14" rx="3" fill="#D42B45" opacity="0.3"/>
-      <rect x="20" y="20" width="14" height="14" rx="3" fill="#A01E32" opacity="0.9"/>
-      <line x1="16" y1="9" x2="20" y2="9" stroke="#D42B45" stroke-width="1.5"/>
-      <line x1="9" y1="16" x2="9" y2="20" stroke="#D42B45" stroke-width="1.5"/>
-      <line x1="27" y1="16" x2="27" y2="20" stroke="#A01E32" stroke-width="1.5"/>
-      <line x1="16" y1="27" x2="20" y2="27" stroke="#A01E32" stroke-width="1.5"/>
+      <rect x="0" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.9"/>
+      <rect x="20" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+      <rect x="0" y="20" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+      <rect x="20" y="20" width="16" height="16" rx="3" fill="#A01E32" opacity="0.9"/>
+      <line x1="16" y1="8" x2="20" y2="8" stroke="#D42B45" stroke-width="1.5"/>
+      <line x1="8" y1="16" x2="8" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+      <line x1="28" y1="16" x2="28" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+      <line x1="16" y1="28" x2="20" y2="28" stroke="#A01E32" stroke-width="1.5"/>
     </svg>
     <div class="cover-logo-text">Vroomans<span>BI</span></div>
   </div>
@@ -171,16 +190,17 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
     <div style="height:32px"></div>
     <div class="toc">
       <div class="toc-item"><span class="toc-num">01</span><span class="toc-name">Merk & identiteit</span><span class="toc-arrow">→</span></div>
-      <div class="toc-item"><span class="toc-num">02</span><span class="toc-name">Kleuren</span><span class="toc-arrow">→</span></div>
+      <div class="toc-item"><span class="toc-num">02</span><span class="toc-name">Kleuren & theming</span><span class="toc-arrow">→</span></div>
       <div class="toc-item"><span class="toc-num">03</span><span class="toc-name">Typografie</span><span class="toc-arrow">→</span></div>
       <div class="toc-item"><span class="toc-num">04</span><span class="toc-name">Spacing & layout</span><span class="toc-arrow">→</span></div>
-      <div class="toc-item"><span class="toc-num">05</span><span class="toc-name">Componenten</span><span class="toc-arrow">→</span></div>
-      <div class="toc-item"><span class="toc-num">06</span><span class="toc-name">Logo</span><span class="toc-arrow">→</span></div>
-      <div class="toc-item"><span class="toc-num">07</span><span class="toc-name">Tone of voice</span><span class="toc-arrow">→</span></div>
-      <div class="toc-item"><span class="toc-num">08</span><span class="toc-name">CSS variabelen</span><span class="toc-arrow">→</span></div>
+      <div class="toc-item"><span class="toc-num">05</span><span class="toc-name">Componenten — index</span><span class="toc-arrow">→</span></div>
+      <div class="toc-item"><span class="toc-num">06</span><span class="toc-name">Componenten — projecten</span><span class="toc-arrow">→</span></div>
+      <div class="toc-item"><span class="toc-num">07</span><span class="toc-name">Logo</span><span class="toc-arrow">→</span></div>
+      <div class="toc-item"><span class="toc-num">08</span><span class="toc-name">Tone of voice</span><span class="toc-arrow">→</span></div>
+      <div class="toc-item"><span class="toc-num">09</span><span class="toc-name">CSS variabelen</span><span class="toc-arrow">→</span></div>
     </div>
   </div>
-  <div class="cover-meta">Versie 1.0 &nbsp;·&nbsp; Vroomans BI B.V. &nbsp;·&nbsp; 2026</div>
+  <div class="cover-meta">Versie 2.0 &nbsp;·&nbsp; Vroomans BI &nbsp;·&nbsp; 2026</div>
 </div>
 
 <!-- 01 IDENTITEIT -->
@@ -189,12 +209,13 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
   <div class="section-title">Merk & identiteit</div>
   <div class="grid-2" style="gap:48px;align-items:start">
     <div>
-      <p style="font-size:17px;color:var(--grey);line-height:1.85;font-weight:300;margin-bottom:20px">Vroomans BI is het merk van Simon Vroomans — freelance data specialist met 15 jaar ervaring. Werkzaam via <strong style="color:var(--white);font-weight:500">Vroomans BI B.V.</strong></p>
+      <p style="font-size:17px;color:var(--grey);line-height:1.85;font-weight:300;margin-bottom:20px">Vroomans BI is het merk van Simon Vroomans — freelance analytics engineer. Werkzaam als eenmanszaak, gebouwd voor directe samenwerking met klanten.</p>
       <p style="font-size:17px;color:var(--grey);line-height:1.85;font-weight:300;margin-bottom:20px">De merkstijl is <strong style="color:var(--white);font-weight:500">donker, direct en technisch</strong> — zonder kil of afstandelijk te worden. Warm door kleur en toon, scherp door typografie en witruimte.</p>
+      <p style="font-size:17px;color:var(--grey);line-height:1.85;font-weight:300;margin-bottom:20px">De website bestaat uit twee pagina's: <strong style="color:var(--white);font-weight:500">index.html</strong> (diensten, tools, AI, sectoren, projecten, contact) en <strong style="color:var(--white);font-weight:500">projects.html</strong> (vier uitgelichte projecten met canvas-animaties).</p>
       <p style="font-size:17px;color:var(--grey);line-height:1.85;font-weight:300">Inspiratie: Webflow, Youwe Agency — editorial dark, grote typografie, veel lucht.</p>
     </div>
     <div>
-      <div style="background:var(--surface);padding:28px;border-radius:4px;border:1px solid var(--line)">
+      <div style="background:var(--surface);padding:28px;border-radius:4px;border:1px solid var(--line);margin-bottom:16px">
         <div style="font-size:11px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:16px">Kernwaarden</div>
         <div style="display:flex;flex-direction:column;gap:12px">
           <div style="display:flex;gap:12px;align-items:flex-start"><span style="color:var(--accent);font-size:12px;margin-top:2px">→</span><div><div style="font-size:14px;font-weight:700;color:var(--white);margin-bottom:2px">Direct</div><div style="font-size:13px;color:var(--grey);font-weight:300">Geen omhaal. Duidelijke taal, concrete beloftes.</div></div></div>
@@ -203,6 +224,10 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
           <div style="display:flex;gap:12px;align-items:flex-start"><span style="color:var(--accent);font-size:12px;margin-top:2px">→</span><div><div style="font-size:14px;font-weight:700;color:var(--white);margin-bottom:2px">Zelfverzekerd</div><div style="font-size:13px;color:var(--grey);font-weight:300">Niet opschepperig. Wel duidelijk over wat ik doe en hoe ik dat doe.</div></div></div>
         </div>
       </div>
+      <div style="background:var(--surface);padding:20px 24px;border-radius:4px;border:1px solid var(--line)">
+        <div style="font-size:11px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:10px">Pagina's</div>
+        <div style="font-size:13px;color:var(--grey);font-weight:300;line-height:1.7"><strong style="color:var(--white);font-weight:500">index.html</strong> — hero · marquee · diensten · tools · AI · sectoren · projecten teaser · contact<br><strong style="color:var(--white);font-weight:500">projects.html</strong> — 4 full-screen projectsecties met canvas visuals</div>
+      </div>
     </div>
   </div>
 </div>
@@ -210,97 +235,33 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
 <!-- 02 KLEUREN -->
 <div class="section">
   <div class="section-num">02</div>
-  <div class="section-title">Kleuren</div>
+  <div class="section-title">Kleuren & theming</div>
 
-  <div style="margin-bottom:40px">
-    <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:16px">Primaire kleuren</div>
-    <div class="grid-4">
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:#080808"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Black</div>
-          <div class="swatch-hex">#080808</div>
-          <div class="swatch-use">Achtergrond — primair</div>
-        </div>
-      </div>
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:#D42B45"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Deep Coral</div>
-          <div class="swatch-hex">#D42B45</div>
-          <div class="swatch-use">Accentkleur — primair gebruik</div>
-        </div>
-      </div>
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:#F0EEE9"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Warm White</div>
-          <div class="swatch-hex">#F0EEE9</div>
-          <div class="swatch-use">Tekst op donker — headlines & body</div>
-        </div>
-      </div>
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:#9A9A9A"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Grey</div>
-          <div class="swatch-hex">#9A9A9A</div>
-          <div class="swatch-use">Bodytekst — secondair</div>
-        </div>
-      </div>
+  <div style="margin-bottom:12px;font-size:14px;color:#555;line-height:1.7;max-width:680px">De site ondersteunt <strong>dark mode</strong> (standaard) en <strong>light mode</strong>. Thema wordt opgeslagen in <code>localStorage('vbi-theme')</code> en gezet via <code>data-theme</code> op <code>&lt;html&gt;</code>. Taalvoorkeur via <code>data-lang</code> (nl/en).</div>
+
+  <div style="margin-top:32px;margin-bottom:40px">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:16px">Dark mode (standaard)</div>
+    <div class="grid-4" style="margin-bottom:24px">
+      <div class="swatch-block"><div class="swatch-color" style="background:#080808"></div><div class="swatch-info"><div class="swatch-name">--black</div><div class="swatch-hex">#080808</div><div class="swatch-use">Achtergrond primair</div></div></div>
+      <div class="swatch-block"><div class="swatch-color" style="background:#111111"></div><div class="swatch-info"><div class="swatch-name">--surface</div><div class="swatch-hex">#111111</div><div class="swatch-use">Achtergrond secondair</div></div></div>
+      <div class="swatch-block"><div class="swatch-color" style="background:#F0EEE9"></div><div class="swatch-info"><div class="swatch-name">--white</div><div class="swatch-hex">#F0EEE9</div><div class="swatch-use">Headlines & primaire tekst</div></div></div>
+      <div class="swatch-block"><div class="swatch-color" style="background:#9A9A9A"></div><div class="swatch-info"><div class="swatch-name">--grey</div><div class="swatch-hex">#9A9A9A</div><div class="swatch-use">Body tekst</div></div></div>
+      <div class="swatch-block"><div class="swatch-color" style="background:#3A3A3A"></div><div class="swatch-info"><div class="swatch-name">--dim</div><div class="swatch-hex">#3A3A3A</div><div class="swatch-use">Zwakke borders</div></div></div>
+      <div class="swatch-block"><div class="swatch-color" style="background:#1E1E1E"></div><div class="swatch-info"><div class="swatch-name">--line</div><div class="swatch-hex">#1E1E1E</div><div class="swatch-use">Borders & dividers</div></div></div>
+      <div class="swatch-block"><div class="swatch-color" style="background:#D42B45"></div><div class="swatch-info"><div class="swatch-name">--accent</div><div class="swatch-hex">#D42B45</div><div class="swatch-use">Deep Coral — accentkleur</div></div></div>
+      <div class="swatch-block"><div class="swatch-color" style="background:#A01E32"></div><div class="swatch-info"><div class="swatch-name">--accent-dark</div><div class="swatch-hex">#A01E32</div><div class="swatch-use">Logo donker blok</div></div></div>
     </div>
-  </div>
 
-  <div>
-    <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:16px">Secondaire & systeem kleuren</div>
+    <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:16px">Light mode — <code>[data-theme="light"]</code></div>
     <div class="grid-4">
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:#111111"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Surface</div>
-          <div class="swatch-hex">#111111</div>
-          <div class="swatch-use">Achtergrond — secondair (secties)</div>
-        </div>
-      </div>
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:#1E1E1E"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Line</div>
-          <div class="swatch-hex">#1E1E1E</div>
-          <div class="swatch-use">Borders, dividers, grid-lijnen</div>
-        </div>
-      </div>
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:#3A3A3A"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Dim</div>
-          <div class="swatch-hex">#3A3A3A</div>
-          <div class="swatch-use">Zwakke borders, placeholder tekst</div>
-        </div>
-      </div>
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:#E8344A"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Coral Hover</div>
-          <div class="swatch-hex">#E8344A</div>
-          <div class="swatch-use">Hover state van accent</div>
-        </div>
-      </div>
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:#A01E32"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Coral Dark</div>
-          <div class="swatch-hex">#A01E32</div>
-          <div class="swatch-use">Logo — tweede blok, donker variant</div>
-        </div>
-      </div>
-      <div class="swatch-block">
-        <div class="swatch-color" style="background:rgba(212,43,69,0.05);border:1px solid #ddd"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Coral Tint</div>
-          <div class="swatch-hex">rgba(212,43,69,0.05)</div>
-          <div class="swatch-use">Highlight achtergrond (quote blok)</div>
-        </div>
-      </div>
+      <div class="light-swatch"><div class="swatch-color" style="background:#F5F3EE"></div><div class="swatch-info" style="background:#ECEAE5"><div class="swatch-name">--black</div><div class="swatch-hex">#F5F3EE</div><div class="swatch-use">Achtergrond primair</div></div></div>
+      <div class="light-swatch"><div class="swatch-color" style="background:#ECEAE5"></div><div class="swatch-info" style="background:#ECEAE5"><div class="swatch-name">--surface</div><div class="swatch-hex">#ECEAE5</div><div class="swatch-use">Achtergrond secondair</div></div></div>
+      <div class="light-swatch"><div class="swatch-color" style="background:#0D0D0D"></div><div class="swatch-info" style="background:#ECEAE5"><div class="swatch-name">--white</div><div class="swatch-hex">#0D0D0D</div><div class="swatch-use">Headlines & primaire tekst</div></div></div>
+      <div class="light-swatch"><div class="swatch-color" style="background:#555555"></div><div class="swatch-info" style="background:#ECEAE5"><div class="swatch-name">--grey</div><div class="swatch-hex">#555555</div><div class="swatch-use">Body tekst</div></div></div>
+      <div class="light-swatch"><div class="swatch-color" style="background:#BEBAB4"></div><div class="swatch-info" style="background:#ECEAE5"><div class="swatch-name">--dim</div><div class="swatch-hex">#BEBAB4</div><div class="swatch-use">Zwakke borders</div></div></div>
+      <div class="light-swatch"><div class="swatch-color" style="background:#DEDAD4"></div><div class="swatch-info" style="background:#ECEAE5"><div class="swatch-name">--line</div><div class="swatch-hex">#DEDAD4</div><div class="swatch-use">Borders & dividers</div></div></div>
+      <div class="light-swatch"><div class="swatch-color" style="background:rgba(245,243,238,0.96);border:1px solid #ddd"></div><div class="swatch-info" style="background:#ECEAE5"><div class="swatch-name">--nav-bg</div><div class="swatch-hex">rgba(245,243,238,0.96)</div><div class="swatch-use">Nav achtergrond (blur)</div></div></div>
+      <div class="light-swatch"><div class="swatch-color" style="background:#D42B45"></div><div class="swatch-info" style="background:#ECEAE5"><div class="swatch-name">--accent</div><div class="swatch-hex">#D42B45</div><div class="swatch-use">Ongewijzigd in beide modes</div></div></div>
     </div>
   </div>
 </div>
@@ -319,38 +280,44 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
 
   <div class="type-specimen">
     <div class="type-label">Display / Hero headline — Inter 800</div>
-    <div class="type-example" style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(44px,7vw,80px);letter-spacing:-.04em;line-height:1.0">Data fundament.</div>
-    <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 800 · letter-spacing: -0.04em · line-height: 1.0</div>
+    <div class="type-example" style="font-weight:800;font-size:clamp(44px,7vw,80px);letter-spacing:-.04em;line-height:1.0">Data fundament.</div>
+    <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 800 · letter-spacing: -0.04em · line-height: 1.0 · clamp(52px,8vw,110px)</div>
   </div>
 
   <div class="type-specimen">
     <div class="type-label">Section headline — Inter 800</div>
-    <div class="type-example" style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(28px,4vw,48px);letter-spacing:-.03em;line-height:1.0">Wat ik doe.</div>
-    <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 800 · letter-spacing: -0.03em · line-height: 1.0</div>
+    <div class="type-example" style="font-weight:800;font-size:clamp(28px,4vw,48px);letter-spacing:-.03em;line-height:1.0">Wat ik doe.</div>
+    <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 800 · letter-spacing: -0.03em · line-height: 1.0 · clamp(32px,4.5vw,54px)</div>
   </div>
 
   <div class="type-specimen">
-    <div class="type-label">Service naam — Inter 800</div>
-    <div class="type-example" style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(20px,2.5vw,32px);letter-spacing:-.03em;line-height:1.05">Semantic models & rapportage</div>
-    <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 800 · letter-spacing: -0.03em · line-height: 1.05</div>
+    <div class="type-label">Project titel — Inter 800</div>
+    <div class="type-example" style="font-weight:800;font-size:clamp(20px,2.5vw,36px);letter-spacing:-.03em;line-height:1.0">One Job to <span style="color:#D42B45">Rule Them All</span></div>
+    <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 800 · letter-spacing: -0.03em · clamp(24px,2.8vw,42px) · accent op tweede deel</div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-label">Project subhead — Inter 800</div>
+    <div class="type-example" style="font-weight:800;font-size:15px;letter-spacing:-.01em;color:#1A1A1A">Eén tabel om ze allemaal aan te sturen</div>
+    <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 800 · font-size: 15px · letter-spacing: -0.01em · break-after: avoid</div>
   </div>
 
   <div class="type-specimen">
     <div class="type-label">Body tekst — Inter 300</div>
-    <div class="type-example" style="font-family:'Inter',sans-serif;font-weight:300;font-size:16px;line-height:1.85;max-width:560px;color:#333">Van bronextractie en warehouse-architectuur tot transformatie en datamart. Als analytics engineer overzIe ik het volledige traject: van ruwe data naar een betrouwbaar fundament waarop je kunt bouwen.</div>
-    <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 300 · font-size: 14-17px · line-height: 1.8-1.85</div>
+    <div class="type-example" style="font-weight:300;font-size:14px;line-height:1.82;max-width:560px;color:#333">Van KPI definitie tot rapport en van ruwe data tot datawarehouse. Als analytics engineer overzIe ik het volledige traject — van ruwe data naar een betrouwbaar fundament waarop je kunt bouwen.</div>
+    <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 300 · font-size: 14px (projecten) / 14–17px (index) · line-height: 1.8–1.85</div>
   </div>
 
   <div class="type-specimen">
     <div class="type-label">Label / tag — Inter 600</div>
-    <div class="type-example" style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#D42B45;display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:20px;height:1px;background:#D42B45"></span>Analytics Engineer</div>
+    <div class="type-example" style="font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#D42B45;display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:20px;height:1px;background:#D42B45"></span>Analytics Engineer</div>
     <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 600 · font-size: 11px · letter-spacing: 0.12em · uppercase</div>
   </div>
 
   <div class="type-specimen">
     <div class="type-label">Nav links — Inter 400</div>
-    <div class="type-example" style="font-family:'Inter',sans-serif;font-weight:400;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9A9A9A;display:flex;gap:28px">
-      <span>Home</span><span style="color:#1A1A1A">Over mij</span><span>Technologie</span>
+    <div class="type-example" style="font-weight:400;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9A9A9A;display:flex;gap:28px">
+      <span>Diensten</span><span style="color:#1A1A1A">Tools</span><span>AI</span><span>Contact</span>
     </div>
     <div style="margin-top:12px;font-size:12px;color:#888;font-family:monospace">font-weight: 400 · font-size: 12px · letter-spacing: 0.08em · uppercase</div>
   </div>
@@ -374,64 +341,73 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
 
   <div class="grid-2" style="gap:48px">
     <div>
-      <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:20px">Sectie padding</div>
+      <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:20px">Index — sectie padding</div>
       <div class="spacing-row"><div class="spacing-bar" style="width:90px"></div><div class="spacing-label">Hero padding top/bottom</div><div class="spacing-value">110px / 90px</div></div>
       <div class="spacing-row"><div class="spacing-bar" style="width:72px"></div><div class="spacing-label">Sectie padding top/bottom</div><div class="spacing-value">90px</div></div>
-      <div class="spacing-row"><div class="spacing-bar" style="width:48px"></div><div class="spacing-label">Sectie padding left/right</div><div class="spacing-value">60px</div></div>
-      <div class="spacing-row"><div class="spacing-bar" style="width:28px"></div><div class="spacing-label">Mobiel padding left/right</div><div class="spacing-value">24px</div></div>
-
-      <div style="height:32px"></div>
-      <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:20px">Component spacing</div>
-      <div class="spacing-row"><div class="spacing-bar" style="width:64px"></div><div class="spacing-label">Block head margin-bottom</div><div class="spacing-value">64px</div></div>
-      <div class="spacing-row"><div class="spacing-bar" style="width:48px"></div><div class="spacing-label">Dienst row padding</div><div class="spacing-value">48px top/bottom</div></div>
-      <div class="spacing-row"><div class="spacing-bar" style="width:32px"></div><div class="spacing-label">Hero foot margin-top</div><div class="spacing-value">64px</div></div>
-      <div class="spacing-row"><div class="spacing-bar" style="width:18px"></div><div class="spacing-label">Gap in d-body</div><div class="spacing-value">18px</div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:60px"></div><div class="spacing-label">Sectie padding left/right</div><div class="spacing-value">60px</div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:24px"></div><div class="spacing-label">Mobiel padding left/right</div><div class="spacing-value">24px</div></div>
+      <div style="height:24px"></div>
+      <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:20px">Projects — sectie</div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:64px"></div><div class="spacing-label">proj-text padding</div><div class="spacing-value">64px 52px 52px</div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:36px"></div><div class="spacing-label">proj-body column-gap</div><div class="spacing-value">36px</div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:24px"></div><div class="spacing-label">proj-header padding-bottom</div><div class="spacing-value">24px</div></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:36px"></div><div class="spacing-label">proj-header margin-bottom</div><div class="spacing-value">36px</div></div>
     </div>
     <div>
       <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:20px">Grid systeem</div>
+      <div class="rule-block">
+        <div class="rule-title">Index secties — min-height: 100dvh</div>
+        <div class="rule-desc">Elke sectie vult minimaal het volledige scherm. Direction-aware scroll snap: 8px drempel, 720ms easeInOutCubic, 150ms debounce.</div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-title">Projects secties — height: 100dvh, overflow: hidden</div>
+        <div class="rule-desc"><code>grid-template-columns: 1fr 1fr</code> — tekst links, canvas visual rechts. Geen inner scroll. Tekst in <code>columns: 2; column-fill: auto</code> (krant-stijl, kolom 1 altijd voller).</div>
+      </div>
       <div class="rule-block">
         <div class="rule-title">Diensten — 3 kolommen</div>
         <div class="rule-desc"><code>56px · 1fr · 360px</code> — nummer, naam, body+tags</div>
       </div>
       <div class="rule-block">
-        <div class="rule-title">Hero foot — 2 kolommen</div>
-        <div class="rule-desc"><code>1fr · 380px</code> — beschrijving links, CTA rechts</div>
+        <div class="rule-title">Project teasers — 4 kolommen</div>
+        <div class="rule-desc"><code>grid-template-columns: repeat(4, 1fr)</code> met border-right tussen cards.</div>
       </div>
       <div class="rule-block">
         <div class="rule-title">Contact — 2 kolommen</div>
         <div class="rule-desc"><code>1fr · 1fr</code> — headline links, body rechts</div>
       </div>
       <div class="rule-block">
-        <div class="rule-title">Sectoren — flex wrap</div>
-        <div class="rule-desc"><code>flex-wrap: wrap · min-width: 220px</code></div>
-      </div>
-      <div style="height:16px"></div>
-      <div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:20px">Border radius</div>
-      <div class="rule-block">
-        <div class="rule-title">Alles: border-radius: 3px</div>
-        <div class="rule-desc">Buttons, tags, tool pills, demo blocks. Geen ronde hoeken — strak en technisch.</div>
+        <div class="rule-title">Border radius: 3px overal</div>
+        <div class="rule-desc">Buttons, tags, tool pills, blokken. Strak en technisch — geen ronde hoeken.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 05 COMPONENTEN -->
+<!-- 05 COMPONENTEN INDEX -->
 <div class="section dark">
   <div class="section-num">05</div>
-  <div class="section-title">Componenten</div>
+  <div class="section-title">Componenten — index</div>
 
-  <!-- NAV -->
+  <!-- NAV INDEX -->
   <div class="demo-block" style="padding:0;overflow:hidden;margin-bottom:32px">
-    <div class="demo-label" style="padding:16px 20px;margin-bottom:0;border-bottom:1px solid var(--line)">Navigatie</div>
+    <div class="demo-label" style="padding:16px 20px;margin-bottom:0;border-bottom:1px solid var(--line)">Navigatie — index.html</div>
     <div class="demo-nav">
-      <div class="demo-nav-logo">Vroomans<span>BI</span></div>
       <div class="demo-nav-links">
-        <a class="active">Home</a>
-        <a>Over mij</a>
-        <a>Technologie</a>
+        <a class="active">Diensten</a>
+        <a>Tools</a>
+        <a>AI</a>
+        <a>Contact</a>
       </div>
-      <button class="demo-nav-cta">Mail mij</button>
+      <div class="demo-nav-right">
+        <div class="demo-nav-toggle"><span style="color:var(--white)">NL</span><span style="opacity:.35">·</span><span>EN</span></div>
+        <div class="demo-nav-toggle" style="width:30px;justify-content:center">☽</div>
+        <div class="demo-nav-logo">
+          <svg width="20" height="20" viewBox="0 0 36 36" fill="none"><rect x="0" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.9"/><rect x="20" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/><rect x="0" y="20" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/><rect x="20" y="20" width="16" height="16" rx="3" fill="#A01E32" opacity="0.9"/></svg>
+          Vroomans<span>BI</span>
+        </div>
+      </div>
     </div>
+    <div style="padding:12px 20px;background:var(--surface);font-size:12px;color:var(--grey)">Links links · NL/EN toggle + theme toggle + logo rechts · geen border-bottom op nav zelf</div>
   </div>
 
   <!-- HERO -->
@@ -440,14 +416,14 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
     <div class="demo-hero">
       <div class="demo-tag">Analytics Engineer</div>
       <div class="demo-h1">Ik bouw het<br>data <span class="a" style="color:#D42B45">fundament.</span></div>
-      <p class="demo-sub">Van warehouse tot semantic model, van ruwe bron tot rapport — ik begeleid en bouw het <strong>complete data platform</strong> dat jouw organisatie nodig heeft.</p>
+      <p class="demo-sub">Van KPI definitie tot rapport en van ruwe data tot datawarehouse.</p>
     </div>
   </div>
 
   <!-- MARQUEE -->
   <div class="demo-mq" style="margin-bottom:32px">
     <div class="demo-mq-track">
-      <span class="demo-mq-item">Power BI</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Databricks</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Microsoft Fabric</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Data Vault</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Semantic Modeling</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">DAX</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Power BI</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Databricks</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Microsoft Fabric</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Data Vault</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Semantic Modeling</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">DAX</span><span class="demo-mq-dot">·</span>
+      <span class="demo-mq-item">Power BI</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Databricks</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Microsoft Fabric</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">DAX</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">dbt</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">SSIS</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Power BI</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Databricks</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">Microsoft Fabric</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">DAX</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">dbt</span><span class="demo-mq-dot">·</span><span class="demo-mq-item">SSIS</span><span class="demo-mq-dot">·</span>
     </div>
   </div>
 
@@ -456,107 +432,218 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
     <div class="demo-label" style="padding:16px 20px;margin-bottom:0;border-bottom:1px solid var(--line)">Dienst rijen</div>
     <div class="demo-dienst">
       <div class="demo-dn">01</div>
-      <div class="demo-dname">Data fundament<br>& advies</div>
+      <div class="demo-dname">Data fundament<br>& architectuur</div>
       <div class="demo-desc">
-        <p class="demo-sub" style="font-size:13px;color:var(--grey);line-height:1.8;font-weight:300;margin-top:0">Van bronextractie en warehouse-architectuur tot transformatie en datamart.</p>
-        <div class="tag-demo" style="margin-top:10px">
-          <span class="tag">Databricks</span><span class="tag">dbt</span><span class="tag">Azure</span>
-        </div>
+        <p style="font-size:13px;color:var(--grey);line-height:1.8;font-weight:300">Van bronextractie tot datawarehouse. SSIS, Databricks, dbt, Azure.</p>
+        <div class="tag-demo"><span class="tag">Databricks</span><span class="tag">dbt</span><span class="tag">SSIS</span></div>
       </div>
     </div>
     <div class="demo-dienst">
       <div class="demo-dn">02</div>
       <div class="demo-dname">Semantic models<br>& rapportage</div>
       <div class="demo-desc">
-        <p class="demo-sub" style="font-size:13px;color:var(--grey);line-height:1.8;font-weight:300;margin-top:0">Eén solide semantic model per onderwerp — consistente cijfers door de hele organisatie.</p>
-        <div class="tag-demo" style="margin-top:10px">
-          <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Metric View</span>
-        </div>
+        <p style="font-size:13px;color:var(--grey);line-height:1.8;font-weight:300">Eén groot, goed doordacht model — consistent voor iedereen.</p>
+        <div class="tag-demo"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">TMDL</span></div>
+      </div>
+    </div>
+    <div class="demo-dienst">
+      <div class="demo-dn">03</div>
+      <div class="demo-dname">AI, code<br>& automatisering</div>
+      <div class="demo-desc">
+        <p style="font-size:13px;color:var(--grey);line-height:1.8;font-weight:300">Handmatige processen in kaart brengen en automatiseren. AI als co-pilot.</p>
+        <div class="tag-demo"><span class="tag">Python</span><span class="tag">AI co-pilot</span><span class="tag">Automatisering</span></div>
       </div>
     </div>
   </div>
 
-  <!-- SECTOREN -->
+  <!-- PROJECT TEASERS -->
   <div style="margin-bottom:32px">
-    <div class="demo-label">Sectoren blokken</div>
-    <div class="demo-sector-list">
-      <div class="demo-sector-item">Finance <span>&</span> verzekeraars</div>
-      <div class="demo-sector-item">Ouderenzorg <span>&</span> healthcare</div>
-      <div class="demo-sector-item">Gemeente <span>&</span> overheid</div>
-      <div class="demo-sector-item">Holiday <span>&</span> toerisme</div>
+    <div class="demo-label">Project teasers — 4 kolommen</div>
+    <div class="demo-pt-grid">
+      <div class="demo-pt-card"><div class="demo-pt-num">01</div><div class="demo-pt-title">One Job to Rule Them All</div><div class="demo-pt-body">Een SSIS-orchestratielaag die zichzelf aanstuurt via metadata.</div><div class="demo-pt-link">Lees meer ↗</div></div>
+      <div class="demo-pt-card"><div class="demo-pt-num">02</div><div class="demo-pt-title">Snapshot Semantic Model</div><div class="demo-pt-body">Eén Power BI model als fundament — tijd als rode draad.</div><div class="demo-pt-link">Lees meer ↗</div></div>
+      <div class="demo-pt-card"><div class="demo-pt-num">03</div><div class="demo-pt-title">VVT Datamotor</div><div class="demo-pt-body">Generieke datamotor voor ouderenzorg, klantspecifiek geconfigureerd.</div><div class="demo-pt-link">Lees meer ↗</div></div>
+      <div class="demo-pt-card" style="border-right:none"><div class="demo-pt-num">04</div><div class="demo-pt-title">Polaris</div><div class="demo-pt-body">Zelfgebouwd AI-platform, gekoppeld aan Claude en Home Assistant.</div><div class="demo-pt-link">Lees meer ↗</div></div>
     </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--grey)">Elke card: pt-num (11px/700/dim) · pt-title (clamp 18–24px/800/-0.03em) · pt-body (13px/300) · pt-link (12px/600/uppercase/accent)</div>
   </div>
 
-  <!-- BUTTONS -->
+  <!-- SCROLL DOTS -->
   <div>
-    <div class="demo-label">Buttons & CTA's</div>
-    <div class="btn-demos">
-      <a class="btn-primary">Mail mij</a>
-      <a class="btn-outline">Over mij</a>
-      <a class="btn-email">simon@vroomansbi.nl</a>
+    <div class="demo-label">Scroll dots — vaste navigatie links</div>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+      <div style="background:var(--surface);padding:20px;border-radius:4px;display:flex;align-items:center;gap:20px">
+        <div class="demo-scroll-dots">
+          <div class="demo-dot active"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+        </div>
+        <div style="font-size:12px;color:var(--grey)">7 dots op index<br>(hero t/m contact)</div>
+      </div>
+      <div style="background:var(--surface);padding:20px;border-radius:4px;display:flex;align-items:center;gap:20px">
+        <div class="demo-scroll-dots">
+          <div class="demo-dot"></div>
+          <div class="demo-dot active"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+        </div>
+        <div style="font-size:12px;color:var(--grey)">4 dots op projects<br>(project 1 t/m 4)</div>
+      </div>
+      <div style="font-size:13px;color:var(--grey);max-width:280px;line-height:1.7"><code>position: fixed; left: 22px</code><br>Actieve dot: <code>var(--accent)</code> + <code>scale(1.5)</code><br>Inactieve dot: <code>var(--dim)</code><br>Klikbaar — scrollt naar sectie.</div>
     </div>
-    <div style="margin-top:16px;font-size:12px;color:var(--grey)">Primaire CTA is altijd de email button. Telefoon-buttons zijn verwijderd — contact via email, Simon belt terug.</div>
   </div>
 </div>
 
-<!-- 06 LOGO -->
+<!-- 06 COMPONENTEN PROJECTS -->
 <div class="section surface">
   <div class="section-num">06</div>
+  <div class="section-title">Componenten — projects</div>
+
+  <!-- NAV PROJECTS -->
+  <div style="background:var(--black);border-radius:4px;overflow:hidden;margin-bottom:24px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);padding:16px 20px;border-bottom:1px solid var(--line)">Navigatie — projects.html</div>
+    <div class="demo-nav">
+      <div class="demo-nav-left">
+        <div class="demo-nav-back">← Terug</div>
+        <div style="width:1px;height:16px;background:var(--dim)"></div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)">Projecten</div>
+      </div>
+      <div class="demo-nav-right">
+        <div class="demo-nav-toggle"><span style="color:var(--white)">NL</span><span style="opacity:.35">·</span><span>EN</span></div>
+        <div class="demo-nav-toggle" style="width:30px;justify-content:center">☽</div>
+        <div class="demo-nav-logo">
+          <svg width="20" height="20" viewBox="0 0 36 36" fill="none"><rect x="0" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.9"/><rect x="20" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/><rect x="0" y="20" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/><rect x="20" y="20" width="16" height="16" rx="3" fill="#A01E32" opacity="0.9"/></svg>
+          Vroomans<span>BI</span>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px 20px;background:var(--surface);font-size:12px;color:var(--grey)">Links: ← Terug + separator + "Projecten" label · Rechts: NL/EN + theme + logo · Geen border-bottom</div>
+  </div>
+
+  <!-- PROJ SECTION DEMO -->
+  <div style="margin-bottom:24px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Project sectie — height: 100dvh, grid 1fr 1fr</div>
+    <div class="demo-proj-section">
+      <div class="demo-proj-text">
+        <div class="demo-proj-header">
+          <div class="demo-proj-num">01</div>
+          <div class="demo-proj-title">One Job to <span class="a">Rule Them All</span></div>
+        </div>
+        <div class="demo-proj-body">
+          <p class="demo-proj-p">Samen met twee collega's heb ik de orchestratielaag van hun datawarehouse opnieuw opgezet. SSIS, metadata-driven, parallelle verwerking.</p>
+          <p class="demo-proj-p">De nieuwe oplossing draait om een centrale metadata-tabel. Eén tabel om ze allemaal aan te sturen. Processen draaien parallel, afgestemd op servercapaciteit.</p>
+          <p class="demo-proj-p">Bij een mislukking slaat het systeem een milestone op. Bij herstart begint het daar verder. Twee jaar stabiel in productie.</p>
+        </div>
+      </div>
+      <div class="demo-proj-visual">
+        <div style="text-align:center;color:var(--grey);font-size:12px;opacity:.5">canvas animatie<br>centered</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:#555">proj-body: <code>columns: 2; column-gap: 36px; column-fill: auto</code> — kolom 1 altijd voller dan kolom 2. proj-p: 14px/300/1.82. proj-subhead: 15px/800/-0.01em · break-after: avoid.</div>
+  </div>
+
+  <!-- CANVAS ANIMATIONS -->
+  <div style="background:var(--black);border-radius:4px;padding:28px;margin-bottom:24px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-bottom:20px">Canvas animaties — overzicht</div>
+    <div class="grid-4" style="gap:16px">
+      <div style="background:var(--surface);padding:16px;border-radius:3px;border:1px solid var(--line)">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:6px">Canvas 1</div>
+        <div style="font-size:12px;color:var(--white);font-weight:600;margin-bottom:4px">Orchestratie pipeline</div>
+        <div style="font-size:11px;color:var(--grey);line-height:1.6">Animated node graph met parallelle flows, afhankelijkheden en milestone markers. sizeCanvas: 82%</div>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:3px;border:1px solid var(--line)">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:6px">Canvas 2</div>
+        <div style="font-size:12px;color:var(--white);font-weight:600;margin-bottom:4px">Time intelligence chart</div>
+        <div style="font-size:11px;color:var(--grey);line-height:1.6">Y-2/Y-1/Y lijngrafiek met bewegende snapshot cursor en connector naar Y-1 equivalent. sizeCanvas: 82%</div>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:3px;border:1px solid var(--line)">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:6px">Canvas 3</div>
+        <div style="font-size:12px;color:var(--white);font-weight:600;margin-bottom:4px">VVT Datamotor hub</div>
+        <div style="font-size:11px;color:var(--grey);line-height:1.6">3 klanten elk met fin/pers/prod bronnen → bundelpunt → motor → klant. Gelaagde pulsen. sizeCanvas: 94%</div>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:3px;border:1px solid var(--line)">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:6px">Canvas 4</div>
+        <div style="font-size:12px;color:var(--white);font-weight:600;margin-bottom:4px">Polaris starfield</div>
+        <div style="font-size:11px;color:var(--grey);line-height:1.6">Sterrenhemel met pulserende Polaris ster + netwerk nodes (Proxmox, Claude, Home Asst.). sizeCanvas: 96%</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;font-size:12px;color:var(--grey)">Alle canvassen: theme-aware via <code>isLight()</code> helper · animatie via <code>requestAnimationFrame</code> · alleen <code>transform</code> en <code>opacity</code> animeren · accent kleur: <code>rgba(212,43,69,…)</code></div>
+  </div>
+
+  <!-- PROJ TAGS -->
+  <div>
+    <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Project tags</div>
+    <div style="background:var(--black);padding:20px;border-radius:4px">
+      <div class="tag-demo">
+        <span class="tag">SSIS</span><span class="tag">SQL Server</span><span class="tag">Metadata-driven</span><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">TMDL</span><span class="tag">QlikSense</span><span class="tag">Multi-tenant</span><span class="tag">Proxmox</span><span class="tag">Claude MCP</span>
+      </div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:#555">Zelfde stijl als index tool pills: 11px/400/0.04em · border: 1px solid var(--line) · border-radius: 2px · padding: 3px 10px</div>
+  </div>
+</div>
+
+<!-- 07 LOGO -->
+<div class="section dark">
+  <div class="section-num">07</div>
   <div class="section-title">Logo</div>
 
   <div class="grid-2" style="gap:32px">
     <div>
-      <div style="background:var(--black);padding:48px;border-radius:4px;display:flex;align-items:center;gap:12px;margin-bottom:16px">
+      <div style="background:var(--surface);padding:48px;border-radius:4px;display:flex;align-items:center;gap:12px;margin-bottom:16px;border:1px solid var(--line)">
         <svg width="40" height="40" viewBox="0 0 36 36" fill="none">
-          <rect x="2" y="2" width="14" height="14" rx="3" fill="#D42B45" opacity="0.9"/>
-          <rect x="20" y="2" width="14" height="14" rx="3" fill="#D42B45" opacity="0.3"/>
-          <rect x="2" y="20" width="14" height="14" rx="3" fill="#D42B45" opacity="0.3"/>
-          <rect x="20" y="20" width="14" height="14" rx="3" fill="#A01E32" opacity="0.9"/>
-          <line x1="16" y1="9" x2="20" y2="9" stroke="#D42B45" stroke-width="1.5"/>
-          <line x1="9" y1="16" x2="9" y2="20" stroke="#D42B45" stroke-width="1.5"/>
-          <line x1="27" y1="16" x2="27" y2="20" stroke="#A01E32" stroke-width="1.5"/>
-          <line x1="16" y1="27" x2="20" y2="27" stroke="#A01E32" stroke-width="1.5"/>
+          <rect x="0" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.9"/>
+          <rect x="20" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="0" y="20" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="20" y="20" width="16" height="16" rx="3" fill="#A01E32" opacity="0.9"/>
+          <line x1="16" y1="8" x2="20" y2="8" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="8" y1="16" x2="8" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="28" y1="16" x2="28" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="16" y1="28" x2="20" y2="28" stroke="#A01E32" stroke-width="1.5"/>
         </svg>
         <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;color:#F0EEE9">Vroomans<span style="color:#D42B45">BI</span></div>
       </div>
       <div style="background:#F0EEE9;padding:48px;border-radius:4px;display:flex;align-items:center;gap:12px">
         <svg width="40" height="40" viewBox="0 0 36 36" fill="none">
-          <rect x="2" y="2" width="14" height="14" rx="3" fill="#D42B45" opacity="0.9"/>
-          <rect x="20" y="2" width="14" height="14" rx="3" fill="#D42B45" opacity="0.3"/>
-          <rect x="2" y="20" width="14" height="14" rx="3" fill="#D42B45" opacity="0.3"/>
-          <rect x="20" y="20" width="14" height="14" rx="3" fill="#A01E32" opacity="0.9"/>
-          <line x1="16" y1="9" x2="20" y2="9" stroke="#D42B45" stroke-width="1.5"/>
-          <line x1="9" y1="16" x2="9" y2="20" stroke="#D42B45" stroke-width="1.5"/>
-          <line x1="27" y1="16" x2="27" y2="20" stroke="#A01E32" stroke-width="1.5"/>
-          <line x1="16" y1="27" x2="20" y2="27" stroke="#A01E32" stroke-width="1.5"/>
+          <rect x="0" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.9"/>
+          <rect x="20" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="0" y="20" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="20" y="20" width="16" height="16" rx="3" fill="#A01E32" opacity="0.9"/>
+          <line x1="16" y1="8" x2="20" y2="8" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="8" y1="16" x2="8" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="28" y1="16" x2="28" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="16" y1="28" x2="20" y2="28" stroke="#A01E32" stroke-width="1.5"/>
         </svg>
         <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;color:#080808">Vroomans<span style="color:#D42B45">BI</span></div>
       </div>
     </div>
     <div>
       <div class="rule-block">
-        <div class="rule-title">Logo mark</div>
-        <div class="rule-desc">4 blokken in een 2×2 grid. Verbonden door lijnen. Twee blokken in full accent (#D42B45), twee in 30% opacity. Rechts-onder blok in donkere variant (#A01E32).</div>
+        <div class="rule-title">Logo mark — viewBox 0 0 36 36</div>
+        <div class="rule-desc">4 blokken 16×16px in een 2×2 grid met 4px gap. Verbonden door 1.5px stroke lijnen. Links-boven + rechts-boven-opacity: D42B45/0.9 en D42B45/0.3. Links-onder: D42B45/0.3. Rechts-onder: A01E32/0.9.</div>
       </div>
       <div class="rule-block">
         <div class="rule-title">Logo tekst</div>
-        <div class="rule-desc">Inter 800, 15px, letter-spacing -0.03em. "Vroomans" in warm white (#F0EEE9), "BI" in accent (#D42B45).</div>
+        <div class="rule-desc">Inter 800, 15px (nav) / 18px (groot), letter-spacing -0.03em. "Vroomans" in var(--white), "BI" in var(--accent). Gap: 8px.</div>
       </div>
       <div class="rule-block">
-        <div class="rule-title">Minimale grootte</div>
-        <div class="rule-desc">Logo mark minimaal 24×24px. Logo met tekst minimaal 120px breed.</div>
+        <div class="rule-title">Logo in nav — rechts</div>
+        <div class="rule-desc">Het logo staat in de rechterhoek van de nav, met een border-left: 1px solid var(--dim) als scheiding. Op de index is het logo een link naar de pagina zelf (of mailto). Op projects.html linkt het terug naar index.html.</div>
       </div>
       <div class="rule-block dont">
         <div class="rule-title">Niet doen</div>
-        <div class="rule-desc">Geen kleurwijzigingen aan het logo. Geen wit logo mark. Geen andere fonts in de naam.</div>
+        <div class="rule-desc">Geen kleurwijzigingen aan het logo mark. Geen witte versie. Geen andere fonts. Geen email href op het logo.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 07 TONE OF VOICE -->
+<!-- 08 TONE OF VOICE -->
 <div class="section">
-  <div class="section-num">07</div>
+  <div class="section-num">08</div>
   <div class="section-title">Tone of voice</div>
 
   <div class="grid-2" style="gap:32px;margin-bottom:32px">
@@ -572,11 +659,11 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
       </div>
       <div class="rule-block">
         <div class="rule-title">Zelfverzekerd, niet opschepperig</div>
-        <div class="rule-desc">"Ik speel graag met data en maak dingen daarmee sneller en beter." — feiten, geen claims.</div>
+        <div class="rule-desc">Feiten en resultaten laten spreken — "twee jaar stabiel in productie", "meer dan 1.300 measures".</div>
       </div>
       <div class="rule-block">
-        <div class="rule-title">Begint bij de vraag</div>
-        <div class="rule-desc">"Het begint bij waar wil je op sturen?" — techniek is middel, niet doel.</div>
+        <div class="rule-title">Persoonlijk en met humor waar passend</div>
+        <div class="rule-desc">"One Job to Rule Them All" — een LOTR-knipoog die werkt omdat de techniek het waarmaakt.</div>
       </div>
     </div>
     <div>
@@ -584,10 +671,6 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
       <div class="rule-block dont">
         <div class="rule-title">Geen bureau-taal</div>
         <div class="rule-desc">Geen "strategisch partner", "thought leader", "end-to-end solutions".</div>
-      </div>
-      <div class="rule-block dont">
-        <div class="rule-title">Niet stoer over zeldzaamheid</div>
-        <div class="rule-desc">Niet "deze combinatie is zeldzaam" — gewoon laten zien wat je doet.</div>
       </div>
       <div class="rule-block dont">
         <div class="rule-title">Geen overdreven claims</div>
@@ -604,26 +687,27 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
     <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#D42B45;margin-bottom:16px">Referentiezinnen</div>
     <div style="display:flex;flex-direction:column;gap:12px">
       <div style="font-size:15px;font-weight:600;letter-spacing:-.01em;color:#080808">"Ik bouw het data fundament."</div>
-      <div style="font-size:15px;font-weight:600;letter-spacing:-.01em;color:#080808">"Ik speel graag met data — en maak dingen daarmee sneller en beter."</div>
-      <div style="font-size:15px;font-weight:600;letter-spacing:-.01em;color:#080808">"Het begint bij waar wil je op sturen?"</div>
-      <div style="font-size:15px;font-weight:600;letter-spacing:-.01em;color:#080808">"One-man-army die schakelt tussen adviseren en bouwen."</div>
-      <div style="font-size:15px;font-weight:600;letter-spacing:-.01em;color:#080808">"Vertel kort wat je nodig hebt — ik bel je zo snel mogelijk terug."</div>
+      <div style="font-size:15px;font-weight:600;letter-spacing:-.01em;color:#080808">"Van KPI definitie tot rapport en van ruwe data tot datawarehouse."</div>
+      <div style="font-size:15px;font-weight:600;letter-spacing:-.01em;color:#080808">"AI niet meer weg te denken uit mijn werk."</div>
+      <div style="font-size:15px;font-weight:600;letter-spacing:-.01em;color:#080808">"Soms heb je van die projecten die tijd en energie kosten maar waarvan je skillset een enorme boost krijgt."</div>
+      <div style="font-size:15px;font-weight:600;letter-spacing:-.01em;color:#080808">"Eén tabel om ze allemaal aan te sturen."</div>
     </div>
   </div>
 </div>
 
-<!-- 08 CSS VARIABELEN -->
+<!-- 09 CSS VARIABELEN -->
 <div class="section dark">
-  <div class="section-num">08</div>
+  <div class="section-num">09</div>
   <div class="section-title">CSS variabelen</div>
 
   <div style="margin-bottom:32px">
-    <div class="demo-label">Root variables — kopieer dit in elk CSS bestand</div>
+    <div class="demo-label">Root variables — dark mode (standaard)</div>
     <div class="code-block">
 <span class="k">:root</span> {<br>
 &nbsp;&nbsp;<span class="c">/* Achtergronden */</span><br>
 &nbsp;&nbsp;--black:        <span class="v">#080808</span>;<br>
 &nbsp;&nbsp;--surface:      <span class="v">#111111</span>;<br>
+&nbsp;&nbsp;--nav-bg:       <span class="v">rgba(8,8,8,0.96)</span>;<br>
 &nbsp;&nbsp;<br>
 &nbsp;&nbsp;<span class="c">/* Tekst */</span><br>
 &nbsp;&nbsp;--white:        <span class="v">#F0EEE9</span>;<br>
@@ -642,49 +726,45 @@ code{font-family:'Inter',monospace;font-size:12px;background:#F0EEE9;padding:2px
   </div>
 
   <div style="margin-bottom:32px">
-    <div class="demo-label">Font import</div>
+    <div class="demo-label">Light mode overrides — [data-theme="light"]</div>
     <div class="code-block">
-<span class="k">@import</span> url(<span class="v">'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'</span>);<br>
-<br>
-body {<br>
-&nbsp;&nbsp;font-family: <span class="v">'Inter'</span>, sans-serif;<br>
-&nbsp;&nbsp;-webkit-font-smoothing: antialiased;<br>
+<span class="k">[data-theme="light"]</span> {<br>
+&nbsp;&nbsp;--black:   <span class="v">#F5F3EE</span>;<br>
+&nbsp;&nbsp;--surface: <span class="v">#ECEAE5</span>;<br>
+&nbsp;&nbsp;--white:   <span class="v">#0D0D0D</span>;<br>
+&nbsp;&nbsp;--grey:    <span class="v">#555555</span>;<br>
+&nbsp;&nbsp;--dim:     <span class="v">#BEBAB4</span>;<br>
+&nbsp;&nbsp;--line:    <span class="v">#DEDAD4</span>;<br>
+&nbsp;&nbsp;--nav-bg:  <span class="v">rgba(245,243,238,0.96)</span>;<br>
+&nbsp;&nbsp;<span class="c">/* --accent en --accent-dark ongewijzigd */</span><br>
 }
     </div>
   </div>
 
-  <div>
-    <div class="demo-label">Typografie helper classes</div>
+  <div style="margin-bottom:32px">
+    <div class="demo-label">Anti-flash inline script — bovenaan &lt;head&gt;</div>
     <div class="code-block">
-<span class="c">/* Display headline */</span><br>
-.display {<br>
-&nbsp;&nbsp;font-weight: <span class="v">800</span>;<br>
-&nbsp;&nbsp;letter-spacing: <span class="v">-0.04em</span>;<br>
-&nbsp;&nbsp;line-height: <span class="v">1.0</span>;<br>
-}<br>
+<span class="k">&lt;script&gt;</span>(function(){<br>
+&nbsp;&nbsp;var t=localStorage.getItem(<span class="v">'vbi-theme'</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;||(window.matchMedia&&window.matchMedia(<span class="v">'(prefers-color-scheme: light)'</span>).matches<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?<span class="v">'light'</span>:<span class="v">'dark'</span>);<br>
+&nbsp;&nbsp;document.documentElement.setAttribute(<span class="v">'data-theme'</span>,t);<br>
+&nbsp;&nbsp;var l=localStorage.getItem(<span class="v">'vbi-lang'</span>)||<span class="v">'nl'</span>;<br>
+&nbsp;&nbsp;document.documentElement.setAttribute(<span class="v">'data-lang'</span>,l);<br>
+})();<span class="k">&lt;/script&gt;</span>
+    </div>
+  </div>
+
+  <div>
+    <div class="demo-label">Taal — NL/EN toggle</div>
+    <div class="code-block">
+<span class="c">/* Elementen met klasse nl of en worden getoond/verborgen */</span><br>
+<span class="k">[data-lang="nl"]</span> .en { display: <span class="v">none</span>; }<br>
+<span class="k">[data-lang="en"]</span> .nl { display: <span class="v">none</span>; }<br>
 <br>
-<span class="c">/* Section headline */</span><br>
-.headline {<br>
-&nbsp;&nbsp;font-weight: <span class="v">800</span>;<br>
-&nbsp;&nbsp;letter-spacing: <span class="v">-0.03em</span>;<br>
-&nbsp;&nbsp;line-height: <span class="v">1.0</span>;<br>
-}<br>
-<br>
-<span class="c">/* Body */</span><br>
-.body {<br>
-&nbsp;&nbsp;font-weight: <span class="v">300</span>;<br>
-&nbsp;&nbsp;line-height: <span class="v">1.85</span>;<br>
-&nbsp;&nbsp;color: var(<span class="v">--grey</span>);<br>
-}<br>
-<br>
-<span class="c">/* Label / tag */</span><br>
-.label {<br>
-&nbsp;&nbsp;font-weight: <span class="v">600</span>;<br>
-&nbsp;&nbsp;font-size: <span class="v">11px</span>;<br>
-&nbsp;&nbsp;letter-spacing: <span class="v">0.12em</span>;<br>
-&nbsp;&nbsp;text-transform: <span class="v">uppercase</span>;<br>
-&nbsp;&nbsp;color: var(<span class="v">--accent</span>);<br>
-}
+<span class="c">/* Lang toggle active state */</span><br>
+<span class="k">[data-lang="nl"]</span> .lang-nl { color: var(<span class="v">--white</span>); }<br>
+<span class="k">[data-lang="en"]</span> .lang-en { color: var(<span class="v">--white</span>); }
     </div>
   </div>
 </div>
@@ -693,14 +773,14 @@ body {<br>
 <div style="background:var(--black);padding:32px 60px;display:flex;justify-content:space-between;align-items:center">
   <div style="display:flex;align-items:center;gap:10px">
     <svg width="24" height="24" viewBox="0 0 36 36" fill="none">
-      <rect x="2" y="2" width="14" height="14" rx="3" fill="#D42B45" opacity="0.9"/>
-      <rect x="20" y="2" width="14" height="14" rx="3" fill="#D42B45" opacity="0.3"/>
-      <rect x="2" y="20" width="14" height="14" rx="3" fill="#D42B45" opacity="0.3"/>
-      <rect x="20" y="20" width="14" height="14" rx="3" fill="#A01E32" opacity="0.9"/>
+      <rect x="0" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.9"/>
+      <rect x="20" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+      <rect x="0" y="20" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+      <rect x="20" y="20" width="16" height="16" rx="3" fill="#A01E32" opacity="0.9"/>
     </svg>
-    <span style="font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:-.02em;color:#F0EEE9">Vroomans<span style="color:#D42B45">BI</span></span>
+    <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:14px;letter-spacing:-.03em;color:#F0EEE9">Vroomans<span style="color:#D42B45">BI</span></div>
   </div>
-  <div style="font-size:11px;color:#3A3A3A;letter-spacing:.06em;text-transform:uppercase">Brandbook v1.0 · 2026</div>
+  <div style="font-size:12px;color:var(--grey)">Versie 2.0 &nbsp;·&nbsp; 2026</div>
 </div>
 
 </body>
