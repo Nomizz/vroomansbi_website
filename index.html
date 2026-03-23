@@ -1658,9 +1658,9 @@
       });
     })();
 
-    // Page snap scroll , direction-aware, no bounce back (desktop only)
+    // Page snap scroll disabled
     (function () {
-      if (window.innerWidth <= 860) return;
+      return;
       const sections = Array.from(document.querySelectorAll('section'));
       let timer     = null;
       let animating = false;
