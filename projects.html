@@ -182,9 +182,9 @@
     }
     .scroll-dot {
       width: 6px; height: 6px; border-radius: 50%; background: var(--dim);
-      cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; padding: 0;
+      cursor: pointer; transition: background 0.2s, width 0.2s, height 0.2s; border: none; padding: 0;
     }
-    .scroll-dot.active { background: var(--accent); transform: scale(2.2); }
+    .scroll-dot.active { background: var(--accent); width: 12px; height: 12px; }
 
     footer { padding: 0; display: none; } /* footer hidden since last section has no room */
 
