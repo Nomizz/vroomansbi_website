@@ -393,8 +393,8 @@
     });
   })();
 
-  // ── Scroll snap — same as index.html ──
-  (function(){
+  // ── Scroll snap disabled ──
+  (function(){ return;
     const sections=Array.from(document.querySelectorAll('.proj-section'));
     const dots=Array.from(document.querySelectorAll('.scroll-dot'));
     let timer=null,animating=false,lastY=window.scrollY,scrollDir=0;
