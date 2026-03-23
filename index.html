@@ -1658,8 +1658,9 @@
       });
     })();
 
-    // Page snap scroll , direction-aware, no bounce back
+    // Page snap scroll , direction-aware, no bounce back (desktop only)
     (function () {
+      if (window.innerWidth <= 860) return;
       const sections = Array.from(document.querySelectorAll('section'));
       let timer     = null;
       let animating = false;
