@@ -984,24 +984,38 @@
     .scroll-dots {
       position: fixed; left: 22px; top: 50%; transform: translateY(-50%);
       z-index: 100; display: flex; flex-direction: column; gap: 10px;
+      padding: 10px 8px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: transparent;
+      transition: background 0.25s, border-color 0.25s, gap 0.25s, padding 0.25s;
+    }
+    .scroll-dots:hover {
+      background: var(--surface);
+      border-color: var(--line);
+      gap: 4px;
+      padding: 10px 12px;
     }
     .scroll-dot {
-      position: relative;
+      display: flex; align-items: center; gap: 10px;
+      background: none; border: none; cursor: pointer; padding: 4px 0;
+    }
+    .dot-mark {
+      flex-shrink: 0;
       width: 8px; height: 8px; border-radius: 50%; background: var(--dim);
-      cursor: pointer; transition: background 0.2s, width 0.2s, height 0.2s; border: none; padding: 0;
+      transition: background 0.2s, width 0.2s, height 0.2s;
     }
-    .scroll-dot.active { background: var(--accent); width: 13px; height: 13px; }
-    .scroll-dot::after {
-      content: attr(aria-label);
-      position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
-      background: var(--surface); color: var(--white); border: 1px solid var(--line);
-      font-size: 11px; font-weight: 600; letter-spacing: 0.01em;
-      padding: 3px 8px; border-radius: 3px; white-space: nowrap;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.15s;
+    .scroll-dot.active .dot-mark { background: var(--accent); width: 13px; height: 13px; }
+    .scroll-dot:hover .dot-mark { width: 13px; height: 13px; background: var(--grey); }
+    .scroll-dot.active:hover .dot-mark { background: var(--accent); }
+    .dot-label {
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400;
+      color: var(--grey); white-space: nowrap; letter-spacing: 0.01em;
+      opacity: 0; width: 0; overflow: hidden;
+      transition: opacity 0.2s, width 0.2s;
     }
-    .scroll-dot:hover { width: 13px; height: 13px; }
-    .scroll-dot:hover::after { opacity: 1; }
+    .scroll-dot.active .dot-label { color: var(--white); }
+    .scroll-dots:hover .dot-label { opacity: 1; width: auto; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
@@ -1928,13 +1942,13 @@
   </script>
 
   <div class="scroll-dots" id="scrollDots">
-    <button class="scroll-dot active" data-index="0" aria-label="Intro"></button>
-    <button class="scroll-dot" data-index="1" aria-label="Diensten"></button>
-    <button class="scroll-dot" data-index="2" aria-label="Tools"></button>
-    <button class="scroll-dot" data-index="3" aria-label="AI"></button>
-    <button class="scroll-dot" data-index="4" aria-label="Sectoren"></button>
-    <button class="scroll-dot" data-index="5" aria-label="Projecten"></button>
-    <button class="scroll-dot" data-index="6" aria-label="Contact"></button>
+    <button class="scroll-dot active" data-index="0" aria-label="Intro"><span class="dot-mark"></span><span class="dot-label">Intro</span></button>
+    <button class="scroll-dot" data-index="1" aria-label="Diensten"><span class="dot-mark"></span><span class="dot-label">Diensten</span></button>
+    <button class="scroll-dot" data-index="2" aria-label="Tools"><span class="dot-mark"></span><span class="dot-label">Tools</span></button>
+    <button class="scroll-dot" data-index="3" aria-label="AI"><span class="dot-mark"></span><span class="dot-label">AI</span></button>
+    <button class="scroll-dot" data-index="4" aria-label="Sectoren"><span class="dot-mark"></span><span class="dot-label">Sectoren</span></button>
+    <button class="scroll-dot" data-index="5" aria-label="Projecten"><span class="dot-mark"></span><span class="dot-label">Projecten</span></button>
+    <button class="scroll-dot" data-index="6" aria-label="Contact"><span class="dot-mark"></span><span class="dot-label">Contact</span></button>
   </div>
 
   <script>
