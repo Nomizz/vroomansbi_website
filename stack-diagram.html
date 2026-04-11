@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Duck Stack — VroomansBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>(function(){
+    var t = localStorage.getItem('vbi-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', t);
+  })();</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #080808;
+      --surface: #111111;
+      --white:   #F0EEE9;
+      --grey:    #9A9A9A;
+      --dim:     #3A3A3A;
+      --accent:  #D42B45;
+      --line:    #1E1E1E;
+    }
+
+    [data-theme="light"] {
+      --black:   #F5F3EE;
+      --surface: #ECEAE5;
+      --white:   #0D0D0D;
+      --grey:    #555555;
+      --dim:     #BEBAB4;
+      --line:    #DEDAD4;
+    }
+
+    html, body {
+      background: var(--black);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      min-height: 100vh;
+      align-items: stretch;
+    }
+
+    /* LEFT COLUMN */
+    .left-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 52px 80px 60px;
+      border-right: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 3vw, 42px); font-weight: 800;
+      letter-spacing: -0.03em; color: var(--white);
+      line-height: 1.05; margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-size: 14px; font-weight: 300; color: var(--grey);
+      line-height: 1.85; margin-bottom: 40px;
+      border-bottom: 1px solid var(--line); padding-bottom: 40px;
+    }
+
+    .prop-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .prop-body { font-size: 13px; font-weight: 300; color: var(--grey); line-height: 1.85; }
+    .prop-body p + p { margin-top: 14px; }
+
+    /* RIGHT COLUMN */
+    .right-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 52px;
+      background: var(--black);
+    }
+
+    @media (max-width: 860px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .left-col {
+        position: static;
+        height: auto;
+        padding: 52px 24px 40px;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+      h2 { font-size: clamp(32px, 7vw, 48px); }
+      .right-col { padding: 32px 24px 52px; }
+    }
+
+    .diagram-wrap {
+      width: 100%;
+      border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+    }
+
+    #stack-svg { width: 100%; height: auto; display: block; background: var(--black); }
+
+    .theme-btn {
+      position: fixed; top: 18px; right: 18px;
+      border: 1px solid var(--dim); border-radius: 3px;
+      padding: 5px 11px; font-size: 10px; font-weight: 600;
+      color: var(--grey); background: var(--surface); cursor: pointer;
+      letter-spacing: 0.06em; font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+
+<button class="theme-btn" onclick="(function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('vbi-theme',t);})()">TOGGLE</button>
+
+<div class="page-grid">
+
+  <div class="left-col">
+    <div class="section-label">AI &amp; Data</div>
+    <h2>VroomansAI Data Stack.</h2>
+    <div class="prop-body">
+      <p>Organisaties die hun data op orde hebben en AI inzetten om processen te automatiseren en sneller te beslissen, hebben een structureel voordeel.</p>
+      <p>Open technologie, lage licentiekosten, en van dag één gebouwd om AI te ondersteunen.</p>
+      <p>Ik bouw dit fundament voor uw organisatie, op basis van uw bronsystemen en informatievragen, met heldere deliverables. Het dagelijks onderhoud? Dat doen ik en mijn agents.</p>
+    </div>
+  </div>
+
+  <div class="right-col">
+  <div class="diagram-wrap">
+  <!--
+    GRID (viewBox 1060 × 580):
+
+    Col centers:  LEFT=160  MID=530  RIGHT=900
+    Row centers:  TOP=90  MID=290  BOT=480
+
+    NODES:
+      [Sources]     x=20,  y=20,  w=280, h=160  → right-edge cx=300, cy=100
+      [Ingestion]   x=20,  y=310, w=280, h=160  → right-edge cx=300, cy=390
+      [AI Agents]   x=370, y=20,  w=320, h=120  → bottom-edge cx=530, cy=140
+      [DuckDB/MD]   x=370, y=180, w=320, h=200  → center cx=530, cy=280
+      [Transform]   x=370, y=430, w=320, h=120  → top-edge cx=530, cy=430
+      [BI]          x=760, y=20,  w=280, h=160  → left-edge cx=760, cy=100
+      [DataSci]     x=760, y=310, w=280, h=160  → left-edge cx=760, cy=390
+
+    WIRES (90° only, L-shaped):
+      Sources right(300,100)  → horizontal → (370,100) DuckDB left via corner
+      Ingestion right(300,390)→ horizontal right → corner up → DuckDB left(370,280)
+      Sources bottom(160,180) → vertical down → Ingestion top(160,310)
+      AI Agents bottom(530,140)→ vertical down → DuckDB top(530,180)
+      DuckDB bottom(530,380)  → vertical down → Transform top(530,430)
+      DuckDB right(690,280)   → horizontal → corner → BI left(760,100) via elbow
+      DuckDB right(690,280)   → horizontal → corner → DataSci left(760,390) via elbow
+  -->
+
+  <svg id="stack-svg" viewBox="0 0 1060 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+
+    <defs>
+      <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+
+    <!-- ══════════════════════════════════════
+         CONNECTOR WIRES — 90° only, no arrows
+    ══════════════════════════════════════ -->
+
+    <!-- Sources → DuckDB (horizontal) -->
+    <polyline points="300,110 370,110"
+      stroke="#D42B45" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- Sources ↕ Ingestion (vertical left side) -->
+    <polyline points="160,182 160,308"
+      stroke="#D42B45" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- Ingestion → DuckDB (L up) -->
+    <polyline points="300,390 355,390 355,280 370,280"
+      stroke="#D42B45" stroke-width="1.5" fill="none" stroke-linecap="square" opacity="0.5"/>
+
+    <!-- AI Agents → MotherDuck (vertical, agents bottom=120, motherduck top=160) -->
+    <polyline points="530,122 530,158"
+      stroke="#D42B45" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- MotherDuck → Transform (vertical, motherduck bottom=380, transform top=400) -->
+    <polyline points="530,382 530,398"
+      stroke="#D42B45" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- MotherDuck → BI (L up-right) -->
+    <polyline points="690,220 726,220 726,110 758,110"
+      stroke="#D42B45" stroke-width="1.5" fill="none" stroke-linecap="square" opacity="0.5"/>
+
+    <!-- MotherDuck → DataSci (L down-right) -->
+    <polyline points="690,320 726,320 726,390 758,390"
+      stroke="#D42B45" stroke-width="1.5" fill="none" stroke-linecap="square" opacity="0.5"/>
+
+    <!-- ══════════════════════════════════════
+         NODE: SOURCES — top left
+         x=20, y=20, w=280, h=160
+    ══════════════════════════════════════ -->
+    <rect x="20" y="20" width="280" height="160" rx="4"
+          fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+    <text x="34" y="44" font-family="Inter,sans-serif" font-size="10" font-weight="700"
+          fill="var(--dim)" letter-spacing="0.10em">SOURCES</text>
+
+    <!-- Target: logo visually ~52px tall, centered in node (node h=160, label takes ~44px top, so center of remaining ~116px = y~102 center) -->
+    <image href="logos/sqlserver.png"  x="22"  y="58" width="82" height="88" preserveAspectRatio="xMidYMid meet"/>
+    <!-- postgresql: logo fills ~80% of PNG → height=65 gives ~52px visual -->
+    <image href="logos/postgresql.png" x="114" y="64" width="72" height="72" preserveAspectRatio="xMidYMid meet"/>
+    <!-- restapi: logo fills ~90% → height=58 -->
+    <image href="logos/restapi.png"    x="188" y="57" width="98" height="86" preserveAspectRatio="xMidYMid meet"/>
+
+    <!-- ══════════════════════════════════════
+         NODE: INGESTION — bottom left
+         x=20, y=310, w=280, h=160
+    ══════════════════════════════════════ -->
+    <rect x="20" y="310" width="280" height="160" rx="4"
+          fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+    <text x="34" y="334" font-family="Inter,sans-serif" font-size="10" font-weight="700"
+          fill="var(--dim)" letter-spacing="0.10em">INGESTION</text>
+
+    <image href="logos/dlthub.png"    x="24"  y="370" width="116" height="64" preserveAspectRatio="xMidYMid meet"/>
+    <image href="logos/deltalake.png" x="156" y="352" width="116" height="64" preserveAspectRatio="xMidYMid meet"/>
+
+    <!-- ══════════════════════════════════════
+         NODE: AI AGENTS — top center
+         x=370, y=20, w=320, h=100  (smaller, no monitor)
+    ══════════════════════════════════════ -->
+    <rect x="370" y="20" width="320" height="100" rx="4"
+          fill="var(--surface)" stroke="#D42B45" stroke-width="1"/>
+    <rect x="370" y="20" width="320" height="100" rx="4" fill="#D42B45" opacity="0.03"/>
+
+    <text x="384" y="42" font-family="Inter,sans-serif" font-size="10" font-weight="700"
+          fill="var(--dim)" letter-spacing="0.10em">AI AGENTS</text>
+
+    <!-- 3 pills on one row -->
+    <rect x="384" y="52" width="86" height="26" rx="3" fill="var(--black)" stroke="rgba(212,43,69,0.4)" stroke-width="1"/>
+    <text x="427" y="69" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#D42B45" text-anchor="middle">Product Owner</text>
+
+    <rect x="478" y="52" width="68" height="26" rx="3" fill="var(--black)" stroke="rgba(212,43,69,0.4)" stroke-width="1"/>
+    <text x="512" y="69" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#D42B45" text-anchor="middle">Architect</text>
+
+    <rect x="554" y="52" width="90" height="26" rx="3" fill="var(--black)" stroke="rgba(212,43,69,0.4)" stroke-width="1"/>
+    <text x="599" y="69" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#D42B45" text-anchor="middle">dbt Engineer</text>
+
+    <!-- Pipeline pill row 2 -->
+    <rect x="384" y="86" width="68" height="26" rx="3" fill="var(--black)" stroke="rgba(212,43,69,0.4)" stroke-width="1"/>
+    <text x="418" y="103" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#D42B45" text-anchor="middle">Pipeline</text>
+
+    <!-- ══════════════════════════════════════
+         NODE: MotherDuck — center
+         x=370, y=160, w=320, h=220
+    ══════════════════════════════════════ -->
+    <rect x="370" y="160" width="320" height="220" rx="6"
+          fill="none" stroke="#D42B45" stroke-width="10" opacity="0.07" filter="url(#glow)"/>
+    <rect x="370" y="160" width="320" height="220" rx="4"
+          fill="var(--surface)" stroke="#D42B45" stroke-width="1.5"/>
+
+    <image href="logos/motherduck.png" x="430" y="168" width="200" height="120" preserveAspectRatio="xMidYMid meet"/>
+
+    <text x="530" y="308" font-family="Inter,sans-serif" font-size="19" font-weight="800"
+          fill="var(--white)" text-anchor="middle" letter-spacing="-0.02em">MotherDuck</text>
+    <text x="530" y="327" font-family="Inter,sans-serif" font-size="11" font-weight="300"
+          fill="var(--grey)" text-anchor="middle">powered by DuckDB</text>
+
+    <line x1="400" y1="343" x2="660" y2="343" stroke="var(--line)" stroke-width="1"/>
+
+    <text x="530" y="362" font-family="Inter,sans-serif" font-size="10" font-weight="300"
+          fill="var(--grey)" text-anchor="middle" opacity="0.6">Local + Cloud · SQL Engine · Low cost · AI ready</text>
+
+    <!-- ══════════════════════════════════════
+         NODE: TRANSFORM — bottom center, smaller
+         x=420, y=400, w=220, h=80
+    ══════════════════════════════════════ -->
+    <rect x="420" y="400" width="220" height="80" rx="4"
+          fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+    <text x="434" y="422" font-family="Inter,sans-serif" font-size="10" font-weight="700"
+          fill="var(--dim)" letter-spacing="0.10em">TRANSFORM</text>
+
+    <image href="logos/dbt.png" x="480" y="418" width="120" height="70" preserveAspectRatio="xMidYMid meet"/>
+
+    <!-- ══════════════════════════════════════
+         NODE: BI — top right
+         x=760, y=20, w=280, h=160
+    ══════════════════════════════════════ -->
+    <rect x="760" y="20" width="280" height="160" rx="4"
+          fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+    <text x="774" y="44" font-family="Inter,sans-serif" font-size="10" font-weight="700"
+          fill="var(--dim)" letter-spacing="0.10em">BUSINESS INTELLIGENCE</text>
+
+    <image href="logos/powerbi.png.png" x="764" y="32" width="88" height="136" preserveAspectRatio="xMidYMid meet"/>
+    <image href="logos/duckdives.png"   x="852" y="66" width="66" height="68" preserveAspectRatio="xMidYMid meet"/>
+    <image href="logos/qlik.png"        x="924" y="38" width="110" height="124" preserveAspectRatio="xMidYMid meet"/>
+
+    <!-- ══════════════════════════════════════
+         NODE: DATA SCIENCE & AI — bottom right
+         x=760, y=310, w=280, h=160
+    ══════════════════════════════════════ -->
+    <rect x="760" y="310" width="280" height="160" rx="4"
+          fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+    <text x="774" y="334" font-family="Inter,sans-serif" font-size="10" font-weight="700"
+          fill="var(--dim)" letter-spacing="0.10em">DATA SCIENCE &amp; AI</text>
+
+    <!-- row1: Claude + Python — same visual height, centered on y=371 -->
+    <image href="logos/claude.png"  x="769" y="376" width="84" height="70" preserveAspectRatio="xMidYMid meet"/>
+    <!-- row2: MCP + Jupyter — centered on y=432 -->
+    <image href="logos/mcp.png"     x="870" y="384" width="53" height="53" preserveAspectRatio="xMidYMid meet"/>
+    <image href="logos/Jupyter.png" x="932" y="386" width="79" height="48" preserveAspectRatio="xMidYMid meet"/>
+
+  </svg>
+
+  </div><!-- /diagram-wrap -->
+  </div><!-- /right-col -->
+
+</div><!-- /page-grid -->
+
+</body>
+</html>

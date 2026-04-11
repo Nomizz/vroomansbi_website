@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Over mij — Vroomans BI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>(function(){
+    var t=localStorage.getItem('vbi-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-theme',t);
+    var l=localStorage.getItem('vbi-lang')||(navigator.language&&navigator.language.startsWith('nl')?'nl':'en');
+    document.documentElement.setAttribute('data-lang',l);
+  })();</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:        #080808;
+      --surface:      #111111;
+      --white:        #F0EEE9;
+      --grey:         #9A9A9A;
+      --dim:          #3A3A3A;
+      --accent:       #D42B45;
+      --accent-hover: #E8344A;
+      --accent-dark:  #A01E32;
+      --line:         #1E1E1E;
+      --nav-bg:       rgba(8,8,8,0.96);
+    }
+    [data-theme="light"] {
+      --black:   #F5F3EE; --surface: #ECEAE5; --white: #0D0D0D;
+      --grey:    #555555; --dim:     #BEBAB4;  --line:  #DEDAD4;
+      --nav-bg:  rgba(245,243,238,0.96);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black); color: var(--grey);
+      font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
+      font-weight: 300; line-height: 1.8; overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    html .en { display: none; }
+    html[data-lang="en"] .nl { display: none; }
+    html[data-lang="en"] .en { display: revert; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-left  { display: flex; align-items: center; gap: 20px; }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+
+    .nav-back {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--grey); transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--white); }
+    .nav-back svg { flex-shrink: 0; }
+    .nav-sep { width: 1px; height: 16px; background: var(--dim); }
+    .nav-section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 800; font-size: 15px; letter-spacing: -0.03em; color: var(--white);
+      padding-left: 12px; border-left: 1px solid var(--dim); margin-left: 4px;
+    }
+    .logo-bi { color: var(--accent); }
+
+    .lang-toggle {
+      background: none; border: 1px solid var(--dim); border-radius: 3px;
+      display: flex; align-items: center; gap: 3px; padding: 0 9px; height: 30px;
+      cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--grey); transition: border-color 0.15s; font-family: 'Inter', sans-serif;
+    }
+    .lang-toggle:hover { border-color: var(--grey); }
+    .lang-sep-dot { opacity: 0.35; }
+    .lang-nl, .lang-en { transition: color 0.15s; }
+    [data-lang="nl"] .lang-nl { color: var(--white); }
+    [data-lang="en"] .lang-en { color: var(--white); }
+
+    .theme-toggle {
+      background: none; border: 1px solid var(--dim); border-radius: 3px;
+      color: var(--grey); cursor: pointer; width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .theme-toggle:hover { color: var(--white); border-color: var(--grey); }
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="light"] .theme-toggle .icon-sun  { display: none; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+    /* ── SECTION TAG ── */
+    .sec-tag {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 32px;
+    }
+    .sec-tag::before {
+      content: ''; display: block; width: 24px; height: 1px;
+      background: var(--accent); flex-shrink: 0;
+    }
+
+    /* ── BLOCK HEAD ── */
+    .block-head {
+      display: flex; align-items: baseline; gap: 40px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 28px; margin-bottom: 52px;
+    }
+    .bh-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--grey); min-width: 120px; flex-shrink: 0;
+    }
+    .bh-headline {
+      font-size: clamp(32px, 4.5vw, 54px); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.0; color: var(--white);
+    }
+    .bh-headline .ac { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 60vh; padding: 90px 60px;
+      border-bottom: 1px solid var(--line);
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .hero-headline {
+      font-size: clamp(52px, 7vw, 96px); font-weight: 800;
+      letter-spacing: -0.04em; line-height: 1.0; color: var(--white);
+      margin-bottom: 32px;
+    }
+    .hero-headline .ac { color: var(--accent); }
+    .hero-body {
+      font-size: 16px; font-weight: 300; line-height: 1.85;
+      color: var(--grey); max-width: 580px;
+    }
+    .hero-body strong { font-weight: 500; color: var(--white); }
+
+    /* ── WAARDE ── */
+    #waarde {
+      padding: 90px 60px; border-bottom: 1px solid var(--line);
+    }
+    .waarde-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    }
+    .waarde-intro p {
+      font-size: 15px; font-weight: 300; line-height: 1.85;
+      color: var(--grey); margin-bottom: 20px;
+    }
+    .waarde-intro p:last-child { margin-bottom: 0; }
+    .waarde-intro strong { font-weight: 500; color: var(--white); }
+
+    .waarde-items { display: flex; flex-direction: column; gap: 0; }
+    .waarde-item {
+      border-top: 1px solid var(--line); padding: 28px 0;
+      display: grid; grid-template-columns: 48px 1fr; gap: 24px; align-items: start;
+    }
+    .wi-num {
+      font-size: 11px; font-weight: 700; color: var(--dim);
+      letter-spacing: 0.04em; padding-top: 3px;
+    }
+    .wi-title {
+      font-size: 15px; font-weight: 700; letter-spacing: -0.01em;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .wi-body {
+      font-size: 13px; font-weight: 300; line-height: 1.85; color: var(--grey);
+    }
+
+    /* ── EXPERTISE ── */
+    #expertise {
+      padding: 90px 60px; border-bottom: 1px solid var(--line);
+    }
+    .expertise-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+    }
+    .exp-card {
+      padding: 44px 36px; border-right: 1px solid var(--line);
+      background: var(--black); transition: background 0.15s;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .exp-card:last-child { border-right: none; }
+    .exp-card:hover { background: var(--surface); }
+    .exp-num {
+      font-size: 11px; font-weight: 700; color: var(--dim); letter-spacing: 0.04em;
+    }
+    .exp-name {
+      font-size: clamp(16px, 1.6vw, 20px); font-weight: 800;
+      letter-spacing: -0.02em; line-height: 1.1; color: var(--white);
+    }
+    .exp-body {
+      font-size: 13px; font-weight: 300; line-height: 1.85; color: var(--grey); flex: 1;
+    }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px; }
+    .tag {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.04em; color: var(--grey);
+      border: 1px solid var(--line); border-radius: 2px; padding: 4px 11px;
+    }
+
+    /* ── SECTOREN ── */
+    #sectoren {
+      padding: 90px 60px; border-bottom: 1px solid var(--line);
+    }
+    .sectoren-list {
+      display: flex; flex-wrap: wrap; gap: 1px; background: var(--line);
+      border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+    }
+    .sector-item {
+      background: var(--black); padding: 28px 40px; flex: 1; min-width: 220px;
+      font-size: clamp(16px, 1.8vw, 22px); font-weight: 800; letter-spacing: -0.02em;
+      color: var(--white); transition: background 0.15s;
+    }
+    .sector-item:hover { background: var(--surface); }
+    .sector-item span { color: var(--accent); }
+
+    /* ── WERKWIJZE ── */
+    #werkwijze {
+      padding: 90px 60px; border-bottom: 1px solid var(--line);
+    }
+    .werkwijze-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: var(--line); border: 1px solid var(--line);
+      border-radius: 3px; overflow: hidden;
+    }
+    .ww-card {
+      background: var(--black); padding: 52px 44px;
+      display: flex; flex-direction: column; gap: 20px;
+      transition: background 0.15s;
+    }
+    .ww-card:hover { background: var(--surface); }
+    .ww-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .ww-title {
+      font-size: clamp(20px, 2vw, 28px); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.1; color: var(--white);
+    }
+    .ww-body {
+      font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--grey);
+    }
+    .ww-body strong { font-weight: 500; color: var(--white); }
+    .ww-link {
+      margin-top: auto; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent);
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: gap 0.15s;
+    }
+    .ww-link:hover { gap: 12px; }
+
+    /* ── BESCHIKBAARHEID ── */
+    #beschikbaarheid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line); min-height: 60vh;
+    }
+    .beschik-left {
+      padding: 90px 60px; border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .beschik-headline {
+      font-size: clamp(36px, 5vw, 72px); font-weight: 800;
+      letter-spacing: -0.04em; line-height: 0.96; color: var(--white); margin-bottom: 28px;
+    }
+    .beschik-headline .ac { color: var(--accent); }
+    .beschik-body {
+      font-size: 15px; font-weight: 300; line-height: 1.85;
+      color: var(--grey); max-width: 400px; margin-bottom: 40px;
+    }
+    .beschik-body strong { font-weight: 500; color: var(--white); }
+    .btn-primary {
+      display: inline-block; background: var(--accent); color: var(--white);
+      font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 14px 32px; border-radius: 3px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+
+    .beschik-right {
+      padding: 90px 60px; display: flex; flex-direction: column; justify-content: center; gap: 0;
+    }
+    .beschik-items { display: flex; flex-direction: column; }
+    .beschik-item {
+      border-top: 1px solid var(--line); padding: 28px 0;
+      display: grid; grid-template-columns: 48px 1fr; gap: 24px; align-items: start;
+    }
+    .bi-num {
+      font-size: 11px; font-weight: 700; color: var(--dim); letter-spacing: 0.04em; padding-top: 3px;
+    }
+    .bi-title {
+      font-size: 15px; font-weight: 700; letter-spacing: -0.01em;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .bi-body {
+      font-size: 13px; font-weight: 300; line-height: 1.85; color: var(--grey);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 60px; display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--line);
+    }
+    .footer-copy {
+      font-size: 12px; color: var(--dim); letter-spacing: 0.02em;
+    }
+    .footer-links {
+      display: flex; gap: 28px;
+    }
+    .footer-links a {
+      font-size: 12px; font-weight: 400; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--dim); transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      nav { padding: 18px 24px; }
+      #hero, #waarde, #expertise, #sectoren, #werkwijze, footer { padding-left: 24px; padding-right: 24px; }
+      .waarde-grid { grid-template-columns: 1fr; gap: 48px; }
+      .expertise-grid { grid-template-columns: 1fr; }
+      .exp-card { border-right: none; border-bottom: 1px solid var(--line); }
+      .exp-card:last-child { border-bottom: none; }
+      .werkwijze-grid { grid-template-columns: 1fr; }
+      #beschikbaarheid { grid-template-columns: 1fr; }
+      .beschik-left { border-right: none; border-bottom: 1px solid var(--line); padding: 60px 24px; }
+      .beschik-right { padding: 60px 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-left">
+      <a href="index.html" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span class="nl">Terug</span><span class="en">Back</span>
+      </a>
+      <div class="nav-sep"></div>
+      <span class="nav-section-label nl">Over mij</span>
+      <span class="nav-section-label en">About</span>
+      <a href="index.html" class="nav-logo">
+        <svg width="20" height="20" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.9"/>
+          <rect x="20" y="0" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="0" y="20" width="16" height="16" rx="3" fill="#D42B45" opacity="0.3"/>
+          <rect x="20" y="20" width="16" height="16" rx="3" fill="#A01E32" opacity="0.9"/>
+          <line x1="16" y1="8" x2="20" y2="8" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="8" y1="16" x2="8" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="28" y1="16" x2="28" y2="20" stroke="#D42B45" stroke-width="1.5"/>
+          <line x1="16" y1="28" x2="20" y2="28" stroke="#A01E32" stroke-width="1.5"/>
+        </svg>
+        Vroomans<span class="logo-bi">BI</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+        <span class="lang-nl">NL</span><span class="lang-sep-dot">·</span><span class="lang-en">EN</span>
+      </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+        <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="sec-tag"><span class="nl">Over mij</span><span class="en">About me</span></div>
+    <h1 class="hero-headline nl">Simon <span class="ac">Vroomans.</span></h1>
+    <h1 class="hero-headline en">Simon <span class="ac">Vroomans.</span></h1>
+    <p class="hero-body nl">Freelance analytics engineer met <strong>15 jaar ervaring</strong> in data warehousing, BI en analytics. Ik adviseer en bouw zelf — van architectuur tot opgeleverd platform. Werkzaam via Vroomans BI B.V.</p>
+    <p class="hero-body en">Freelance analytics engineer with <strong>15 years of experience</strong> in data warehousing, BI and analytics. I advise and build myself — from architecture to delivered platform. Operating via Vroomans BI B.V.</p>
+  </section>
+
+  <!-- WAARDE -->
+  <section id="waarde">
+    <div class="block-head">
+      <div class="bh-label nl">Waarde</div>
+      <div class="bh-label en">Value</div>
+      <h2 class="bh-headline nl">Wat je van mij <span class="ac">krijgt.</span></h2>
+      <h2 class="bh-headline en">What you <span class="ac">get.</span></h2>
+    </div>
+    <div class="waarde-grid">
+      <div class="waarde-intro">
+        <p class="nl">Ik werk zowel solo als in teams — en neem indien nodig een lead-rol op me. Een one-man-army die schakelt tussen adviseren en bouwen.</p>
+        <p class="en">I work solo or in teams, and take on a lead role when needed. A one-man army that switches between advising and building.</p>
+        <p class="nl">Die combinatie — <strong>adviseren én uitvoeren</strong> — zorgt ervoor dat er geen gat valt tussen wat een organisatie wil en wat er uiteindelijk gebouwd wordt. Ik adviseer directies over wat ze nodig hebben, en zorg daarna dat het ook echt goed staat.</p>
+        <p class="en">That combination — <strong>advising and executing</strong> — ensures there is no gap between what an organisation wants and what gets built. I advise on what is needed, then make sure it is built properly.</p>
+        <p class="nl">Na 15 jaar in uiteenlopende sectoren herken ik problemen snel. De meeste data-uitdagingen zijn niet uniek — maar de oplossing moet wel precies passen.</p>
+        <p class="en">After 15 years across different sectors, I recognise problems quickly. Most data challenges are not unique — but the solution has to fit exactly.</p>
+      </div>
+      <div class="waarde-items">
+        <div class="waarde-item">
+          <div class="wi-num">01</div>
+          <div>
+            <div class="wi-title nl">Het hele traject, zelf</div>
+            <div class="wi-title en">The full journey, myself</div>
+            <div class="wi-body nl">Van bronextractie tot semantic model tot rapport. Niets hoeft over te dragen aan een andere specialist. Dat bespaart tijd, miscommunicatie en coördinatiekosten.</div>
+            <div class="wi-body en">From source extraction to semantic model to report. Nothing needs to be handed off to another specialist. That saves time, miscommunication and coordination costs.</div>
+          </div>
+        </div>
+        <div class="waarde-item">
+          <div class="wi-num">02</div>
+          <div>
+            <div class="wi-title nl">Snelheid door structuur</div>
+            <div class="wi-title en">Speed through structure</div>
+            <div class="wi-body nl">Ik werk met herbruikbare frameworks en gestandaardiseerde patronen. In sectoren met vergelijkbare databronnen ben ik in dagen operationeel in plaats van maanden.</div>
+            <div class="wi-body en">I work with reusable frameworks and standardised patterns. In sectors with similar data sources, I am operational in days rather than months.</div>
+          </div>
+        </div>
+        <div class="waarde-item">
+          <div class="wi-num">03</div>
+          <div>
+            <div class="wi-title nl">Sectorkennis die telt</div>
+            <div class="wi-title en">Sector knowledge that matters</div>
+            <div class="wi-body nl">Finance, retail, zorg, hospitality — in elk domein zijn er specifieke data-logica's die je alleen leert door er écht in te werken.</div>
+            <div class="wi-body en">Finance, retail, care, hospitality — every domain has specific data logic that you only learn by working in it.</div>
+          </div>
+        </div>
+        <div class="waarde-item">
+          <div class="wi-num">04</div>
+          <div>
+            <div class="wi-title nl">Oplevering die blijft staan</div>
+            <div class="wi-title en">Delivery that lasts</div>
+            <div class="wi-body nl">Technische én functionele documentatie. Geen black box — jouw team neemt het zelfstandig over zodra het klaar is.</div>
+            <div class="wi-body en">Technical and functional documentation. No black box — your team takes over independently once it is done.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERTISE -->
+  <section id="expertise">
+    <div class="block-head">
+      <div class="bh-label nl">Expertise</div>
+      <div class="bh-label en">Expertise</div>
+      <h2 class="bh-headline nl">Wat ik <span class="ac">echt kan.</span></h2>
+      <h2 class="bh-headline en">What I'm <span class="ac">good at.</span></h2>
+    </div>
+    <div class="expertise-grid">
+      <div class="exp-card">
+        <div class="exp-num">01</div>
+        <div class="exp-name nl">Data warehouse architectuur</div>
+        <div class="exp-name en">Data warehouse architecture</div>
+        <div class="exp-body nl">Kimball, Data Vault, moderne lakehouse-architectuur. Van ontwerp tot oplevering, inclusief documentatie die jouw team begrijpt.</div>
+        <div class="exp-body en">Kimball, Data Vault, modern lakehouse architecture. From design to delivery, including documentation your team understands.</div>
+        <div class="exp-tags">
+          <span class="tag">Kimball</span>
+          <span class="tag">Data Vault 2.0</span>
+          <span class="tag">Lakehouse</span>
+          <span class="tag">dbt</span>
+        </div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">02</div>
+        <div class="exp-name nl">Power BI & semantic modeling</div>
+        <div class="exp-name en">Power BI & semantic modeling</div>
+        <div class="exp-body nl">Domein-gedreven modellen, DAX, UDFs, TMDL en version control. Geen losse dashboards — één fundament waar tientallen rapporten op steunen.</div>
+        <div class="exp-body en">Domain-driven models, DAX, UDFs, TMDL and version control. No loose dashboards — one foundation that dozens of reports rely on.</div>
+        <div class="exp-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">DAX</span>
+          <span class="tag">UDFs</span>
+          <span class="tag">TMDL</span>
+          <span class="tag">Metric View</span>
+        </div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">03</div>
+        <div class="exp-name nl">Moderne data stack</div>
+        <div class="exp-name en">Modern data stack</div>
+        <div class="exp-body nl">Open source, geen vendor lock-in, MKB-betaalbaar. dlt voor ingestion, dbt voor transformatie, DuckDB en MotherDuck als warehouse.</div>
+        <div class="exp-body en">Open source, no vendor lock-in, affordable for mid-market. dlt for ingestion, dbt for transformation, DuckDB and MotherDuck as warehouse.</div>
+        <div class="exp-tags">
+          <span class="tag">dlt</span>
+          <span class="tag">dbt</span>
+          <span class="tag">DuckDB</span>
+          <span class="tag">MotherDuck</span>
+          <span class="tag">Delta Lake</span>
+        </div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">04</div>
+        <div class="exp-name nl">Enterprise platforms</div>
+        <div class="exp-name en">Enterprise platforms</div>
+        <div class="exp-body nl">Databricks en Microsoft Fabric voor organisaties die serieus willen schalen. Ik adviseer eerlijk welke het beste past — en bouw daarna.</div>
+        <div class="exp-body en">Databricks and Microsoft Fabric for organisations that want to scale seriously. I advise honestly on what fits best — then build.</div>
+        <div class="exp-tags">
+          <span class="tag">Databricks</span>
+          <span class="tag">Microsoft Fabric</span>
+          <span class="tag">Azure</span>
+          <span class="tag">PySpark</span>
+        </div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">05</div>
+        <div class="exp-name nl">SQL, 15 jaar</div>
+        <div class="exp-name en">SQL, 15 years</div>
+        <div class="exp-body nl">T-SQL, Spark SQL, DAX. Analytische databases, complexe transformaties, performanceoptimalisatie. Geen tool die ik er tussenzet als het niet nodig is.</div>
+        <div class="exp-body en">T-SQL, Spark SQL, DAX. Analytical databases, complex transformations, performance optimisation. No tool I add in between when it is not needed.</div>
+        <div class="exp-tags">
+          <span class="tag">T-SQL</span>
+          <span class="tag">Spark SQL</span>
+          <span class="tag">DAX</span>
+          <span class="tag">DuckDB SQL</span>
+        </div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">06</div>
+        <div class="exp-name nl">AI-driven werken</div>
+        <div class="exp-name en">AI-driven working</div>
+        <div class="exp-body nl">Ik gebruik AI dagelijks — voor code, documentatie en kwaliteitscontroles. Daardoor lever ik sneller en consistenter. En ik weet wat het wel en niet kan.</div>
+        <div class="exp-body en">I use AI daily — for code, documentation and quality checks. This means I deliver faster and more consistently. And I know what it can and cannot do.</div>
+        <div class="exp-tags">
+          <span class="tag">Claude</span>
+          <span class="tag">Claude Code</span>
+          <span class="tag">Agents</span>
+          <span class="tag">n8n</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTOREN -->
+  <section id="sectoren">
+    <div class="block-head">
+      <div class="bh-label nl">Sectoren</div>
+      <div class="bh-label en">Sectors</div>
+      <h2 class="bh-headline nl">Ervaring <span class="ac">in.</span></h2>
+      <h2 class="bh-headline en">Experience <span class="ac">in.</span></h2>
+    </div>
+    <div class="sectoren-list">
+      <div class="sector-item">Finance <span>&amp;</span> verzekeraars</div>
+      <div class="sector-item">Ouderenzorg <span>&amp;</span> VVT</div>
+      <div class="sector-item">Hospitality <span>&amp;</span> recreatie</div>
+      <div class="sector-item">Retail</div>
+    </div>
+  </section>
+
+  <!-- WERKWIJZE -->
+  <section id="werkwijze">
+    <div class="block-head">
+      <div class="bh-label nl">Werkwijze</div>
+      <div class="bh-label en">How I work</div>
+      <h2 class="bh-headline nl">Deliverables, geen <span class="ac">uren.</span></h2>
+      <h2 class="bh-headline en">Deliverables, not <span class="ac">hours.</span></h2>
+    </div>
+    <div class="werkwijze-grid">
+      <div class="ww-card">
+        <div class="ww-label nl">Bouw</div>
+        <div class="ww-label en">Build</div>
+        <div class="ww-title nl">Vaste prijs per deliverable</div>
+        <div class="ww-title en">Fixed price per deliverable</div>
+        <div class="ww-body nl">Wat iets kost staat vooraf vast. Hoelang ik erover doe is mijn probleem, niet het jouwe. Architectuur, pipelines, modellen, rapportage — alles op basis van wat je krijgt, niet hoeveel uur ik maak.</div>
+        <div class="ww-body en">What something costs is agreed upfront. How long I take is my problem, not yours. Architecture, pipelines, models, reporting — everything based on what you get, not how many hours I spend.</div>
+      </div>
+      <div class="ww-card">
+        <div class="ww-label nl">Onderhoud</div>
+        <div class="ww-label en">Maintenance</div>
+        <div class="ww-title nl">Maandelijks abonnement</div>
+        <div class="ww-title en">Monthly subscription</div>
+        <div class="ww-body nl">Jouw pipelines worden bewaakt, getest en bijgehouden. Je hoeft er niet naar om te kijken. Nieuwe bronkoppelingen en aanpassingen vallen onder het abonnement.</div>
+        <div class="ww-body en">Your pipelines are monitored, tested and maintained. You do not have to look after them. New source connections and adjustments are included in the subscription.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BESCHIKBAARHEID -->
+  <section id="beschikbaarheid">
+    <div class="beschik-left">
+      <div class="sec-tag"><span class="nl">Beschikbaarheid</span><span class="en">Availability</span></div>
+      <h2 class="beschik-headline nl">Beschikbaar voor nieuwe <span class="ac">opdrachten.</span></h2>
+      <h2 class="beschik-headline en">Available for new <span class="ac">assignments.</span></h2>
+      <p class="beschik-body nl">Ik werk op basis van <strong>detachering of projectbasis</strong>, voor korte of langere periodes. Tarief en beschikbaarheid bespreek ik direct — geen offertetraject, gewoon een eerlijk gesprek.</p>
+      <p class="beschik-body en">I work on a <strong>secondment or project basis</strong>, for short or longer periods. Rate and availability I discuss directly — no tender process, just an honest conversation.</p>
+      <a href="mailto:simon@vroomansbi.nl" class="btn-primary nl">Mail mij</a>
+      <a href="mailto:simon@vroomansbi.nl" class="btn-primary en">Mail me</a>
+    </div>
+    <div class="beschik-right">
+      <div class="beschik-items">
+        <div class="beschik-item">
+          <div class="bi-num">01</div>
+          <div>
+            <div class="bi-title nl">One-man-army, of onderdeel van je team</div>
+            <div class="bi-title en">One-man army, or part of your team</div>
+            <div class="bi-body nl">Ik werk solo, in teams, of als lead — wat de situatie vraagt. Geen gat tussen adviseren en bouwen, tussen strategie en uitvoering.</div>
+            <div class="bi-body en">I work solo, in teams, or as lead — whatever the situation demands. No gap between advising and building, between strategy and execution.</div>
+          </div>
+        </div>
+        <div class="beschik-item">
+          <div class="bi-num">02</div>
+          <div>
+            <div class="bi-title nl">15 jaar, brede sectorervaring</div>
+            <div class="bi-title en">15 years, broad sector experience</div>
+            <div class="bi-body nl">QlikSense, Corporate Planner, Power BI, Databricks. Finance, zorg, retail, hospitality. Breedte geeft perspectief dat specialisten missen.</div>
+            <div class="bi-body en">QlikSense, Corporate Planner, Power BI, Databricks. Finance, care, retail, hospitality. Breadth gives perspective that specialists miss.</div>
+          </div>
+        </div>
+        <div class="beschik-item">
+          <div class="bi-num">03</div>
+          <div>
+            <div class="bi-title nl">Direct contact, altijd dezelfde persoon</div>
+            <div class="bi-title en">Direct contact, always the same person</div>
+            <div class="bi-body nl">Geen account managers of juniors. Jij werkt rechtstreeks met mij — van het eerste gesprek tot de oplevering.</div>
+            <div class="bi-body en">No account managers or juniors. You work directly with me — from the first conversation to delivery.</div>
+          </div>
+        </div>
+        <div class="beschik-item">
+          <div class="bi-num">04</div>
+          <div>
+            <div class="bi-title nl">Schaalbare frameworks, niet losse oplossingen</div>
+            <div class="bi-title en">Scalable frameworks, not one-off solutions</div>
+            <div class="bi-body nl">Ik bouw herbruikbare structuren. Onderhoudbaar als ik weg ben, en uitbreiden is goedkoper dan opnieuw beginnen.</div>
+            <div class="bi-body en">I build reusable structures. Maintainable when I am gone, and extending is cheaper than starting over.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2026 Vroomans BI B.V.</span>
+    <div class="footer-links">
+      <a href="index.html" class="nl">Home</a>
+      <a href="index.html" class="en">Home</a>
+      <a href="werkwijze.html" class="nl">Hoe ik bouw</a>
+      <a href="werkwijze.html" class="en">How I build</a>
+      <a href="https://linkedin.com/in/simonvroomans" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script>
+    // Lang toggle
+    const langToggle = document.getElementById('langToggle');
+    langToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-lang') || 'nl';
+      const next = current === 'nl' ? 'en' : 'nl';
+      document.documentElement.setAttribute('data-lang', next);
+      localStorage.setItem('vbi-lang', next);
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('vbi-theme', next);
+    });
+  </script>
+</body>
+</html>
