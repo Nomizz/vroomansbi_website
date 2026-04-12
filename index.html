@@ -1662,10 +1662,10 @@
 
     // ── Draw a node box ──
     function drawBox(cx, cy, w, h, label, lines, light, accent, pulse) {
-      const nodeBg   = light ? '#ECEAE5' : '#111111';
-      const nodeLine = light ? '#DEDAD4' : '#2A2A2A';
-      const textCol  = light ? '#0D0D0D' : '#F0EEE9';
-      const greyCol  = light ? '#555555' : '#9A9A9A';
+      const nodeBg   = '#ECEAE5';
+      const nodeLine = '#DEDAD4';
+      const textCol  = light ? '#0D0D0D' : '#0D0D0D';
+      const greyCol  = light ? '#555555' : '#555555';
       const x = cx - w/2, y = cy - h/2;
 
       if (pulse !== undefined) {
@@ -1712,7 +1712,7 @@
 
     // ── Draw duck SVG-style icon ──
     function drawDuck(cx, cy, size, light) {
-      const c = light ? '#555' : '#9A9A9A';
+      const c = '#555';
       ctx.strokeStyle = c; ctx.lineWidth = 1.5; ctx.fillStyle = 'none';
       // Body
       ctx.beginPath(); ctx.ellipse(cx, cy + size*0.1, size*0.55, size*0.38, 0, 0, Math.PI*2); ctx.stroke();
@@ -1877,12 +1877,12 @@
       // dbt
       drawBox(L.dbt.cx, L.dbt.cy, L.dbt.w, L.dbt.h, 'dbt', ['Transformatie'], light, false);
       // Alt engines (smaller, dimmed)
-      const altNodeBg   = light ? '#ECEAE5' : '#0E0E0E';
-      const altNodeLine = light ? '#DEDAD4' : '#1E1E1E';
+      const altNodeBg   = '#ECEAE5';
+      const altNodeLine = '#DEDAD4';
       ctx.fillStyle = altNodeBg; ctx.strokeStyle = altNodeLine; ctx.lineWidth = 1;
       rr(L.alt.cx - L.alt.w/2, L.alt.cy - L.alt.h/2, L.alt.w, L.alt.h, 3);
       ctx.fill(); ctx.stroke();
-      const greyCol = light ? '#888' : '#555';
+      const greyCol = '#888';
       ctx.fillStyle = greyCol; ctx.font = '600 10px Inter, sans-serif'; ctx.textAlign = 'center';
       ctx.fillText('Fabric · Databricks', L.alt.cx, L.alt.cy - 4);
       ctx.font = '300 9px Inter, sans-serif';
@@ -1890,23 +1890,22 @@
 
       // ── Central engine node (large, with duck) ──
       const eng = L.engine;
-      const engBg   = light ? '#ECEAE5' : '#111111';
-      const engLine = light ? '#DEDAD4' : '#2A2A2A';
+      const engBg   = '#ECEAE5';
+      const engLine = '#DEDAD4';
       ctx.fillStyle = engBg; ctx.strokeStyle = engLine; ctx.lineWidth = 1.5;
       rr(eng.cx - eng.w/2, eng.cy - eng.h/2, eng.w, eng.h, 4);
       ctx.fill(); ctx.stroke();
       // Duck icon centered in top half
       drawDuck(eng.cx, eng.cy - 14, 22, light);
       // Labels
-      const textCol = light ? '#0D0D0D' : '#F0EEE9';
-      ctx.fillStyle = textCol; ctx.font = '700 13px Inter, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillStyle = '#0D0D0D'; ctx.font = '700 13px Inter, sans-serif'; ctx.textAlign = 'center';
       ctx.fillText('DuckDB / MotherDuck', eng.cx, eng.cy + 28);
-      ctx.fillStyle = greyCol; ctx.font = '300 10px Inter, sans-serif';
+      ctx.fillStyle = '#888'; ctx.font = '300 10px Inter, sans-serif';
       ctx.fillText('Cloud Data Warehouse', eng.cx, eng.cy + 41);
 
       // ── Agent nodes ──
       // "Agents" section label
-      ctx.fillStyle = greyCol; ctx.font = '600 10px Inter, sans-serif';
+      ctx.fillStyle = '#888'; ctx.font = '600 10px Inter, sans-serif';
       ctx.textAlign = 'left';
       ctx.fillText('AI AGENTS', 32, L.agents[0].cy - L.agents[0].h/2 - 18);
       L.agents.forEach((a, i) => {
