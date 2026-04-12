@@ -1794,10 +1794,10 @@
       const dt = Math.min((ts - lastTs) / 1000, 0.05);
       lastTs = ts;
       const W = parseInt(canvas.style.width) || 900;
-      const light = isLight();
+      const light = true;
 
       ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = light ? '#F5F3EE' : '#080808';
+      ctx.fillStyle = '#ECEAE5';
       ctx.fillRect(0, 0, W, H);
 
       const L = getLayout(W);

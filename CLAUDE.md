@@ -55,5 +55,5 @@
 - Do not use `transition-all`
 - Do not use default Tailwind blue/indigo as primary color
 - Never use "—" (ai dash) always comma's
-- Never commit or push yourself, user will propose it
+- Never commit or push unless the user explicitly says to do so. Do not ask "should I commit?" — wait for the instruction.
 - Never choose color values (hex, tints, opacity) without asking the user first, even for small fixes
